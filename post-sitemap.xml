@@ -13,6 +13,15 @@
     </url>
 
     <url>
+        <loc>https://tang.su/2016/11/compile-anaconda3-caffe/</loc>
+        <lastmod>2021-03-14T10:05:25.000Z</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    
+    
+    </url>
+
+    <url>
         <loc>https://tang.su/2017/01/manually-create-summary/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
@@ -22,25 +31,7 @@
     </url>
 
     <url>
-        <loc>https://tang.su/2016/06/compile-opencv-python3/</loc>
-        <lastmod>2021-03-14T10:05:25.000Z</lastmod>
-        <changefreq>always</changefreq>
-        <priority>1</priority>
-    
-    
-    </url>
-
-    <url>
         <loc>https://tang.su/2017/01/export-TensorFlow-network/</loc>
-        <lastmod>2021-03-14T10:05:25.000Z</lastmod>
-        <changefreq>always</changefreq>
-        <priority>1</priority>
-    
-    
-    </url>
-
-    <url>
-        <loc>https://tang.su/2016/11/compile-anaconda3-caffe/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>
@@ -130,7 +121,7 @@
     </url>
 
     <url>
-        <loc>https://tang.su/2018/03/use-docker-deploy-hexo/</loc>
+        <loc>https://tang.su/2019/09/use-cdn-to-speed-up-github-pages/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>
@@ -148,6 +139,15 @@
     </url>
 
     <url>
+        <loc>https://tang.su/2016/06/compile-opencv-python3/</loc>
+        <lastmod>2021-03-14T10:05:25.000Z</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    
+    
+    </url>
+
+    <url>
         <loc>https://tang.su/2020/09/deploy-github-pages-to-upyun-vercel/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
@@ -157,7 +157,7 @@
     </url>
 
     <url>
-        <loc>https://tang.su/2019/09/use-cdn-to-speed-up-github-pages/</loc>
+        <loc>https://tang.su/2018/03/use-docker-deploy-hexo/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>

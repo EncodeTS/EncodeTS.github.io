@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
 
-
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"tang.su","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"changyan","storage":true,"lazyload":true,"nav":{"changyan":{"text":"Changyan","order":1},"disqus":{"text":"Disqus","order":2}},"activeClass":"changyan"},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"UUQV32070F","apiKey":"e70eb7210c2ebba8caab0a0f033642e6","indexName":"tangsu","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"tang.su","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"changyan","storage":true,"lazyload":true,"nav":{"changyan":{"text":"Changyan","order":1},"disqus":{"text":"Disqus","order":2}},"activeClass":"changyan"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"UUQV32070F","apiKey":"e70eb7210c2ebba8caab0a0f033642e6","indexName":"tangsu","hits":{"per_page":10}}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="其实几个月以前我就将整站迁往了又拍云存储，最近趁着更新了hexo版本，兴致正浓，进一步对速度进行了优化，将博客进行了双线部署，国内部署至又拍云，国外使用Vercel提供的服务，现在速度应该是更完美了。">
 <meta property="og:type" content="article">
@@ -289,10 +289,10 @@
       <span class="post-meta-item-icon">
         <i class="far fa-comment"></i>
       </span>
-      <span class="post-meta-item-text">Changyan：</span>
+      <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="Github Pages双线部署至又拍云存储和Vercel" href="/2020/09/deploy-github-pages-to-upyun-vercel/#SOHUCS" itemprop="discussionUrl">
-      <span id="sourceId::56c0aca3e720267b2fb6fd0eef8b2652" class="cy_cmt_count" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/09/deploy-github-pages-to-upyun-vercel/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/deploy-github-pages-to-upyun-vercel/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -303,10 +303,10 @@
       <span class="post-meta-item-icon">
         <i class="far fa-comment"></i>
       </span>
-      <span class="post-meta-item-text">Disqus：</span>
+      <span class="post-meta-item-text">Changyan：</span>
     
-    <a title="disqus" href="/2020/09/deploy-github-pages-to-upyun-vercel/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/deploy-github-pages-to-upyun-vercel/" itemprop="commentCount"></span>
+    <a title="Github Pages双线部署至又拍云存储和Vercel" href="/2020/09/deploy-github-pages-to-upyun-vercel/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::56c0aca3e720267b2fb6fd0eef8b2652" class="cy_cmt_count" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -415,7 +415,7 @@ target="_blank" rel="noopener" href="http://tool.chinaz.com/speedworld/tang.su">
       <a href="https://tang.su/2020/09/deploy-github-pages-to-upyun-vercel/" title="Github Pages双线部署至又拍云存储和Vercel">https://tang.su/2020/09/deploy-github-pages-to-upyun-vercel/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
@@ -518,10 +518,10 @@ target="_blank" rel="noopener" href="http://tool.chinaz.com/speedworld/tang.su">
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
-<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyt3OcV1S","appkey":"80629a09fbc066bcb3ae192c51e983e9"}</script>
-<script src="/js/third-party/comments/changyan.js"></script>
 <script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"tss-blog","count":true,"i18n":{"disqus":"disqus"}}</script>
 <script src="/js/third-party/comments/disqus.js"></script>
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyt3OcV1S","appkey":"80629a09fbc066bcb3ae192c51e983e9"}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
 
 </body>
 </html>
