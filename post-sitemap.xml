@@ -13,15 +13,6 @@
     </url>
 
     <url>
-        <loc>https://tang.su/2016/06/compile-opencv-python3/</loc>
-        <lastmod>2021-03-14T10:05:25.000Z</lastmod>
-        <changefreq>always</changefreq>
-        <priority>1</priority>
-    
-    
-    </url>
-
-    <url>
         <loc>https://tang.su/2016/11/compile-anaconda3-caffe/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
@@ -67,6 +58,15 @@
     </url>
 
     <url>
+        <loc>https://tang.su/2017/03/paper-notes-AgeNet/</loc>
+        <lastmod>2021-03-14T10:05:25.000Z</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    
+    
+    </url>
+
+    <url>
         <loc>https://tang.su/2017/03/openwrt-ipv6-nat/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
@@ -94,15 +94,6 @@
     </url>
 
     <url>
-        <loc>https://tang.su/2017/03/paper-notes-AgeNet/</loc>
-        <lastmod>2021-03-14T10:05:25.000Z</lastmod>
-        <changefreq>always</changefreq>
-        <priority>1</priority>
-    
-    
-    </url>
-
-    <url>
         <loc>https://tang.su/2017/04/TensorFlow-center-loss/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
@@ -113,6 +104,15 @@
 
     <url>
         <loc>https://tang.su/2017/05/deploy-shadowsocks/</loc>
+        <lastmod>2021-03-14T10:05:25.000Z</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    
+    
+    </url>
+
+    <url>
+        <loc>https://tang.su/2016/06/compile-opencv-python3/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>
