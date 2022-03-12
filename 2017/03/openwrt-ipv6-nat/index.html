@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.2.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.1.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -291,7 +291,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="我的网络环境">我的网络环境</h2>
 <ul>
 <li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
@@ -306,16 +306,16 @@ r45918</li>
 <li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
 <p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
 <li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">option ip6addr &#39;fc00:100:100:1::1&#x2F;64&#39;</span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
 <li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">config dhcp &#39;lan&#39;</span><br><span class="line">    option interface &#39;lan&#39;</span><br><span class="line">    option start &#39;100&#39;</span><br><span class="line">    option limit &#39;150&#39;</span><br><span class="line">    option leasetime &#39;12h&#39;</span><br><span class="line">    option dhcpv6 &#39;server&#39;</span><br><span class="line">    option ra &#39;server&#39;</span><br><span class="line">    option ra_management &#39;1&#39;</span><br><span class="line">    option ra_default &#39;1&#39;</span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
 <li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
 <li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
 <li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
 </ol>
 <p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line">[ &quot;$ACTION&quot; &#x3D; ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
 
     </div>
 

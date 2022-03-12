@@ -5,19 +5,19 @@
     <lastmod>2021-03-14</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2016/06/compile-opencv-python3/</loc>
-    <lastmod>2021-03-14</lastmod>
-  </url>
-  <url>
-    <loc>https://tang.su/2016/11/compile-anaconda3-caffe/</loc>
-    <lastmod>2021-03-14</lastmod>
-  </url>
-  <url>
     <loc>https://tang.su/2017/01/manually-create-summary/</loc>
     <lastmod>2021-03-14</lastmod>
   </url>
   <url>
+    <loc>https://tang.su/2016/06/compile-opencv-python3/</loc>
+    <lastmod>2021-03-14</lastmod>
+  </url>
+  <url>
     <loc>https://tang.su/2017/01/export-TensorFlow-network/</loc>
+    <lastmod>2021-03-14</lastmod>
+  </url>
+  <url>
+    <loc>https://tang.su/2016/11/compile-anaconda3-caffe/</loc>
     <lastmod>2021-03-14</lastmod>
   </url>
   <url>
@@ -37,11 +37,11 @@
     <lastmod>2021-03-14</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2017/04/paper-notes-spatial-transformer-network/</loc>
+    <loc>https://tang.su/2017/04/Y1s-lan-wan/</loc>
     <lastmod>2021-03-14</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2017/04/Y1s-lan-wan/</loc>
+    <loc>https://tang.su/2017/04/paper-notes-spatial-transformer-network/</loc>
     <lastmod>2021-03-14</lastmod>
   </url>
   <url>
@@ -61,7 +61,7 @@
     <lastmod>2021-03-14</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2019/09/use-cdn-to-speed-up-github-pages/</loc>
+    <loc>https://tang.su/2020/09/upgrade-hexo-to-5-0/</loc>
     <lastmod>2021-03-14</lastmod>
   </url>
   <url>
@@ -69,7 +69,7 @@
     <lastmod>2021-03-14</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2020/09/upgrade-hexo-to-5-0/</loc>
+    <loc>https://tang.su/2019/09/use-cdn-to-speed-up-github-pages/</loc>
     <lastmod>2021-03-14</lastmod>
   </url>
 </urlset> 
