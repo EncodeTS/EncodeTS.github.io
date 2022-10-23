@@ -76,15 +76,6 @@
     </url>
 
     <url>
-        <loc>http://tang.su/2017/04/Y1s-lan-wan/</loc>
-        <lastmod>2021-03-14T10:05:25.000Z</lastmod>
-        <changefreq>always</changefreq>
-        <priority>1</priority>
-    
-    
-    </url>
-
-    <url>
         <loc>http://tang.su/2017/03/openwrt-ipv6-nat/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
@@ -94,7 +85,7 @@
     </url>
 
     <url>
-        <loc>http://tang.su/2017/04/paper-notes-spatial-transformer-network/</loc>
+        <loc>http://tang.su/2017/04/Y1s-lan-wan/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>
@@ -103,7 +94,7 @@
     </url>
 
     <url>
-        <loc>http://tang.su/2017/04/TensorFlow-center-loss/</loc>
+        <loc>http://tang.su/2017/04/paper-notes-spatial-transformer-network/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>
@@ -148,7 +139,7 @@
     </url>
 
     <url>
-        <loc>http://tang.su/2020/09/upgrade-hexo-to-5-0/</loc>
+        <loc>http://tang.su/2017/04/TensorFlow-center-loss/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>
@@ -158,6 +149,15 @@
 
     <url>
         <loc>http://tang.su/2020/09/deploy-github-pages-to-upyun-vercel/</loc>
+        <lastmod>2021-03-14T10:05:25.000Z</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    
+    
+    </url>
+
+    <url>
+        <loc>http://tang.su/2020/09/upgrade-hexo-to-5-0/</loc>
         <lastmod>2021-03-14T10:05:25.000Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>
