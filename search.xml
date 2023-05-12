@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Linux下安装TensorFlow</title>
-    <url>/2016/05/install-tensorflow/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>TensorFlow是Google推出的一个数值计算库，下面详述一下我个人推荐的安装方法。
-<span id="more"></span> ## 安装Anaconda</p>
-<p>Anaconda是一个python的发行版本，集成了数百个科学计算库，使用十分方便；同时包含了conda包管理器，不仅可以用于安装其他库，也可以用于创建虚拟环境，后续你就能体会到它的方便之处了。</p>
-<p>可以去<a
-href="https://www.continuum.io/downloads">Anaconda</a>这里下载完整的安装包(包含了数百个库)，或者安装<a
-href="http://conda.pydata.org/miniconda.html">Miniconda</a>(含conda包管理器，但没有第三方库)之后使用<code>conda install xxx</code>安装自己所需的其他库，推荐下载64-bit的版本，选择python2.7还是python3.5则根据个人喜好选择，最后下载之后的安装包名称应该是以<code>.sh</code>结尾的文件，放置在Linux用户主目录中。</p>
-<p>使用下列命令安装(建议使用4.2.0版本，4.3.0里包含的是Python3.6，用起来暂时不太方便)：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bash Anaconda3-4.2.0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure></p>
-<p><code>Anaconda3-4.2.0-Linux-x86_64.sh</code>替换为你实际下载的安装包名称，一路回车即安装好了，默认是安装在主目录下的。在安装过程中，有一个选项问你是否将anaconda目录添加至<code>.bashrc</code>中，这个时候推荐输入yes，这样在终端内启动python时会默认启动Anaconda中的python，而不是系统自带的python，使用起来方便很多。</p>
-<h2 id="创建虚拟环境">创建虚拟环境</h2>
-<p>Anaconda安装好之后，使用下列命令创建一个python2.7或者python3.5的虚拟环境:
-<code>conda create -n py2 python=2.7</code>或<code>conda create -n py3 python=3.5</code>。
-命令中的<code>py2</code>和<code>py3</code>只是一个名字，可以任意取。</p>
-<h2 id="激活虚拟环境">激活虚拟环境</h2>
-<p>使用<code>source activate py3</code>命令激活虚拟环境（自行替换<code>py3</code>为你自己的命名），这时候在终端中可以看到提示符最前面有一个<code>(py3)</code>。</p>
-<h2 id="安装tensorflow">安装TensorFlow</h2>
-<p>TensorFlow已经被上传至pypi了，现在安装非常方便了...
-如果安装CPU版本，使用 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow</span><br></pre></td></tr></table></figure> 如果安装GPU版本，使用
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow-gpu</span><br></pre></td></tr></table></figure></p>
-<p>如果下载速度过慢，可以使用<a
-href="https://lug.ustc.edu.cn/wiki/mirrors/help/pypi">科大pypi镜像</a>或者<a
-href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华pypi镜像</a>加速。</p>
-<p><strong>注意：</strong>安装好之后，在保证命令符前有<code>(py3)</code>的情况下，进行python并输入<code>import tensorflow</code>，如果没有报错说明安装成功。</p>
-<h2 id="从源码编译">从源码编译</h2>
-<p>官网提供的安装包为了保持最大的兼容性，<strong>去掉了优化编译选项</strong>，不能达到最快的速度，因此最好是自己从源码编译...这个有空再写吧...</p>
-<h2 id="安装其他附加包">安装其他附加包</h2>
-<p>需要安装其他附加库到我们的py3虚拟环境中时，同样使用<code>source acitvate py3</code>先激活虚拟环境，然后使用<code>conda install xx</code>安装包，xx代表包名。
-我个人一般会安装这些包：
-<code>conda install numpy scipy matplotlib scikit-learn scikit-image pillow spyder jupyter notebook</code></p>
-<h2 id="更新记录">更新记录</h2>
-<p>2017/3/15 TensorFlow早已经被上传至pypi了，因此删掉大量篇幅...</p>
+    <title>Ubuntu14.04+cuda8.0+Anaconda3下编译caffe</title>
+    <url>/2016/11/compile-anaconda3-caffe/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>踩了很多坑，终于在Ubuntu14.04+cuda8.0+Anaconda3环境下成功编译Caffe。</p>
+<span id="more"></span>
+<ol type="1">
+<li><p>安装纯净的Ubuntu14.04，安装显卡驱动、cuda以及cudnn并配置好系统环境变量，这里不进行详述。</p></li>
+<li><p>使用<code>bash Anaconda3-4.2.0-Linux-x86_64.sh</code>命令安装Anaconda3，这里假定安装目录为<code>/home/xx/anaconda3</code>，安装结束的时候会问是否将Anaconda3目录加入环境变量，选择<strong>是</strong>。</p></li>
+<li><p>打开终端，安装依赖库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo apt-get install libboost1.55-all-dev libleveldb-dev libsnappy-dev liblmdb-dev libhdf5-serial-dev libgoogle-glog-dev libgflags-dev</span></span><br></pre></td></tr></table></figure>
+<p>注意，安装<strong><code>libboost1.55-all-dev</code></strong>，Ubuntu14.04默认安装的是1.54版本；另外<strong>不要</strong>用<code>apt-get</code>安装<code>libprotobuf-dev</code>，因为apt-get安装的是2.x版本，不支持python3；这里也<strong>不安装</strong><code>libopencv-dev</code>，同样是因为apt-get安装的版本没有附带TIFF支持，后期编译会报错。</p>
+<p>之后，添加符号链接</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.55.0 /usr/lib/x86_64-linux-gnu/libboost_python3.so</span><br></pre></td></tr></table></figure></li>
+<li><p>编译并安装Protobuf3</p>
+<p>进入任意目录，然后依次执行以下命令即可，完成之后系统及python都会完成protobuf3.0.0的安装。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> protobuf &amp;&amp; <span class="built_in">cd</span> protobuf</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> cpp &amp;&amp; <span class="built_in">cd</span> cpp</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://github.com/google/protobuf/releases/download/v3.0.0/protobuf-cpp-3.0.0.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xvf protobuf-cpp-3.0.0.tar.gz &amp;&amp; <span class="built_in">cd</span> protobuf-3.0.0</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./configure &amp;&amp; make</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make check</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo ldconfig</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> ../..</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> python &amp;&amp; <span class="built_in">cd</span> python</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://github.com/google/protobuf/releases/download/v3.0.0/protobuf-python-3.0.0.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xvf protobuf-python-3.0.0.tar.gz &amp;&amp; <span class="built_in">cd</span> protobuf-3.0.0/python/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py <span class="built_in">test</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py install</span></span><br></pre></td></tr></table></figure></li>
+<li><p>编译并安装openCV3</p>
+<p>同样进入任意目录，在终端内依次执行以下命令即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/opencv/opencv.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> opencv</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D BUILD_TIFF=ON -D BUILD_EXAMPLES=ON  -D WITH_OPENGL=ON -D WITH_EIGEN=ON -D WITH_CUDA=ON -D WITH_CUBLAS=ON ..</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install</span></span><br></pre></td></tr></table></figure></li>
+<li><p>编译caffe</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git clone https://github.com/BVLC/caffe.git</span><br><span class="line">$ cd caffe</span><br><span class="line">$ cp Makefile.config.example Makefile.config</span><br></pre></td></tr></table></figure>
+<p>然后更改Makefile.config文件内容，改变地方主要有以下几点：</p>
+<ol type="1">
+<li><p>去掉<code>USE_CUDNN := 1</code>前面#</p></li>
+<li><p>去掉<code>OPENCV_VERSION := 3</code>前面#</p></li>
+<li><p>用#注释掉原始的python目录，改为以下内容（假定anaconda3安装在<code>/home/xx/anaconda3</code>下面）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ANACONDA_HOME := $(HOME)/anaconda3</span><br><span class="line">PYTHON_LIBRARIES := boost_python3 python3.5m</span><br><span class="line">PYTHON_INCLUDE := $(ANACONDA_HOME)/include \</span><br><span class="line">                  $(ANACONDA_HOME)/include/python3.5m \</span><br><span class="line">                  $(ANACONDA_HOME)/lib/python3.5/site-packages/numpy/core/include \</span><br></pre></td></tr></table></figure></li>
+<li><p>将<code>PYTHON_LIB</code>改为<code>PYTHON_LIB := $(ANACONDA_HOME)/lib</code></p></li>
+<li><p>去掉<code>WITH_PYTHON_LAYER := 1</code>前面#</p></li>
+<li><p>随后开始编译</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make all -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make runtest -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make <span class="built_in">test</span> -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make pycaffe</span></span><br></pre></td></tr></table></figure></li>
+</ol></li>
+<li><p>在Anaconda3内安装其他依赖库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">conda install scikit-image hdf5 h5py</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">conda install -c menpo opencv3=3.1.0</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将caffe目录下的python目录添加至环境变量，在~/.bashrc下添加一行，注意更改为你的实际目录。</p>
+<p><code>export PYTHONPATH="/home/xx/caffe/python:$PYTHONPATH"</code></p></li>
+<li><p>在终端内启动python，输入<code>import caffe</code>命令进行测试，如果没有报错说明已经编译安装成功了。</p>
+<p>enjoy!</p></li>
+</ol>
 ]]></content>
       <categories>
         <category>Deep Learning</category>
       </categories>
       <tags>
-        <tag>TensorFlow</tag>
         <tag>Anaconda</tag>
+        <tag>Caffe</tag>
       </tags>
   </entry>
   <entry>
@@ -78,47 +83,6 @@ Tensorflow graphs</a></p>
       </categories>
       <tags>
         <tag>TensorFlow</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows下编译OpenCV-Python3</title>
-    <url>/2016/06/compile-opencv-python3/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OpenCV3已经开始支持python3版本了，但是需要自己编译，以下简要记录一下编译的流程。
-<span id="more"></span></p>
-<p>2016/11/20更新：其实最简单的办法是安装anaconda，然后在cmd里用<code>conda install -c menpo opencv3=3.1.0</code>安装即可。</p>
-<h2 id="安装预备软件">安装预备软件</h2>
-<p>首先安装以下软件： - <a href="https://git-scm.com/downloads">git</a>
-- <a href="https://cmake.org/download/">CMake</a> - VS 2013</p>
-<h2 id="下载源码">下载源码</h2>
-<p>在你想保存源码的位置，单击鼠标右键，点击“Git Bash
-Here”，键入以下命令：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:Itseez/opencv.git</span><br></pre></td></tr></table></figure>
-<p>新建一个build文件夹，用于存放编译后的文件。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> opencv</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br></pre></td></tr></table></figure>
-<h2 id="配置cmake">配置CMake</h2>
-<p>运行CMake，在最上面两栏内填上源码和build文件夹的位置，勾上<code>Grouped</code>，</p>
-<p><img src="/images/compile-opencv-python3/cmake1.png" /></p>
-<p>点击<code>Configure</code>，选择已安装的编译器，然后点击<code>Finish</code></p>
-<p><img src="/images/compile-opencv-python3/cmake2.png" /></p>
-<p>根据自己情况选择或者取消勾选某些选项(注意<strong>不要勾选</strong><code>BUILD_opencv_world</code>，我测试发现勾选这个之后不会编译python的相关文件，另外不需要cuda的话可以在<code>WITH</code>里面把<code>WITH_CUDA</code>和<code>WITH_CUFFT</code>勾去掉)，对于我们编译OpenCV-Python3而言，比较重要的是以下两个部分：
-- BUILD 只编译python3就取消勾选掉python2的勾 <img
-src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
-一般来说这里的几个选项CMake是可以自动检测到的，如果没有自动检测到，则自己手动填入吧，填写方式参考下图，一定不能漏。
-<img src="/images/compile-opencv-python3/cmake5.png" /></p>
-<p>搞定之后点击"Generate"，直到看到"Generate done"。</p>
-<h2 id="编译">编译</h2>
-<p>在BUILD文件夹下找到一个名为<code>OpenCV.sln</code>的文件，双击，会进入VS。
-在左侧找到<code>ALL_BUILD</code>，右键单击并选择<code>生成</code>，后续耐心等待编译完成即可。</p>
-<h2 id="配置环境变量">配置环境变量</h2>
-<p>编译完成之后，在BUILD，把它复制到python安装目录下的<code>Lib\site-packages</code>目录下，随后将BUILD文件夹下的<code>bin\Release</code>的<strong>完整路径</strong>添加到系统环境变量中。
-这时候启动python，运行<code>import cv2</code>命令，如果没有错误，则说明安装成功了。</p>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>opencv</tag>
-        <tag>python3</tag>
       </tags>
   </entry>
   <entry>
@@ -209,96 +173,44 @@ Primer中关于数组指针的内容，理清了数组指针的几个问题。</
       </tags>
   </entry>
   <entry>
-    <title>联想Y1S LAN口改WAN口</title>
-    <url>/2017/04/Y1s-lan-wan/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>为什么会有把LAN口改WAN口的想法呢？因为联想Y1S的WAN口是<strong>百兆</strong>的，但是却有两个<strong>千兆LAN</strong>口。。如果不把一个千兆LAN口改为WAN口，对外访问的最快速度也就百兆了，这在有IPv6的学校内是一个巨大的浪费。。</p>
-<span id="more"></span>
-<p>今天刚好升级了最新的PandoraBox，固件名为<code>PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin</code>(<a
-href="http://www.pandorabox.com.cn/pandorabox-16-10-stable/targets/ralink/mt7620/PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin">下载链接</a>)，发现VLAN划分的界面变得比以前清晰多了，如下图所示：</p>
-<figure>
-<img src="/images/Y1s-lan-wan/pic1.png" alt="原始配置" />
-<figcaption aria-hidden="true">原始配置</figcaption>
-</figure>
-<p>这下LAN1-LAN4和WAN口与路由器实际端口是对应的了，路由器的LAN1和LAN2是千兆的，因此在这里我把LAN1改为WAN口，而原来的WAN口改为LAN口，只需点几下鼠标即可：</p>
-<figure>
-<img src="/images/Y1s-lan-wan/pic2.png" alt="修改后配置" />
-<figcaption aria-hidden="true">修改后配置</figcaption>
-</figure>
-<p>试一下可以正常联网，大功告成！</p>
-<p><strong>注意</strong></p>
-<p>一定要把第一行设为WAN口，第二行设为LAN口，否则要去接口那里更改LAN和WAN对应的VLAN
-ID。</p>
-<p>另外，我发现luci界面这里的VLAN ID跟配置文件的VLAN
-ID号是不对应的。。luci界面里的VLAN ID 1在配置文件中实际是VLAN ID
-2，这里一定需要注意。</p>
-<p><code>/etc/config/network</code>配置文件中的端口编号与实际端口的对应关系如下</p>
-<table>
-<thead>
-<tr class="header">
-<th>端口编号</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>对应端口</td>
-<td>WAN</td>
-<td>LAN4</td>
-<td>LAN3</td>
-<td>LAN2</td>
-<td>LAN1</td>
-</tr>
-</tbody>
-</table>
+    <title>Windows下编译OpenCV-Python3</title>
+    <url>/2016/06/compile-opencv-python3/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OpenCV3已经开始支持python3版本了，但是需要自己编译，以下简要记录一下编译的流程。
+<span id="more"></span></p>
+<p>2016/11/20更新：其实最简单的办法是安装anaconda，然后在cmd里用<code>conda install -c menpo opencv3=3.1.0</code>安装即可。</p>
+<h2 id="安装预备软件">安装预备软件</h2>
+<p>首先安装以下软件： - <a href="https://git-scm.com/downloads">git</a>
+- <a href="https://cmake.org/download/">CMake</a> - VS 2013</p>
+<h2 id="下载源码">下载源码</h2>
+<p>在你想保存源码的位置，单击鼠标右键，点击“Git Bash
+Here”，键入以下命令：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:Itseez/opencv.git</span><br></pre></td></tr></table></figure>
+<p>新建一个build文件夹，用于存放编译后的文件。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> opencv</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br></pre></td></tr></table></figure>
+<h2 id="配置cmake">配置CMake</h2>
+<p>运行CMake，在最上面两栏内填上源码和build文件夹的位置，勾上<code>Grouped</code>，</p>
+<p><img src="/images/compile-opencv-python3/cmake1.png" /></p>
+<p>点击<code>Configure</code>，选择已安装的编译器，然后点击<code>Finish</code></p>
+<p><img src="/images/compile-opencv-python3/cmake2.png" /></p>
+<p>根据自己情况选择或者取消勾选某些选项(注意<strong>不要勾选</strong><code>BUILD_opencv_world</code>，我测试发现勾选这个之后不会编译python的相关文件，另外不需要cuda的话可以在<code>WITH</code>里面把<code>WITH_CUDA</code>和<code>WITH_CUFFT</code>勾去掉)，对于我们编译OpenCV-Python3而言，比较重要的是以下两个部分：
+- BUILD 只编译python3就取消勾选掉python2的勾 <img
+src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
+一般来说这里的几个选项CMake是可以自动检测到的，如果没有自动检测到，则自己手动填入吧，填写方式参考下图，一定不能漏。
+<img src="/images/compile-opencv-python3/cmake5.png" /></p>
+<p>搞定之后点击"Generate"，直到看到"Generate done"。</p>
+<h2 id="编译">编译</h2>
+<p>在BUILD文件夹下找到一个名为<code>OpenCV.sln</code>的文件，双击，会进入VS。
+在左侧找到<code>ALL_BUILD</code>，右键单击并选择<code>生成</code>，后续耐心等待编译完成即可。</p>
+<h2 id="配置环境变量">配置环境变量</h2>
+<p>编译完成之后，在BUILD，把它复制到python安装目录下的<code>Lib\site-packages</code>目录下，随后将BUILD文件夹下的<code>bin\Release</code>的<strong>完整路径</strong>添加到系统环境变量中。
+这时候启动python，运行<code>import cv2</code>命令，如果没有错误，则说明安装成功了。</p>
 ]]></content>
       <categories>
-        <category>路由器</category>
+        <category>Python</category>
       </categories>
       <tags>
-        <tag>LAN</tag>
-        <tag>WAN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在OpenWrt上配置原生IPv6 NAT</title>
-    <url>/2017/03/openwrt-ipv6-nat/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
-<span id="more"></span>
-<h2 id="我的网络环境">我的网络环境</h2>
-<ul>
-<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
-<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
-r45918</li>
-<li><strong>内核版本</strong>：3.18.14</li>
-</ul>
-<h2 id="准备工作">准备工作</h2>
-<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
-<h2 id="详细步骤">详细步骤</h2>
-<ol type="1">
-<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
-<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
-<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
-<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
-</ol>
-<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>路由器</category>
-      </categories>
-      <tags>
-        <tag>OpenWrt</tag>
-        <tag>IPv6</tag>
+        <tag>opencv</tag>
+        <tag>python3</tag>
       </tags>
   </entry>
   <entry>
@@ -397,70 +309,6 @@ age, fine-tune with apparent age.三个阶段的训练。</p>
       </tags>
   </entry>
   <entry>
-    <title>center loss的TensorFlow实现</title>
-    <url>/2017/04/TensorFlow-center-loss/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本文最开始发表于CSDN<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="http://blog.csdn.net/encodets/article/details/54648015
-">[1]</span></a></sup>，目前重新整理并加上更详细的注释，<del>本周内会于Github上传示例代码</del>
-代码<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="代码地址：https://github.com/EncodeTS/TensorFlow_Center_Loss
-">[2]</span></a></sup>已上传。</p>
-<p>Center loss是ECCV2016中一篇论文《A Discriminative Feature Learning
-Approach for Deep Face
-Recognition》<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="https://link.springer.com/chapter/10.1007/978-3-319-46478-7_31
-">[3]</span></a></sup>提出来的概念，主要思想就是在softmax
-loss基础上额外加入一个正则项，让网络中每一类样本的特征向量都能够尽量聚在一起，在mnist上的示意效果如下图所示，可以看到每一类样本都聚在类别中心的周围。</p>
-<span id="more"></span>
-<p><img src="/images/paper-notes/Center-Loss/pic1.png" /></p>
-<p>具体的原理推导等请参考原论文，网上目前有Caffe以及Mxnet版的实现，我在Facenet<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="https://github.com/davidsandberg/facenet/blob/master/src/facenet.py#L76-L88">[4]</span></a></sup>实现版本基础上做了修改，个人认为是更加贴近原论文叙述的方法的，欢迎讨论。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_center_loss</span>(<span class="params">features, labels, alpha, num_classes</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;获取center loss及center的更新op</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        features: Tensor,表征样本特征,一般使用某个fc层的输出,shape应该为[batch_size, feature_length].</span></span><br><span class="line"><span class="string">        labels: Tensor,表征样本label,非one-hot编码,shape应为[batch_size].</span></span><br><span class="line"><span class="string">        alpha: 0-1之间的数字,控制样本类别中心的学习率,细节参考原文.</span></span><br><span class="line"><span class="string">        num_classes: 整数,表明总共有多少个类别,网络分类输出有多少个神经元这里就取多少.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Return：</span></span><br><span class="line"><span class="string">        loss: Tensor,可与softmax loss相加作为总的loss进行优化.</span></span><br><span class="line"><span class="string">        centers: Tensor,存储样本中心值的Tensor，仅查看样本中心存储的具体数值时有用.</span></span><br><span class="line"><span class="string">        centers_update_op: op,用于更新样本中心的op，在训练时需要同时运行该op，否则样本中心不会更新</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取特征的维数，例如256维</span></span><br><span class="line">    len_features = features.get_shape()[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 建立一个Variable,shape为[num_classes, len_features]，用于存储整个网络的样本中心，</span></span><br><span class="line">    <span class="comment"># 设置trainable=False是因为样本中心不是由梯度进行更新的</span></span><br><span class="line">    centers = tf.get_variable(<span class="string">&#x27;centers&#x27;</span>, [num_classes, len_features], dtype=tf.float32,</span><br><span class="line">        initializer=tf.constant_initializer(<span class="number">0</span>), trainable=<span class="literal">False</span>)</span><br><span class="line">    <span class="comment"># 将label展开为一维的，输入如果已经是一维的，则该动作其实无必要</span></span><br><span class="line">    labels = tf.reshape(labels, [-<span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 根据样本label,获取mini-batch中每一个样本对应的中心值</span></span><br><span class="line">    centers_batch = tf.gather(centers, labels)</span><br><span class="line">    <span class="comment"># 计算loss</span></span><br><span class="line">    loss = tf.nn.l2_loss(features - centers_batch)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 当前mini-batch的特征值与它们对应的中心值之间的差</span></span><br><span class="line">    diff = centers_batch - features</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 获取mini-batch中同一类别样本出现的次数,了解原理请参考原文公式(4)</span></span><br><span class="line">    unique_label, unique_idx, unique_count = tf.unique_with_counts(labels)</span><br><span class="line">    appear_times = tf.gather(unique_count, unique_idx)</span><br><span class="line">    appear_times = tf.reshape(appear_times, [-<span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    diff = diff / tf.cast((<span class="number">1</span> + appear_times), tf.float32)</span><br><span class="line">    diff = alpha * diff</span><br><span class="line">    </span><br><span class="line">    centers_update_op = tf.scatter_sub(centers, labels, diff)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> loss, centers, centers_update_op</span><br></pre></td></tr></table></figure>
-<div id="footnotes">
-<hr>
-<div id="footnotelist">
-<ol style="list-style: none; padding-left: 0; margin-left: 40px">
-<li id="fn:1">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">http://blog.csdn.net/encodets/article/details/54648015<a href="#fnref:1" rev="footnote">
-↩︎</a></span>
-</li>
-<li id="fn:2">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">代码地址：https://github.com/EncodeTS/TensorFlow_Center_Loss<a href="#fnref:2" rev="footnote">
-↩︎</a></span>
-</li>
-<li id="fn:3">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">https://link.springer.com/chapter/10.1007/978-3-319-46478-7_31<a href="#fnref:3" rev="footnote">
-↩︎</a></span>
-</li>
-<li id="fn:4">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/davidsandberg/facenet/blob/master/src/facenet.py#L76-L88<a href="#fnref:4" rev="footnote">
-↩︎</a></span>
-</li>
-</ol>
-</div>
-</div>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>TensorFlow</tag>
-        <tag>center loss</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spatial Transformer Networks 论文笔记</title>
     <url>/2017/04/paper-notes-spatial-transformer-network/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天重新阅读了Deepmind 2015年发表的[Spatial Transformer
@@ -542,51 +390,216 @@ Transformer Networks</a><a href="#fnref:4" rev="footnote"> ↩︎</a></span>
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu14.04+cuda8.0+Anaconda3下编译caffe</title>
-    <url>/2016/11/compile-anaconda3-caffe/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>踩了很多坑，终于在Ubuntu14.04+cuda8.0+Anaconda3环境下成功编译Caffe。</p>
+    <title>center loss的TensorFlow实现</title>
+    <url>/2017/04/TensorFlow-center-loss/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本文最开始发表于CSDN<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="http://blog.csdn.net/encodets/article/details/54648015
+">[1]</span></a></sup>，目前重新整理并加上更详细的注释，<del>本周内会于Github上传示例代码</del>
+代码<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="代码地址：https://github.com/EncodeTS/TensorFlow_Center_Loss
+">[2]</span></a></sup>已上传。</p>
+<p>Center loss是ECCV2016中一篇论文《A Discriminative Feature Learning
+Approach for Deep Face
+Recognition》<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://link.springer.com/chapter/10.1007/978-3-319-46478-7_31
+">[3]</span></a></sup>提出来的概念，主要思想就是在softmax
+loss基础上额外加入一个正则项，让网络中每一类样本的特征向量都能够尽量聚在一起，在mnist上的示意效果如下图所示，可以看到每一类样本都聚在类别中心的周围。</p>
 <span id="more"></span>
-<ol type="1">
-<li><p>安装纯净的Ubuntu14.04，安装显卡驱动、cuda以及cudnn并配置好系统环境变量，这里不进行详述。</p></li>
-<li><p>使用<code>bash Anaconda3-4.2.0-Linux-x86_64.sh</code>命令安装Anaconda3，这里假定安装目录为<code>/home/xx/anaconda3</code>，安装结束的时候会问是否将Anaconda3目录加入环境变量，选择<strong>是</strong>。</p></li>
-<li><p>打开终端，安装依赖库</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo apt-get install libboost1.55-all-dev libleveldb-dev libsnappy-dev liblmdb-dev libhdf5-serial-dev libgoogle-glog-dev libgflags-dev</span></span><br></pre></td></tr></table></figure>
-<p>注意，安装<strong><code>libboost1.55-all-dev</code></strong>，Ubuntu14.04默认安装的是1.54版本；另外<strong>不要</strong>用<code>apt-get</code>安装<code>libprotobuf-dev</code>，因为apt-get安装的是2.x版本，不支持python3；这里也<strong>不安装</strong><code>libopencv-dev</code>，同样是因为apt-get安装的版本没有附带TIFF支持，后期编译会报错。</p>
-<p>之后，添加符号链接</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.55.0 /usr/lib/x86_64-linux-gnu/libboost_python3.so</span><br></pre></td></tr></table></figure></li>
-<li><p>编译并安装Protobuf3</p>
-<p>进入任意目录，然后依次执行以下命令即可，完成之后系统及python都会完成protobuf3.0.0的安装。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> protobuf &amp;&amp; <span class="built_in">cd</span> protobuf</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> cpp &amp;&amp; <span class="built_in">cd</span> cpp</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://github.com/google/protobuf/releases/download/v3.0.0/protobuf-cpp-3.0.0.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xvf protobuf-cpp-3.0.0.tar.gz &amp;&amp; <span class="built_in">cd</span> protobuf-3.0.0</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./configure &amp;&amp; make</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make check</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo ldconfig</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> ../..</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> python &amp;&amp; <span class="built_in">cd</span> python</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://github.com/google/protobuf/releases/download/v3.0.0/protobuf-python-3.0.0.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xvf protobuf-python-3.0.0.tar.gz &amp;&amp; <span class="built_in">cd</span> protobuf-3.0.0/python/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py <span class="built_in">test</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py install</span></span><br></pre></td></tr></table></figure></li>
-<li><p>编译并安装openCV3</p>
-<p>同样进入任意目录，在终端内依次执行以下命令即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/opencv/opencv.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> opencv</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D BUILD_TIFF=ON -D BUILD_EXAMPLES=ON  -D WITH_OPENGL=ON -D WITH_EIGEN=ON -D WITH_CUDA=ON -D WITH_CUBLAS=ON ..</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install</span></span><br></pre></td></tr></table></figure></li>
-<li><p>编译caffe</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git clone https://github.com/BVLC/caffe.git</span><br><span class="line">$ cd caffe</span><br><span class="line">$ cp Makefile.config.example Makefile.config</span><br></pre></td></tr></table></figure>
-<p>然后更改Makefile.config文件内容，改变地方主要有以下几点：</p>
-<ol type="1">
-<li><p>去掉<code>USE_CUDNN := 1</code>前面#</p></li>
-<li><p>去掉<code>OPENCV_VERSION := 3</code>前面#</p></li>
-<li><p>用#注释掉原始的python目录，改为以下内容（假定anaconda3安装在<code>/home/xx/anaconda3</code>下面）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ANACONDA_HOME := $(HOME)/anaconda3</span><br><span class="line">PYTHON_LIBRARIES := boost_python3 python3.5m</span><br><span class="line">PYTHON_INCLUDE := $(ANACONDA_HOME)/include \</span><br><span class="line">                  $(ANACONDA_HOME)/include/python3.5m \</span><br><span class="line">                  $(ANACONDA_HOME)/lib/python3.5/site-packages/numpy/core/include \</span><br></pre></td></tr></table></figure></li>
-<li><p>将<code>PYTHON_LIB</code>改为<code>PYTHON_LIB := $(ANACONDA_HOME)/lib</code></p></li>
-<li><p>去掉<code>WITH_PYTHON_LAYER := 1</code>前面#</p></li>
-<li><p>随后开始编译</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make all -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make runtest -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make <span class="built_in">test</span> -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make pycaffe</span></span><br></pre></td></tr></table></figure></li>
-</ol></li>
-<li><p>在Anaconda3内安装其他依赖库</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">conda install scikit-image hdf5 h5py</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">conda install -c menpo opencv3=3.1.0</span></span><br></pre></td></tr></table></figure></li>
-<li><p>将caffe目录下的python目录添加至环境变量，在~/.bashrc下添加一行，注意更改为你的实际目录。</p>
-<p><code>export PYTHONPATH="/home/xx/caffe/python:$PYTHONPATH"</code></p></li>
-<li><p>在终端内启动python，输入<code>import caffe</code>命令进行测试，如果没有报错说明已经编译安装成功了。</p>
-<p>enjoy!</p></li>
+<p><img src="/images/paper-notes/Center-Loss/pic1.png" /></p>
+<p>具体的原理推导等请参考原论文，网上目前有Caffe以及Mxnet版的实现，我在Facenet<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://github.com/davidsandberg/facenet/blob/master/src/facenet.py#L76-L88">[4]</span></a></sup>实现版本基础上做了修改，个人认为是更加贴近原论文叙述的方法的，欢迎讨论。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_center_loss</span>(<span class="params">features, labels, alpha, num_classes</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;获取center loss及center的更新op</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        features: Tensor,表征样本特征,一般使用某个fc层的输出,shape应该为[batch_size, feature_length].</span></span><br><span class="line"><span class="string">        labels: Tensor,表征样本label,非one-hot编码,shape应为[batch_size].</span></span><br><span class="line"><span class="string">        alpha: 0-1之间的数字,控制样本类别中心的学习率,细节参考原文.</span></span><br><span class="line"><span class="string">        num_classes: 整数,表明总共有多少个类别,网络分类输出有多少个神经元这里就取多少.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Return：</span></span><br><span class="line"><span class="string">        loss: Tensor,可与softmax loss相加作为总的loss进行优化.</span></span><br><span class="line"><span class="string">        centers: Tensor,存储样本中心值的Tensor，仅查看样本中心存储的具体数值时有用.</span></span><br><span class="line"><span class="string">        centers_update_op: op,用于更新样本中心的op，在训练时需要同时运行该op，否则样本中心不会更新</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取特征的维数，例如256维</span></span><br><span class="line">    len_features = features.get_shape()[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 建立一个Variable,shape为[num_classes, len_features]，用于存储整个网络的样本中心，</span></span><br><span class="line">    <span class="comment"># 设置trainable=False是因为样本中心不是由梯度进行更新的</span></span><br><span class="line">    centers = tf.get_variable(<span class="string">&#x27;centers&#x27;</span>, [num_classes, len_features], dtype=tf.float32,</span><br><span class="line">        initializer=tf.constant_initializer(<span class="number">0</span>), trainable=<span class="literal">False</span>)</span><br><span class="line">    <span class="comment"># 将label展开为一维的，输入如果已经是一维的，则该动作其实无必要</span></span><br><span class="line">    labels = tf.reshape(labels, [-<span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 根据样本label,获取mini-batch中每一个样本对应的中心值</span></span><br><span class="line">    centers_batch = tf.gather(centers, labels)</span><br><span class="line">    <span class="comment"># 计算loss</span></span><br><span class="line">    loss = tf.nn.l2_loss(features - centers_batch)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 当前mini-batch的特征值与它们对应的中心值之间的差</span></span><br><span class="line">    diff = centers_batch - features</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 获取mini-batch中同一类别样本出现的次数,了解原理请参考原文公式(4)</span></span><br><span class="line">    unique_label, unique_idx, unique_count = tf.unique_with_counts(labels)</span><br><span class="line">    appear_times = tf.gather(unique_count, unique_idx)</span><br><span class="line">    appear_times = tf.reshape(appear_times, [-<span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    diff = diff / tf.cast((<span class="number">1</span> + appear_times), tf.float32)</span><br><span class="line">    diff = alpha * diff</span><br><span class="line">    </span><br><span class="line">    centers_update_op = tf.scatter_sub(centers, labels, diff)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> loss, centers, centers_update_op</span><br></pre></td></tr></table></figure>
+<div id="footnotes">
+<hr>
+<div id="footnotelist">
+<ol style="list-style: none; padding-left: 0; margin-left: 40px">
+<li id="fn:1">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">http://blog.csdn.net/encodets/article/details/54648015<a href="#fnref:1" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:2">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">代码地址：https://github.com/EncodeTS/TensorFlow_Center_Loss<a href="#fnref:2" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:3">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://link.springer.com/chapter/10.1007/978-3-319-46478-7_31<a href="#fnref:3" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:4">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/davidsandberg/facenet/blob/master/src/facenet.py#L76-L88<a href="#fnref:4" rev="footnote">
+↩︎</a></span>
+</li>
 </ol>
+</div>
+</div>
 ]]></content>
       <categories>
         <category>Deep Learning</category>
       </categories>
       <tags>
-        <tag>Anaconda</tag>
-        <tag>Caffe</tag>
+        <tag>TensorFlow</tag>
+        <tag>center loss</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在OpenWrt上配置原生IPv6 NAT</title>
+    <url>/2017/03/openwrt-ipv6-nat/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
+<span id="more"></span>
+<h2 id="我的网络环境">我的网络环境</h2>
+<ul>
+<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
+<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
+r45918</li>
+<li><strong>内核版本</strong>：3.18.14</li>
+</ul>
+<h2 id="准备工作">准备工作</h2>
+<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
+<h2 id="详细步骤">详细步骤</h2>
+<ol type="1">
+<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
+<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
+</ol>
+<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>IPv6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>联想Y1S LAN口改WAN口</title>
+    <url>/2017/04/Y1s-lan-wan/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>为什么会有把LAN口改WAN口的想法呢？因为联想Y1S的WAN口是<strong>百兆</strong>的，但是却有两个<strong>千兆LAN</strong>口。。如果不把一个千兆LAN口改为WAN口，对外访问的最快速度也就百兆了，这在有IPv6的学校内是一个巨大的浪费。。</p>
+<span id="more"></span>
+<p>今天刚好升级了最新的PandoraBox，固件名为<code>PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin</code>(<a
+href="http://www.pandorabox.com.cn/pandorabox-16-10-stable/targets/ralink/mt7620/PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin">下载链接</a>)，发现VLAN划分的界面变得比以前清晰多了，如下图所示：</p>
+<figure>
+<img src="/images/Y1s-lan-wan/pic1.png" alt="原始配置" />
+<figcaption aria-hidden="true">原始配置</figcaption>
+</figure>
+<p>这下LAN1-LAN4和WAN口与路由器实际端口是对应的了，路由器的LAN1和LAN2是千兆的，因此在这里我把LAN1改为WAN口，而原来的WAN口改为LAN口，只需点几下鼠标即可：</p>
+<figure>
+<img src="/images/Y1s-lan-wan/pic2.png" alt="修改后配置" />
+<figcaption aria-hidden="true">修改后配置</figcaption>
+</figure>
+<p>试一下可以正常联网，大功告成！</p>
+<p><strong>注意</strong></p>
+<p>一定要把第一行设为WAN口，第二行设为LAN口，否则要去接口那里更改LAN和WAN对应的VLAN
+ID。</p>
+<p>另外，我发现luci界面这里的VLAN ID跟配置文件的VLAN
+ID号是不对应的。。luci界面里的VLAN ID 1在配置文件中实际是VLAN ID
+2，这里一定需要注意。</p>
+<p><code>/etc/config/network</code>配置文件中的端口编号与实际端口的对应关系如下</p>
+<table>
+<thead>
+<tr class="header">
+<th>端口编号</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>对应端口</td>
+<td>WAN</td>
+<td>LAN4</td>
+<td>LAN3</td>
+<td>LAN2</td>
+<td>LAN1</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>LAN</tag>
+        <tag>WAN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在服务器上部署Shadowsocks</title>
+    <url>/2017/05/deploy-shadowsocks/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Github学生优惠包里面有一个DigitalOcean的50美元代金券，绑定信用卡充值5美元就可以用了，性价比还是非常高的。事实上我自己已经用了快一年了，一直没有总结过这个搭建步骤，今天姑且写下来吧，还是蛮简单的其实。。。</p>
+<span id="more"></span>
+<p>系统推荐Debian8，以下命令都在终端内执行即可,请先切换至root用户<code>sudo -i</code>。</p>
+<ol type="1">
+<li><p>安装依赖项</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install git build-essential</span><br></pre></td></tr></table></figure></li>
+<li><p>下载Shadowsocks源码并配置好</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b manyuser https://github.com/shadowsocksr/shadowsocksr.git</span><br><span class="line"><span class="built_in">cd</span> shadowsocksr</span><br><span class="line">bash initcfg.sh</span><br><span class="line">vi user-config.json</span><br></pre></td></tr></table></figure>
+<p>主要修改以下几项配置:
+server_port、password、method、protocol，配置具体意义参考<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://github.com/breakwa11/shadowsocks-rss/wiki/config.json
+">[1]</span></a></sup></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;server_port&quot;: 443</span><br><span class="line">&quot;method&quot;: &quot;chacha20&quot;</span><br><span class="line">&quot;protocol&quot;: &quot;origin&quot;</span><br><span class="line">&quot;obfs&quot;: &quot;tls1.2_ticket_auth_compatible&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>配置脚本,<code>vi /etc/init.d/shadowsocks &amp;&amp; chmod +x /etc/init.d/shadowsocks</code>，把以下内容复制进去：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"># chkconfig: 2345 90 10</span><br><span class="line"># description: Start or stop the Shadowsocks R server</span><br><span class="line">#</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides: Shadowsocks-R</span><br><span class="line"># Required-Start: $network $syslog</span><br><span class="line"># Required-Stop: $network</span><br><span class="line"># Default-Start: 2 3 4 5</span><br><span class="line"># Default-Stop: 0 1 6</span><br><span class="line"># Description: Start or stop the Shadowsocks R server</span><br><span class="line">### END INIT INFO</span><br><span class="line"></span><br><span class="line"># Author: Yvonne Lu(Min) &lt;min@utbhost.com&gt;</span><br><span class="line"></span><br><span class="line">name=shadowsocks</span><br><span class="line">PY=/usr/bin/python</span><br><span class="line">SS=/root/shadowsocksr/shadowsocks/server.py</span><br><span class="line">SSPY=server.py</span><br><span class="line">conf=/root/shadowsocksr/user-config.json</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">    $PY $SS -c $conf -d start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">        echo &quot;$name start success&quot;</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name start failed&quot;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ ! -z &quot;$pid&quot; ]; then</span><br><span class="line">        $PY $SS -c $conf -d stop</span><br><span class="line">        RETVAL=$?</span><br><span class="line">        if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">            echo &quot;$name stop success&quot;</span><br><span class="line">        else</span><br><span class="line">            echo &quot;$name stop failed&quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">status()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ -z &quot;$pid&quot; ]; then</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is running with PID $pid&quot;</span><br><span class="line">        RETVAL=0</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">&#x27;start&#x27;)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">&#x27;stop&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">&#x27;status&#x27;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">&#x27;restart&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    echo &quot;Usage: $0 &#123; start | stop | restart | status &#125;&quot;</span><br><span class="line">    RETVAL=1</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">exit $RETVAL</span><br></pre></td></tr></table></figure></p></li>
+<li><p>编译libsodium</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget https://github.com/jedisct1/libsodium/releases/download/1.0.12/libsodium-1.0.12.tar.gz</span><br><span class="line">tar xf libsodium-1.0.12.tar.gz &amp;&amp; <span class="built_in">cd</span> libsodium-1.0.12</span><br><span class="line">./configure &amp;&amp; make -j2 &amp;&amp; make install</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure></p></li>
+<li><p>启动shadowsocks服务</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks start</span><br></pre></td></tr></table></figure></p></li>
+<li><p>(推荐)配置BBR加速，具体参考<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://teddysun.com/489.html
+">[2]</span></a></sup></p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br><span class="line"><span class="built_in">chmod</span> +x bbr.sh</span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<div id="footnotes">
+<hr>
+<div id="footnotelist">
+<ol style="list-style: none; padding-left: 0; margin-left: 40px">
+<li id="fn:1">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/breakwa11/shadowsocks-rss/wiki/config.json<a href="#fnref:1" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:2">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://teddysun.com/489.html<a href="#fnref:2" rev="footnote">
+↩︎</a></span>
+</li>
+</ol>
+</div>
+</div>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>shadowsocks</tag>
       </tags>
   </entry>
   <entry>
@@ -760,62 +773,6 @@ front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将
       </tags>
   </entry>
   <entry>
-    <title>在服务器上部署Shadowsocks</title>
-    <url>/2017/05/deploy-shadowsocks/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Github学生优惠包里面有一个DigitalOcean的50美元代金券，绑定信用卡充值5美元就可以用了，性价比还是非常高的。事实上我自己已经用了快一年了，一直没有总结过这个搭建步骤，今天姑且写下来吧，还是蛮简单的其实。。。</p>
-<span id="more"></span>
-<p>系统推荐Debian8，以下命令都在终端内执行即可,请先切换至root用户<code>sudo -i</code>。</p>
-<ol type="1">
-<li><p>安装依赖项</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install git build-essential</span><br></pre></td></tr></table></figure></li>
-<li><p>下载Shadowsocks源码并配置好</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b manyuser https://github.com/shadowsocksr/shadowsocksr.git</span><br><span class="line"><span class="built_in">cd</span> shadowsocksr</span><br><span class="line">bash initcfg.sh</span><br><span class="line">vi user-config.json</span><br></pre></td></tr></table></figure>
-<p>主要修改以下几项配置:
-server_port、password、method、protocol，配置具体意义参考<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="https://github.com/breakwa11/shadowsocks-rss/wiki/config.json
-">[1]</span></a></sup></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;server_port&quot;: 443</span><br><span class="line">&quot;method&quot;: &quot;chacha20&quot;</span><br><span class="line">&quot;protocol&quot;: &quot;origin&quot;</span><br><span class="line">&quot;obfs&quot;: &quot;tls1.2_ticket_auth_compatible&quot;</span><br></pre></td></tr></table></figure></li>
-<li><p>配置脚本,<code>vi /etc/init.d/shadowsocks &amp;&amp; chmod +x /etc/init.d/shadowsocks</code>，把以下内容复制进去：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"># chkconfig: 2345 90 10</span><br><span class="line"># description: Start or stop the Shadowsocks R server</span><br><span class="line">#</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides: Shadowsocks-R</span><br><span class="line"># Required-Start: $network $syslog</span><br><span class="line"># Required-Stop: $network</span><br><span class="line"># Default-Start: 2 3 4 5</span><br><span class="line"># Default-Stop: 0 1 6</span><br><span class="line"># Description: Start or stop the Shadowsocks R server</span><br><span class="line">### END INIT INFO</span><br><span class="line"></span><br><span class="line"># Author: Yvonne Lu(Min) &lt;min@utbhost.com&gt;</span><br><span class="line"></span><br><span class="line">name=shadowsocks</span><br><span class="line">PY=/usr/bin/python</span><br><span class="line">SS=/root/shadowsocksr/shadowsocks/server.py</span><br><span class="line">SSPY=server.py</span><br><span class="line">conf=/root/shadowsocksr/user-config.json</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">    $PY $SS -c $conf -d start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">        echo &quot;$name start success&quot;</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name start failed&quot;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ ! -z &quot;$pid&quot; ]; then</span><br><span class="line">        $PY $SS -c $conf -d stop</span><br><span class="line">        RETVAL=$?</span><br><span class="line">        if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">            echo &quot;$name stop success&quot;</span><br><span class="line">        else</span><br><span class="line">            echo &quot;$name stop failed&quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">status()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ -z &quot;$pid&quot; ]; then</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is running with PID $pid&quot;</span><br><span class="line">        RETVAL=0</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">&#x27;start&#x27;)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">&#x27;stop&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">&#x27;status&#x27;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">&#x27;restart&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    echo &quot;Usage: $0 &#123; start | stop | restart | status &#125;&quot;</span><br><span class="line">    RETVAL=1</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">exit $RETVAL</span><br></pre></td></tr></table></figure></p></li>
-<li><p>编译libsodium</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget https://github.com/jedisct1/libsodium/releases/download/1.0.12/libsodium-1.0.12.tar.gz</span><br><span class="line">tar xf libsodium-1.0.12.tar.gz &amp;&amp; <span class="built_in">cd</span> libsodium-1.0.12</span><br><span class="line">./configure &amp;&amp; make -j2 &amp;&amp; make install</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure></p></li>
-<li><p>启动shadowsocks服务</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks start</span><br></pre></td></tr></table></figure></p></li>
-<li><p>(推荐)配置BBR加速，具体参考<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="https://teddysun.com/489.html
-">[2]</span></a></sup></p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br><span class="line"><span class="built_in">chmod</span> +x bbr.sh</span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p></li>
-</ol>
-<div id="footnotes">
-<hr>
-<div id="footnotelist">
-<ol style="list-style: none; padding-left: 0; margin-left: 40px">
-<li id="fn:1">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/breakwa11/shadowsocks-rss/wiki/config.json<a href="#fnref:1" rev="footnote">
-↩︎</a></span>
-</li>
-<li id="fn:2">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">https://teddysun.com/489.html<a href="#fnref:2" rev="footnote">
-↩︎</a></span>
-</li>
-</ol>
-</div>
-</div>
-]]></content>
-      <categories>
-        <category>WEB</category>
-      </categories>
-      <tags>
-        <tag>shadowsocks</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Github Pages双线部署至又拍云存储和Vercel</title>
     <url>/2020/09/deploy-github-pages-to-upyun-vercel/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>其实几个月以前我就将整站迁往了又拍云存储，最近趁着更新了hexo版本，兴致正浓，进一步对速度进行了优化，将博客进行了双线部署，国内部署至又拍云，国外使用Vercel提供的服务，现在速度应该是更完美了。</p>
@@ -902,6 +859,49 @@ href="http://tool.chinaz.com/speedworld/tang.su">网站国际速度测试</a>时
         <tag>又拍云</tag>
         <tag>vercel</tag>
         <tag>cdn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux下安装TensorFlow</title>
+    <url>/2016/05/install-tensorflow/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>TensorFlow是Google推出的一个数值计算库，下面详述一下我个人推荐的安装方法。
+<span id="more"></span> ## 安装Anaconda</p>
+<p>Anaconda是一个python的发行版本，集成了数百个科学计算库，使用十分方便；同时包含了conda包管理器，不仅可以用于安装其他库，也可以用于创建虚拟环境，后续你就能体会到它的方便之处了。</p>
+<p>可以去<a
+href="https://www.continuum.io/downloads">Anaconda</a>这里下载完整的安装包(包含了数百个库)，或者安装<a
+href="http://conda.pydata.org/miniconda.html">Miniconda</a>(含conda包管理器，但没有第三方库)之后使用<code>conda install xxx</code>安装自己所需的其他库，推荐下载64-bit的版本，选择python2.7还是python3.5则根据个人喜好选择，最后下载之后的安装包名称应该是以<code>.sh</code>结尾的文件，放置在Linux用户主目录中。</p>
+<p>使用下列命令安装(建议使用4.2.0版本，4.3.0里包含的是Python3.6，用起来暂时不太方便)：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bash Anaconda3-4.2.0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure></p>
+<p><code>Anaconda3-4.2.0-Linux-x86_64.sh</code>替换为你实际下载的安装包名称，一路回车即安装好了，默认是安装在主目录下的。在安装过程中，有一个选项问你是否将anaconda目录添加至<code>.bashrc</code>中，这个时候推荐输入yes，这样在终端内启动python时会默认启动Anaconda中的python，而不是系统自带的python，使用起来方便很多。</p>
+<h2 id="创建虚拟环境">创建虚拟环境</h2>
+<p>Anaconda安装好之后，使用下列命令创建一个python2.7或者python3.5的虚拟环境:
+<code>conda create -n py2 python=2.7</code>或<code>conda create -n py3 python=3.5</code>。
+命令中的<code>py2</code>和<code>py3</code>只是一个名字，可以任意取。</p>
+<h2 id="激活虚拟环境">激活虚拟环境</h2>
+<p>使用<code>source activate py3</code>命令激活虚拟环境（自行替换<code>py3</code>为你自己的命名），这时候在终端中可以看到提示符最前面有一个<code>(py3)</code>。</p>
+<h2 id="安装tensorflow">安装TensorFlow</h2>
+<p>TensorFlow已经被上传至pypi了，现在安装非常方便了...
+如果安装CPU版本，使用 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow</span><br></pre></td></tr></table></figure> 如果安装GPU版本，使用
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow-gpu</span><br></pre></td></tr></table></figure></p>
+<p>如果下载速度过慢，可以使用<a
+href="https://lug.ustc.edu.cn/wiki/mirrors/help/pypi">科大pypi镜像</a>或者<a
+href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华pypi镜像</a>加速。</p>
+<p><strong>注意：</strong>安装好之后，在保证命令符前有<code>(py3)</code>的情况下，进行python并输入<code>import tensorflow</code>，如果没有报错说明安装成功。</p>
+<h2 id="从源码编译">从源码编译</h2>
+<p>官网提供的安装包为了保持最大的兼容性，<strong>去掉了优化编译选项</strong>，不能达到最快的速度，因此最好是自己从源码编译...这个有空再写吧...</p>
+<h2 id="安装其他附加包">安装其他附加包</h2>
+<p>需要安装其他附加库到我们的py3虚拟环境中时，同样使用<code>source acitvate py3</code>先激活虚拟环境，然后使用<code>conda install xx</code>安装包，xx代表包名。
+我个人一般会安装这些包：
+<code>conda install numpy scipy matplotlib scikit-learn scikit-image pillow spyder jupyter notebook</code></p>
+<h2 id="更新记录">更新记录</h2>
+<p>2017/3/15 TensorFlow早已经被上传至pypi了，因此删掉大量篇幅...</p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>Anaconda</tag>
+        <tag>TensorFlow</tag>
       </tags>
   </entry>
 </search>
