@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Linux下安装TensorFlow</title>
+    <url>/2016/05/install-tensorflow/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>TensorFlow是Google推出的一个数值计算库，下面详述一下我个人推荐的安装方法。
+<span id="more"></span> ## 安装Anaconda</p>
+<p>Anaconda是一个python的发行版本，集成了数百个科学计算库，使用十分方便；同时包含了conda包管理器，不仅可以用于安装其他库，也可以用于创建虚拟环境，后续你就能体会到它的方便之处了。</p>
+<p>可以去<a
+href="https://www.continuum.io/downloads">Anaconda</a>这里下载完整的安装包(包含了数百个库)，或者安装<a
+href="http://conda.pydata.org/miniconda.html">Miniconda</a>(含conda包管理器，但没有第三方库)之后使用<code>conda install xxx</code>安装自己所需的其他库，推荐下载64-bit的版本，选择python2.7还是python3.5则根据个人喜好选择，最后下载之后的安装包名称应该是以<code>.sh</code>结尾的文件，放置在Linux用户主目录中。</p>
+<p>使用下列命令安装(建议使用4.2.0版本，4.3.0里包含的是Python3.6，用起来暂时不太方便)：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bash Anaconda3-4.2.0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure></p>
+<p><code>Anaconda3-4.2.0-Linux-x86_64.sh</code>替换为你实际下载的安装包名称，一路回车即安装好了，默认是安装在主目录下的。在安装过程中，有一个选项问你是否将anaconda目录添加至<code>.bashrc</code>中，这个时候推荐输入yes，这样在终端内启动python时会默认启动Anaconda中的python，而不是系统自带的python，使用起来方便很多。</p>
+<h2 id="创建虚拟环境">创建虚拟环境</h2>
+<p>Anaconda安装好之后，使用下列命令创建一个python2.7或者python3.5的虚拟环境:
+<code>conda create -n py2 python=2.7</code>或<code>conda create -n py3 python=3.5</code>。
+命令中的<code>py2</code>和<code>py3</code>只是一个名字，可以任意取。</p>
+<h2 id="激活虚拟环境">激活虚拟环境</h2>
+<p>使用<code>source activate py3</code>命令激活虚拟环境（自行替换<code>py3</code>为你自己的命名），这时候在终端中可以看到提示符最前面有一个<code>(py3)</code>。</p>
+<h2 id="安装tensorflow">安装TensorFlow</h2>
+<p>TensorFlow已经被上传至pypi了，现在安装非常方便了...
+如果安装CPU版本，使用 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow</span><br></pre></td></tr></table></figure> 如果安装GPU版本，使用
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow-gpu</span><br></pre></td></tr></table></figure></p>
+<p>如果下载速度过慢，可以使用<a
+href="https://lug.ustc.edu.cn/wiki/mirrors/help/pypi">科大pypi镜像</a>或者<a
+href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华pypi镜像</a>加速。</p>
+<p><strong>注意：</strong>安装好之后，在保证命令符前有<code>(py3)</code>的情况下，进行python并输入<code>import tensorflow</code>，如果没有报错说明安装成功。</p>
+<h2 id="从源码编译">从源码编译</h2>
+<p>官网提供的安装包为了保持最大的兼容性，<strong>去掉了优化编译选项</strong>，不能达到最快的速度，因此最好是自己从源码编译...这个有空再写吧...</p>
+<h2 id="安装其他附加包">安装其他附加包</h2>
+<p>需要安装其他附加库到我们的py3虚拟环境中时，同样使用<code>source acitvate py3</code>先激活虚拟环境，然后使用<code>conda install xx</code>安装包，xx代表包名。
+我个人一般会安装这些包：
+<code>conda install numpy scipy matplotlib scikit-learn scikit-image pillow spyder jupyter notebook</code></p>
+<h2 id="更新记录">更新记录</h2>
+<p>2017/3/15 TensorFlow早已经被上传至pypi了，因此删掉大量篇幅...</p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+        <tag>Anaconda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows下编译OpenCV-Python3</title>
+    <url>/2016/06/compile-opencv-python3/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OpenCV3已经开始支持python3版本了，但是需要自己编译，以下简要记录一下编译的流程。
+<span id="more"></span></p>
+<p>2016/11/20更新：其实最简单的办法是安装anaconda，然后在cmd里用<code>conda install -c menpo opencv3=3.1.0</code>安装即可。</p>
+<h2 id="安装预备软件">安装预备软件</h2>
+<p>首先安装以下软件： - <a href="https://git-scm.com/downloads">git</a>
+- <a href="https://cmake.org/download/">CMake</a> - VS 2013</p>
+<h2 id="下载源码">下载源码</h2>
+<p>在你想保存源码的位置，单击鼠标右键，点击“Git Bash
+Here”，键入以下命令：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:Itseez/opencv.git</span><br></pre></td></tr></table></figure>
+<p>新建一个build文件夹，用于存放编译后的文件。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> opencv</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br></pre></td></tr></table></figure>
+<h2 id="配置cmake">配置CMake</h2>
+<p>运行CMake，在最上面两栏内填上源码和build文件夹的位置，勾上<code>Grouped</code>，</p>
+<p><img src="/images/compile-opencv-python3/cmake1.png" /></p>
+<p>点击<code>Configure</code>，选择已安装的编译器，然后点击<code>Finish</code></p>
+<p><img src="/images/compile-opencv-python3/cmake2.png" /></p>
+<p>根据自己情况选择或者取消勾选某些选项(注意<strong>不要勾选</strong><code>BUILD_opencv_world</code>，我测试发现勾选这个之后不会编译python的相关文件，另外不需要cuda的话可以在<code>WITH</code>里面把<code>WITH_CUDA</code>和<code>WITH_CUFFT</code>勾去掉)，对于我们编译OpenCV-Python3而言，比较重要的是以下两个部分：
+- BUILD 只编译python3就取消勾选掉python2的勾 <img
+src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
+一般来说这里的几个选项CMake是可以自动检测到的，如果没有自动检测到，则自己手动填入吧，填写方式参考下图，一定不能漏。
+<img src="/images/compile-opencv-python3/cmake5.png" /></p>
+<p>搞定之后点击"Generate"，直到看到"Generate done"。</p>
+<h2 id="编译">编译</h2>
+<p>在BUILD文件夹下找到一个名为<code>OpenCV.sln</code>的文件，双击，会进入VS。
+在左侧找到<code>ALL_BUILD</code>，右键单击并选择<code>生成</code>，后续耐心等待编译完成即可。</p>
+<h2 id="配置环境变量">配置环境变量</h2>
+<p>编译完成之后，在BUILD，把它复制到python安装目录下的<code>Lib\site-packages</code>目录下，随后将BUILD文件夹下的<code>bin\Release</code>的<strong>完整路径</strong>添加到系统环境变量中。
+这时候启动python，运行<code>import cv2</code>命令，如果没有错误，则说明安装成功了。</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>opencv</tag>
+        <tag>python3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>添加任意数据至TensorBoard</title>
+    <url>/2017/01/manually-create-summary/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>通常情况下，我们在训练网络时添加summary都是通过如下方式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.scalar_summary(tags, values)</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">summary_op = tf.summary.merge_all()</span><br><span class="line">summary_writer = tf.summary.FileWriter(logdir, graph=sess.graph)</span><br><span class="line">summary_str = sess.run(summary_op)</span><br><span class="line">summary_writer.add_summary(summary_str, global_step)</span><br></pre></td></tr></table></figure>
+<p>当我们自己想添加其他数据到TensorBoard的时候（例如验证时的loss等），这种方式显得太过繁琐，其实我们可以通过如下方式添加自定义数据到TensorBoard内显示。</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(logdir)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
+<p>或者:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(LOGDIR)</span><br><span class="line">summary = tf.Summary()</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>)</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>，这里的step只能是整数，如果是小数的话会自动转为整数类型。</p>
+<p>下面给出一段完整的示例代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">summary_writer = tf.summary.FileWriter(<span class="string">&#x27;/tmp/test&#x27;</span>)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">1</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">3</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">summary_writer.close()</span><br></pre></td></tr></table></figure>
+<p>显示效果如下所示：<img
+src="/images/manually-create-summary/sample.png" alt="sample" /></p>
+<h2 id="参考资料">参考资料:</h2>
+<p><a href="">[How to manually create a
+tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create-a-tf-summary)</a></p>
+<h2 id="更新记录">更新记录</h2>
+<p>2017/3/15 更新标题，修改代码兼容TensorFlow1.0版本...</p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+        <tag>TensorBoard</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu14.04+cuda8.0+Anaconda3下编译caffe</title>
+    <url>/2016/11/compile-anaconda3-caffe/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>踩了很多坑，终于在Ubuntu14.04+cuda8.0+Anaconda3环境下成功编译Caffe。</p>
+<span id="more"></span>
+<ol type="1">
+<li><p>安装纯净的Ubuntu14.04，安装显卡驱动、cuda以及cudnn并配置好系统环境变量，这里不进行详述。</p></li>
+<li><p>使用<code>bash Anaconda3-4.2.0-Linux-x86_64.sh</code>命令安装Anaconda3，这里假定安装目录为<code>/home/xx/anaconda3</code>，安装结束的时候会问是否将Anaconda3目录加入环境变量，选择<strong>是</strong>。</p></li>
+<li><p>打开终端，安装依赖库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo apt-get install libboost1.55-all-dev libleveldb-dev libsnappy-dev liblmdb-dev libhdf5-serial-dev libgoogle-glog-dev libgflags-dev</span></span><br></pre></td></tr></table></figure>
+<p>注意，安装<strong><code>libboost1.55-all-dev</code></strong>，Ubuntu14.04默认安装的是1.54版本；另外<strong>不要</strong>用<code>apt-get</code>安装<code>libprotobuf-dev</code>，因为apt-get安装的是2.x版本，不支持python3；这里也<strong>不安装</strong><code>libopencv-dev</code>，同样是因为apt-get安装的版本没有附带TIFF支持，后期编译会报错。</p>
+<p>之后，添加符号链接</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.55.0 /usr/lib/x86_64-linux-gnu/libboost_python3.so</span><br></pre></td></tr></table></figure></li>
+<li><p>编译并安装Protobuf3</p>
+<p>进入任意目录，然后依次执行以下命令即可，完成之后系统及python都会完成protobuf3.0.0的安装。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> protobuf &amp;&amp; <span class="built_in">cd</span> protobuf</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> cpp &amp;&amp; <span class="built_in">cd</span> cpp</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://github.com/google/protobuf/releases/download/v3.0.0/protobuf-cpp-3.0.0.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xvf protobuf-cpp-3.0.0.tar.gz &amp;&amp; <span class="built_in">cd</span> protobuf-3.0.0</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./configure &amp;&amp; make</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make check</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo ldconfig</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> ../..</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> python &amp;&amp; <span class="built_in">cd</span> python</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://github.com/google/protobuf/releases/download/v3.0.0/protobuf-python-3.0.0.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xvf protobuf-python-3.0.0.tar.gz &amp;&amp; <span class="built_in">cd</span> protobuf-3.0.0/python/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py <span class="built_in">test</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py install</span></span><br></pre></td></tr></table></figure></li>
+<li><p>编译并安装openCV3</p>
+<p>同样进入任意目录，在终端内依次执行以下命令即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/opencv/opencv.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> opencv</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D BUILD_TIFF=ON -D BUILD_EXAMPLES=ON  -D WITH_OPENGL=ON -D WITH_EIGEN=ON -D WITH_CUDA=ON -D WITH_CUBLAS=ON ..</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install</span></span><br></pre></td></tr></table></figure></li>
+<li><p>编译caffe</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git clone https://github.com/BVLC/caffe.git</span><br><span class="line">$ cd caffe</span><br><span class="line">$ cp Makefile.config.example Makefile.config</span><br></pre></td></tr></table></figure>
+<p>然后更改Makefile.config文件内容，改变地方主要有以下几点：</p>
+<ol type="1">
+<li><p>去掉<code>USE_CUDNN := 1</code>前面#</p></li>
+<li><p>去掉<code>OPENCV_VERSION := 3</code>前面#</p></li>
+<li><p>用#注释掉原始的python目录，改为以下内容（假定anaconda3安装在<code>/home/xx/anaconda3</code>下面）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ANACONDA_HOME := $(HOME)/anaconda3</span><br><span class="line">PYTHON_LIBRARIES := boost_python3 python3.5m</span><br><span class="line">PYTHON_INCLUDE := $(ANACONDA_HOME)/include \</span><br><span class="line">                  $(ANACONDA_HOME)/include/python3.5m \</span><br><span class="line">                  $(ANACONDA_HOME)/lib/python3.5/site-packages/numpy/core/include \</span><br></pre></td></tr></table></figure></li>
+<li><p>将<code>PYTHON_LIB</code>改为<code>PYTHON_LIB := $(ANACONDA_HOME)/lib</code></p></li>
+<li><p>去掉<code>WITH_PYTHON_LAYER := 1</code>前面#</p></li>
+<li><p>随后开始编译</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make all -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make runtest -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make <span class="built_in">test</span> -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make pycaffe</span></span><br></pre></td></tr></table></figure></li>
+</ol></li>
+<li><p>在Anaconda3内安装其他依赖库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">conda install scikit-image hdf5 h5py</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">conda install -c menpo opencv3=3.1.0</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将caffe目录下的python目录添加至环境变量，在~/.bashrc下添加一行，注意更改为你的实际目录。</p>
+<p><code>export PYTHONPATH="/home/xx/caffe/python:$PYTHONPATH"</code></p></li>
+<li><p>在终端内启动python，输入<code>import caffe</code>命令进行测试，如果没有报错说明已经编译安装成功了。</p>
+<p>enjoy!</p></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>Anaconda</tag>
+        <tag>Caffe</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AgeNet: Deeply Learned Regressor and Classifier for Robust Apparent Age Estimation 论文笔记</title>
+    <url>/2017/03/paper-notes-AgeNet/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>摘要：这篇论文要解决的问题是<strong>表观年龄估计</strong>，即从给定人脸的图片估计该人的<strong>外表年龄</strong>，而非<strong>真实年龄</strong>（某个人可能实际50岁，但是在标注者眼中看起来像35岁），面临的最大问题是<strong>表观年龄数据样本少</strong>。</p>
+<span id="more"></span>
+<h2 id="创新点">创新点</h2>
+<p>本文有两点创新：</p>
+<ol type="1">
+<li><p>融合了两种模型，基于<strong>实数值的回归模型</strong>以及基于<strong>高斯标签分布(Gaussian
+label
+distribution)的分类模型</strong>，两种模型都使用深度卷积神经网络来提取有表达力的年龄信息。</p></li>
+<li><p>为了避免网络在很小的表观年龄数据集上过拟合，采用了一种从<strong>通用到特定(general-to-specific)</strong>训练方式；首先使用大规模的从互联网收集人脸图像进行分类预训练，随后使用大规模的<strong>带有噪声的真实年龄</strong>数据集进行微调，最后才在很小的<strong>表观年龄训练数据集上</strong>进行微调。</p></li>
+</ol>
+<h2 id="基础概念">基础概念</h2>
+<p>首先需要详细定义一下<strong>表观年龄</strong>，表观年龄是在仅给出每个个体的照片的情况下由不同的志愿者标注出的年龄。与真实年龄相比，标注的表观年龄是<strong>可变的</strong>，但是不同标注者标注出的年龄<strong>均值通常是高度稳定的</strong>。本文采用的数据集是由ICCV2015
+Looking at People
+Challenge提供的表观年龄数据集，总共包含了4699张图像，每一张图像带有一个均值标注以及标注的标准差。</p>
+<figure>
+<img
+src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6y5giv35aj30fe09dgsk.jpg"
+alt="1490944367700" />
+<figcaption aria-hidden="true">1490944367700</figcaption>
+</figure>
+<p>然后介绍一下常见的<strong>对年龄进行编码的方式</strong>：</p>
+<ol type="1">
+<li><p>1-dimension real-value encoding</p>
+<p>用一个实数值代表一个人的年龄，可以用回归模型进行建模。</p></li>
+<li><p>0/1 encoding</p>
+<p>把不同的年龄当做不同的类，即[0,0,0…,1,0,0]，把年龄估计看做分类问题。</p></li>
+<li><p>Label distribution encoding</p>
+<p>该方法的基本思想是使用每个label中的description
+degree来表达每一个label实例。本文具体用的是高斯标签分布，具体表述如下：对于一张给定的图片I，如果它的年龄是y，那么使用一个多维向量来表达这个年龄label，这个多维向量的第j维是：</p></li>
+</ol>
+ $$l_j=exp(\frac{-(j-y)^2}{2*\sigma^2})/\sigma,j=1,...,M$$ 
+<p>j代表第j维(1,2,3….85)，y是给出的年龄label，<span
+class="math inline">\(\sigma\)</span>是label的标准差(因为label是由多个志愿者给出的，因此会有一个标准差)，M是特征向量的最大维度(同时也是训练时可能遇到的最大年龄)。下图是一个示例：</p>
+<figure>
+<img src="/images/paper-notes/AgeNet/pic2.png" alt="1490944716525" />
+<figcaption aria-hidden="true">1490944716525</figcaption>
+</figure>
+<h2 id="网络总体框架">网络总体框架</h2>
+<figure>
+<img src="/images/paper-notes/AgeNet/pic3.png" alt="1490948907694" />
+<figcaption aria-hidden="true">1490948907694</figcaption>
+</figure>
+<p>本文方法的基本思想是将年龄估计器同时建模为一个分类和回归问题，最后将两个模型进行互补性地融合来获取更好的性能。</p>
+<p>本文的网络在GoogLeNet上进行了两处修改，首先移除了两个辅助损失层，然后在每一个ReLU前增加了BN，并且移除掉了所有的dropout来加速收敛。</p>
+<p>在deep age
+regressor中，使用<strong>欧式距离</strong>来度量两个一维实值编码年龄的距离。为了避免网络中尺度不平衡的问题，在欧式距离loss前加入了sigmoid。</p>
+<p>在deep age
+classifier中，年龄被编码为85维的高斯向量，使用交叉熵进行训练。</p>
+<h3 id="deeply-learned-age-regressor">Deeply Learned Age Regressor</h3>
+<p>建模为端到端的回归问题，将表观年龄除以100，然后将网络输出的标签增加一个sigmoid层归一化到[0,1]之间。随后计算欧式loss：
+ $$ E(W)=\frac1{2N}\sum_{i=1}^N||\hat y_n-y_n||_2^2 $$ </p>
+<p>最后的年龄估计为：</p>
+ $$ R=f(\hat y_n*100+0.5) $$ 
+<h3 id="deeply-learned-age-classifier">Deeply Learned Age
+Classifier</h3>
+<p>最简单的方式是使用0/1编码结合softmax
+loss，但是这种策略在编码距离时平等地对待了所有的年龄，没有考虑到邻近年龄估计的关系。（比如label是35岁，在网络输出35岁概率0.1、38岁的概率0.9与网络输出35岁概率0.1、80岁的概率是0.9两种情况下，产生的loss是相同的）。</p>
+<p>因此在这里本文使用了前文介绍的label
+distribution方法编码，使用sigmoid交叉熵进行分类:</p>
+ $$E(W)=\frac{-1} N \sum_{i=1}^N \sum_{n=1}^L[p_{in}log\hat p_{in}-(1-p_{in})log(1-\hat p_{in})]$$ 
+<p>网络在预测时，使用输出置信度最大的那一维代表的年龄作为估计值。</p>
+<h2 id="从通用到特定的训练方法">从通用到特定的训练方法</h2>
+<p>即前文已经介绍的pre-train with face identities, fine-tune with real
+age, fine-tune with apparent age.三个阶段的训练。</p>
+<figure>
+<img src="/images/paper-notes/AgeNet/pic4.png" alt="1490948929615" />
+<figcaption aria-hidden="true">1490948929615</figcaption>
+</figure>
+<p>此外进行了一些人脸检测、人脸特征点定位以及人脸归一化的预处理。</p>
+<p>最终模型的输出融合了8个网络的结果，使用不同的裁剪大小来训练分类以及回归器，在训练阶段只使用图像中央部位的patch输入到网络。</p>
+<figure>
+<img src="/images/paper-notes/AgeNet/pic5.png" alt="1490948942174" />
+<figcaption aria-hidden="true">1490948942174</figcaption>
+</figure>
+<p>此外，作者对比了不同迁移学习方法的性能，得出了以下一些结论：</p>
+<figure>
+<img src="/images/paper-notes/AgeNet/pic6.png" alt="1490948953990" />
+<figcaption aria-hidden="true">1490948953990</figcaption>
+</figure>
+<ol type="1">
+<li><p>不预训练直接随机初始化训练网络时效果不好，因为网络在小的训练集上面过拟合。</p></li>
+<li><p>预训练人脸多分类网络比在真实年龄数据集上预训练效果更好，意味着从与相似的任务上使用大规模数据集训练可以提升网络的泛化性。</p></li>
+<li><p>尽管互联网搜集的人脸真实年龄标签有很多噪声，但是还是可以帮助提升表观年龄估计的性能，证明了这个从通用到特殊的迁移学习方法的鲁棒性。</p></li>
+</ol>
+]]></content>
+      <categories>
+        <category>论文笔记</category>
+      </categories>
+      <tags>
+        <tag>AgeNet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Anaconda下安装Scrapy</title>
+    <url>/2017/03/install-scrapy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
+<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
+<span id="more"></span>
+<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
+<p>注意在安装过程中勾选如下图所示的选项：</p>
+<figure>
+<img src="/images/install-scrapy/copy_to_system_path.png"
+alt="copy-to-system-path" />
+<figcaption aria-hidden="true">copy-to-system-path</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>爬虫</category>
+      </categories>
+      <tags>
+        <tag>Anaconda</tag>
+        <tag>Scrapy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>指针数组与数组指针</title>
+    <url>/2017/03/pointers-to-arrays/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天刚好复习了C++
+Primer中关于数组指针的内容，理清了数组指针的几个问题。</p>
+<span id="more"></span>
+<h2 id="指针数组与数组指针定义">指针数组与数组指针定义</h2>
+<p>先看指针数组与数组指针的定义吧：指针数组，主体是数组，数组内存放的元素是指针；而对于数组指针，核心是指针，指针指向的是一个数组。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 指针数组</span></span><br><span class="line"><span class="type">int</span> *ptrs[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 数组指针，指向的是一个含有10个元素的指针</span></span><br><span class="line"><span class="built_in">int</span> (*parray)[<span class="number">10</span>] = &amp;arr;</span><br></pre></td></tr></table></figure>
+<h2 id="解析数组指针">解析数组指针</h2>
+<p>指针数组其实很好理解，难点在于数组指针容易让人糊涂，先看下面这样一段程序吧。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">2</span>][<span class="number">4</span>] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span> &#125;;</span><br><span class="line">    <span class="built_in">int</span>(*Parray)[<span class="number">2</span>][<span class="number">4</span>] = &amp;arr;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;arr:       &quot;</span> &lt;&lt; arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*arr:      &quot;</span> &lt;&lt; *arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**arr:     &quot;</span> &lt;&lt; **arr &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Parray:    &quot;</span> &lt;&lt; Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*Parray:   &quot;</span> &lt;&lt; *Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**Parray:  &quot;</span> &lt;&lt; **Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;***Parray: &quot;</span> &lt;&lt; ***Parray &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序的运行结果如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">arr:       <span class="number">009</span>CFDE8</span><br><span class="line">*arr:      <span class="number">009</span>CFDE8</span><br><span class="line">**arr:     <span class="number">1</span></span><br><span class="line">Parray:    <span class="number">009</span>CFDE8</span><br><span class="line">*Parray:   <span class="number">009</span>CFDE8</span><br><span class="line">**Parray:  <span class="number">009</span>CFDE8</span><br><span class="line">***Parray: <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>很多人看到这可能直接就迷糊了，这些东西到底都是指向的啥？</p>
+<p>要理解这里的各种指针的区别，首先需要理解指针指向的<strong>基本元素</strong>是什么，即*p指向什么，*(p+1)又指向什么，理解了这一点，就能比较容易理解上面的各种指针的含义。</p>
+<p>对于数组而言，数组名代表的是指向数组内<strong>基本元素</strong>的地址，这里的<strong>基本元素</strong>指什么呢？对于一元数组(<code>int a[3]=&#123;1, 2, 3&#125;</code>)而言，基本元素代表数组内的每一个数字，即*a代表1，*(a+1)代表2。而对于二元数组<code>int arr[2][4] = &#123; 1,2,3,4,5,6,7,8 &#125;;</code>，这里的<strong>基本元素</strong>就是二元数组的<strong>一行</strong>，我们可以这样理解，这个数组相当于有2个位置（<strong>把最靠近数组名的数字看做数组的基本元素的数量</strong>），然后每个位置存放了一个容量为4的数组。因此*arr指向的是数组的第一个基本元素（即第一行），*(arr+1)指向数组的第二个基本元素（即第二行）。</p>
+<p>理解上面这一段话之后，我们就能理解上述程序中的<code>arr</code>、<code>*arr</code>和<code>**arr</code>各自代表什么了。arr代表二元数组的第一个基本元素（即第一行）的地址，*arr对第一行的地址解引用了，相当于指向了这第一行的第一个元素的地址。注意这里的<strong>区别</strong>，arr+1是会使地址往后挪一行所占用的字节，而(*arr)+1是只会往后挪一个数字所占用的字节，因为*arr指向了第一行的第一个元素，自然**arr就输出了该元素的值1。</p>
+<p>我们再来看<code>Parray</code>，因为我们把(*Parray)用括号括起来了，因此Parray首先是一个指针，然后看它后面[2][4]，说明他是一个指向大小为[2][4]的数组的指针。所以Parray代表这个<strong>数组整体</strong>的首地址，即Parray指向这个数组，Parray+1指向这个数组整体的尾元素的下一个地址。随后层层解引用，*Parray代表数组的第一行的首地址，*Parray代表数组的第一行的第一个元素的地址，***Parray代表数组的第一个元素的数值。</p>
+<p>再来看看刚才那一段代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; Parray + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; *Parray + <span class="number">2</span>  &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; **Parray + <span class="number">8</span> &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br></pre></td></tr></table></figure>
+<p>可以看到输出是一致的，因为Parray指向整个数组，因此+1会往后挪整个数组所代表的字节数；而对于*Parray，由于Parray指向的是一行，因此需要+2，对于**Parray同理。</p>
+<h2 id="总结">总结</h2>
+<p>在理解数组指针的时候，很多人看见那几个*号直接就晕了，虽然它们指向的元素的首地址是相同的，但是它们+1之后所指向的位置就完全不同了，因此理解这里的<strong>关键</strong>在于理解它们+1之后都指向了什么位置。</p>
+]]></content>
+      <categories>
+        <category>c++</category>
+      </categories>
+      <tags>
+        <tag>指针</tag>
+        <tag>数组</tag>
+        <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>将TensorFlow的网络导出为单个文件</title>
+    <url>/2017/01/export-TensorFlow-network/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>有时候，我们需要将TensorFlow的模型导出为单个文件（同时包含模型架构定义与权重），方便在其他地方使用（如在c++中部署网络）。利用<code>tf.train.write_graph()</code>默认情况下只导出了网络的定义（没有权重），而利用<code>tf.train.Saver().save()</code>导出的文件graph_def与权重是分离的，因此需要采用别的方法。</p>
+<span id="more"></span>
+<p>我们知道，graph_def文件中没有包含网络中的Variable值（通常情况存储了权重），但是却包含了constant值，所以如果我们能把Variable转换为constant，即可达到使用一个文件同时存储网络架构与权重的目标。</p>
+<p>我们可以采用以下方式冻结权重并保存网络：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造网络</span></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"><span class="comment"># 一定要给输出tensor取一个名字！！</span></span><br><span class="line">output = tf.add(a, b, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转换Variable为constant，并将网络写入到文件</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment"># 这里需要填入输出tensor的名字</span></span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>当恢复网络时，可以使用如下方式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>输出结果为:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 7.],</span><br><span class="line">       [ 8.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>可以看到之前的权重确实保存了下来!!</p>
+<p>问题来了，我们的网络需要能有一个输入自定义数据的接口啊！不然这玩意有什么用。。别急，当然有办法。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">input_tensor = tf.placeholder(tf.float32, name=<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line">output = tf.add((a+b), input_tensor, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>用上述代码重新保存网络至graph.pb，这次我们有了一个输入placeholder，下面来看看怎么恢复网络并输入自定义数据。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:<span class="number">4.</span>&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>可以看到结果没有问题，当然在<code>input_map</code>那里可以替换为新的自定义的placeholder，如下所示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">new_input = tf.placeholder(tf.float32, shape=())</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:new_input&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output, feed_dict=&#123;new_input:<span class="number">4</span>&#125;))</span><br></pre></td></tr></table></figure>
+<p>看看输出，同样没有问题。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>另外需要说明的一点是，在利用<code>tf.train.write_graph</code>写网络架构的时候，如果令<code>as_text=True</code>了，则在导入网络的时候，需要做一点小修改。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> google.protobuf <span class="keyword">import</span> text_format</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	<span class="comment"># 不使用&#x27;rb&#x27;模式</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        <span class="comment"># 不使用graph_def.ParseFromString(f.read())</span></span><br><span class="line">        text_format.Merge(f.read(), graph_def)</span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>##参考资料 <a
+href="http://stackoverflow.com/questions/34343259/is-there-an-example-on-how-to-generate-protobuf-files-holding-trained-tensorflow">Is
+there an example on how to generate protobuf files holding trained
+Tensorflow graphs</a></p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在OpenWrt上配置原生IPv6 NAT</title>
+    <url>/2017/03/openwrt-ipv6-nat/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
+<span id="more"></span>
+<h2 id="我的网络环境">我的网络环境</h2>
+<ul>
+<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
+<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
+r45918</li>
+<li><strong>内核版本</strong>：3.18.14</li>
+</ul>
+<h2 id="准备工作">准备工作</h2>
+<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
+<h2 id="详细步骤">详细步骤</h2>
+<ol type="1">
+<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
+<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
+</ol>
+<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>IPv6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>联想Y1S LAN口改WAN口</title>
+    <url>/2017/04/Y1s-lan-wan/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>为什么会有把LAN口改WAN口的想法呢？因为联想Y1S的WAN口是<strong>百兆</strong>的，但是却有两个<strong>千兆LAN</strong>口。。如果不把一个千兆LAN口改为WAN口，对外访问的最快速度也就百兆了，这在有IPv6的学校内是一个巨大的浪费。。</p>
+<span id="more"></span>
+<p>今天刚好升级了最新的PandoraBox，固件名为<code>PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin</code>(<a
+href="http://www.pandorabox.com.cn/pandorabox-16-10-stable/targets/ralink/mt7620/PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin">下载链接</a>)，发现VLAN划分的界面变得比以前清晰多了，如下图所示：</p>
+<figure>
+<img src="/images/Y1s-lan-wan/pic1.png" alt="原始配置" />
+<figcaption aria-hidden="true">原始配置</figcaption>
+</figure>
+<p>这下LAN1-LAN4和WAN口与路由器实际端口是对应的了，路由器的LAN1和LAN2是千兆的，因此在这里我把LAN1改为WAN口，而原来的WAN口改为LAN口，只需点几下鼠标即可：</p>
+<figure>
+<img src="/images/Y1s-lan-wan/pic2.png" alt="修改后配置" />
+<figcaption aria-hidden="true">修改后配置</figcaption>
+</figure>
+<p>试一下可以正常联网，大功告成！</p>
+<p><strong>注意</strong></p>
+<p>一定要把第一行设为WAN口，第二行设为LAN口，否则要去接口那里更改LAN和WAN对应的VLAN
+ID。</p>
+<p>另外，我发现luci界面这里的VLAN ID跟配置文件的VLAN
+ID号是不对应的。。luci界面里的VLAN ID 1在配置文件中实际是VLAN ID
+2，这里一定需要注意。</p>
+<p><code>/etc/config/network</code>配置文件中的端口编号与实际端口的对应关系如下</p>
+<table>
+<thead>
+<tr class="header">
+<th>端口编号</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>对应端口</td>
+<td>WAN</td>
+<td>LAN4</td>
+<td>LAN3</td>
+<td>LAN2</td>
+<td>LAN1</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>LAN</tag>
+        <tag>WAN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spatial Transformer Networks 论文笔记</title>
+    <url>/2017/04/paper-notes-spatial-transformer-network/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天重新阅读了Deepmind 2015年发表的[Spatial Transformer
+Networks]<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="[Spatial Transformer Networks](http://papers.nips.cc/paper/5854-spatial-transformer-networks)">[1]</span></a></sup>论文，结合几篇博客理解透彻了这篇论文的基本思想。</p>
+<span id="more"></span>
+<p>[Deep Learning Paper Implementations: Spatial Transformer Networks -
+Part I]<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="[Deep Learning Paper Implementations: Spatial Transformer Networks - Part I](http://kevinzakka.github.io/2017/01/10/stn-part1/) ">[2]</span></a></sup>这篇文章详细介绍了仿射变换及双线性插值的原理并提供了示例Python代码;
+[Part II]<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="[Deep Learning Paper Implementations: Spatial Transformer Networks - Part II](https://kevinzakka.github.io/2017/01/18/stn-part2/) ">[3]</span></a></sup>介绍了Spatial
+Transformer
+Networks，但不是很详细，可以结合[深度学习方法（十二）：卷积神经网络结构变化——Spatial
+Transformer
+Networks]<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="[深度学习方法（十二）：卷积神经网络结构变化——Spatial Transformer Networks](http://blog.csdn.net/xbinworld/article/details/69049680) ">[4]</span></a></sup>来阅读。</p>
+<p>STN由三个模块：Localisation net、Grid
+generator和Sampler构成，在认真看完论文以及这三篇博客之后，大家应该是很容易理解Localisation
+net的作用的，即回归仿射变换矩阵的参数。</p>
+<p>难点在于理解Grid
+generator和Sampler的部分，主要是如何将仿射变换矩阵与这里的几何变换结合理解。这里<strong>强烈推荐</strong>我近期看的<a
+href="http://www.bilibili.com/video/av6731067/">线性代数的本质</a>这一系列视频，非常形象地将矩阵所代表的线性变换的几何意义用动画解释出来了，看了之后保管你看到一个仿射变换矩阵可以立即想象出它的几何意义。</p>
+<p><img
+src="/images/paper-notes/Spatial-Transformer-Networks/spatial_transformer.png" /></p>
+<p>另外这里的这个公式其实花了我一段时间去理解，即</p>
+<figure>
+<img src="/images/paper-notes/Spatial-Transformer-Networks/pic1.png"
+alt="Grid generator" />
+<figcaption aria-hidden="true">Grid generator</figcaption>
+</figure>
+<p>为什么$x_i^s$在等式左边，而$x_i^t$却在等式右边？我们不是要得到target吗？看上去我们像在对target做变换？其实这里的$T_\theta(G_i)$代表的是对<strong>目标网格</strong>进行的变换，而不是直接对原图进行的变换。注意下面这张图，原图始终没变，变换的是网格！我们把网格进行仿射变换，然后把变换后的网格放回到原图上，用原图中对应位置的像素值去填充<strong>变换后</strong>的网格！这样能够保证变换后的输出始终是我们设定的网格的大小！也即意味着我们可以通过控制网格的大小去控制该层输出的图像的最大分辨率（同时仿射变换矩阵也会对图像有作用）。</p>
+<p><img
+src="/images/paper-notes/Spatial-Transformer-Networks/pic2.png" /></p>
+<p>总的来说，这篇论文的核心就是在于让网络自动学习一个仿射变换矩阵，以便更好地处理分类等任务。TensorFlow版的代码可以参考<a
+href="https://github.com/tensorflow/models/tree/master/transformer">TensorFlow_models</a>。</p>
+<div id="footnotes">
+<hr>
+<div id="footnotelist">
+<ol style="list-style: none; padding-left: 0; margin-left: 40px">
+<li id="fn:1">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://papers.nips.cc/paper/5854-spatial-transformer-networks">Spatial
+Transformer Networks</a><a href="#fnref:1" rev="footnote"> ↩︎</a></span>
+</li>
+<li id="fn:2">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://kevinzakka.github.io/2017/01/10/stn-part1/">Deep
+Learning Paper Implementations: Spatial Transformer Networks - Part
+I</a><a href="#fnref:2" rev="footnote"> ↩︎</a></span>
+</li>
+<li id="fn:3">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://kevinzakka.github.io/2017/01/18/stn-part2/">Deep
+Learning Paper Implementations: Spatial Transformer Networks - Part
+II</a><a href="#fnref:3" rev="footnote"> ↩︎</a></span>
+</li>
+<li id="fn:4">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://blog.csdn.net/xbinworld/article/details/69049680">深度学习方法（十二）：卷积神经网络结构变化——Spatial
+Transformer Networks</a><a href="#fnref:4" rev="footnote"> ↩︎</a></span>
+</li>
+</ol>
+</div>
+</div>
+]]></content>
+      <categories>
+        <category>论文笔记</category>
+      </categories>
+      <tags>
+        <tag>network_architecture</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在服务器上部署Shadowsocks</title>
+    <url>/2017/05/deploy-shadowsocks/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Github学生优惠包里面有一个DigitalOcean的50美元代金券，绑定信用卡充值5美元就可以用了，性价比还是非常高的。事实上我自己已经用了快一年了，一直没有总结过这个搭建步骤，今天姑且写下来吧，还是蛮简单的其实。。。</p>
+<span id="more"></span>
+<p>系统推荐Debian8，以下命令都在终端内执行即可,请先切换至root用户<code>sudo -i</code>。</p>
+<ol type="1">
+<li><p>安装依赖项</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install git build-essential</span><br></pre></td></tr></table></figure></li>
+<li><p>下载Shadowsocks源码并配置好</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b manyuser https://github.com/shadowsocksr/shadowsocksr.git</span><br><span class="line"><span class="built_in">cd</span> shadowsocksr</span><br><span class="line">bash initcfg.sh</span><br><span class="line">vi user-config.json</span><br></pre></td></tr></table></figure>
+<p>主要修改以下几项配置:
+server_port、password、method、protocol，配置具体意义参考<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://github.com/breakwa11/shadowsocks-rss/wiki/config.json
+">[1]</span></a></sup></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;server_port&quot;: 443</span><br><span class="line">&quot;method&quot;: &quot;chacha20&quot;</span><br><span class="line">&quot;protocol&quot;: &quot;origin&quot;</span><br><span class="line">&quot;obfs&quot;: &quot;tls1.2_ticket_auth_compatible&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>配置脚本,<code>vi /etc/init.d/shadowsocks &amp;&amp; chmod +x /etc/init.d/shadowsocks</code>，把以下内容复制进去：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"># chkconfig: 2345 90 10</span><br><span class="line"># description: Start or stop the Shadowsocks R server</span><br><span class="line">#</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides: Shadowsocks-R</span><br><span class="line"># Required-Start: $network $syslog</span><br><span class="line"># Required-Stop: $network</span><br><span class="line"># Default-Start: 2 3 4 5</span><br><span class="line"># Default-Stop: 0 1 6</span><br><span class="line"># Description: Start or stop the Shadowsocks R server</span><br><span class="line">### END INIT INFO</span><br><span class="line"></span><br><span class="line"># Author: Yvonne Lu(Min) &lt;min@utbhost.com&gt;</span><br><span class="line"></span><br><span class="line">name=shadowsocks</span><br><span class="line">PY=/usr/bin/python</span><br><span class="line">SS=/root/shadowsocksr/shadowsocks/server.py</span><br><span class="line">SSPY=server.py</span><br><span class="line">conf=/root/shadowsocksr/user-config.json</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">    $PY $SS -c $conf -d start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">        echo &quot;$name start success&quot;</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name start failed&quot;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ ! -z &quot;$pid&quot; ]; then</span><br><span class="line">        $PY $SS -c $conf -d stop</span><br><span class="line">        RETVAL=$?</span><br><span class="line">        if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">            echo &quot;$name stop success&quot;</span><br><span class="line">        else</span><br><span class="line">            echo &quot;$name stop failed&quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">status()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ -z &quot;$pid&quot; ]; then</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is running with PID $pid&quot;</span><br><span class="line">        RETVAL=0</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">&#x27;start&#x27;)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">&#x27;stop&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">&#x27;status&#x27;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">&#x27;restart&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    echo &quot;Usage: $0 &#123; start | stop | restart | status &#125;&quot;</span><br><span class="line">    RETVAL=1</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">exit $RETVAL</span><br></pre></td></tr></table></figure></p></li>
+<li><p>编译libsodium</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget https://github.com/jedisct1/libsodium/releases/download/1.0.12/libsodium-1.0.12.tar.gz</span><br><span class="line">tar xf libsodium-1.0.12.tar.gz &amp;&amp; <span class="built_in">cd</span> libsodium-1.0.12</span><br><span class="line">./configure &amp;&amp; make -j2 &amp;&amp; make install</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure></p></li>
+<li><p>启动shadowsocks服务</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks start</span><br></pre></td></tr></table></figure></p></li>
+<li><p>(推荐)配置BBR加速，具体参考<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://teddysun.com/489.html
+">[2]</span></a></sup></p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br><span class="line"><span class="built_in">chmod</span> +x bbr.sh</span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<div id="footnotes">
+<hr>
+<div id="footnotelist">
+<ol style="list-style: none; padding-left: 0; margin-left: 40px">
+<li id="fn:1">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/breakwa11/shadowsocks-rss/wiki/config.json<a href="#fnref:1" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:2">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://teddysun.com/489.html<a href="#fnref:2" rev="footnote">
+↩︎</a></span>
+</li>
+</ol>
+</div>
+</div>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>shadowsocks</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hadoop伪分布式配置过程</title>
+    <url>/2017/05/config-hadoop-pseudo-distributed/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>由于后续暑期实习的需要，开始学习起了hadoop~首先当然是需要安装一个hadoop的环境了，这里记录一下今天的安装过程，发现其实还是挺简单的(当然配置完全分布式可能比较麻烦。。。)。</p>
+<span id="more"></span>
+<ol type="1">
+<li><p>先在Vmware里面安装一个Ubuntu 14.04，这个就不介绍了。</p></li>
+<li><p>安装一些预备软件。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install ssh rsync</span><br></pre></td></tr></table></figure></li>
+<li><p>安装Java，为了简单直接安装OpenJDK了。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install openjdk-7-jdk</span><br></pre></td></tr></table></figure></li>
+<li><p>下载<a
+href="http://www-eu.apache.org/dist/hadoop/common/">Hadoop包</a>，我这里尝试的是<a
+href="http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz">hadoop-2.7.1.tar.gz</a>，解压压缩包至/home根目录。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -xf hadoop-2.7.1.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>先<code>cd ~/hadoop-2.7.1</code>，后续操作基本都以这个目录为基础进行。修改<code>etc/hadoop/hadoop-env.sh</code>，将<code>export JAVA_HOME=$&#123;JAVA_HOME&#125;</code>修改为<code>export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64</code>。当然如果在环境变量里面加了<code>JAVA_HOME</code>这里应该就不用改了。。。然后尝试运行<code>bin/hadoop</code>，如果能显示提示就说明没问题了。</p></li>
+<li><p>修改下述文件。</p>
+<p>etc/hadoop/core-site.xml:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<p>etc/hadoop/hdfs-site.xml:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/home/ts/hdfs&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>格式化系统，并开启NameNode daemon和DataNode daemon。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bin/hdfs namenode -format</span><br><span class="line">sbin/start-dfs.sh</span><br></pre></td></tr></table></figure></li>
+<li><p>这时候访问http://localhost:50070/ ,应该可以看到信息了。</p></li>
+<li><p>创建目录，与自己用户名对应。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bin/hdfs dfs -<span class="built_in">mkdir</span> /user</span><br><span class="line">bin/hdfs dfs -<span class="built_in">mkdir</span> /user/ts</span><br></pre></td></tr></table></figure></li>
+<li><p>配置YARN。</p></li>
+</ol>
+<p>配置<code>etc/hadoop/mapred-site.xml</code>:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>配置<code>etc/hadoop/yarn-site.xml</code>:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>开启ResourceManager daemon和NodeManager daemon:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sbin/start-yarn.sh</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker+Nginx+SSL部署Hexo博客到自有VPS</title>
+    <url>/2018/03/use-docker-deploy-hexo/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>买了3年腾讯云，已经把博客迁移过来了。先占个坑，后续再写。</p>
+]]></content>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Nginx</tag>
+        <tag>SSL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>利用CDN加速Github Pages访问</title>
+    <url>/2019/09/use-cdn-to-speed-up-github-pages/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>毕业以后，一直没有更新博客。工作这一年多来，愈发觉得应该记录下工作中的思考和感悟，趁昨日假期，折腾了一整天，重新配置了博客，并加入了CDN优化，现在这访问速度，自己都忍不住想多刷新几次。</p>
+<span id="more"></span>
+<h2 id="前言">前言</h2>
+<p>最最开始我是把Hexo博客双线架设在Github Pages和Coding
+Pages上，然后在Dnspod上配置国外CNAME到Github
+Pages上，国内则CNAME至Coding Pages。那时Coding
+Pages的访问速度确实也挺好，只是后来Coding
+Pages引入了跳转广告，之后我就撤掉了在它上面的部署。
+随后腾讯云推出了折扣的云主机服务，我就买了三年的服务，在云主机上部署了git及nginx。虽然这台云主机的带宽只有1Mbps，但是对于我这小站来说，完全够用了，访问速度也是十分的优秀，后来我还在腾讯云上申请了SSL证书并配置了https服务。
+在今年之前的某个时候，我想更新一下博客，但由于毕业的时候我丢掉了之前的ssh秘钥（这也是我中间一直没有更新博客的原因之一。。。），随后在腾讯云上添加新秘钥时又出错，机器连接不上，后来只好重置了腾讯云的主机，然后重新部署了Github
+Pages（不要问我为什么不重新部署在腾讯云上，因为心累），记得那时Github
+Pages还不支持自定义域名开始https，因此网站也堕落回了没有锁的状态。
+直到昨天，我决定重新开始维护博客。</p>
+<h2 id="更新hexo及next主题">更新Hexo及Next主题</h2>
+<p>首先是更新<a href="https://github.com/hexojs/hexo">Hexo</a>和<a
+href="https://github.com/theme-next/hexo-theme-next">Next</a>主题到最新版（目前分别对应3.9.0和7.4.0）。但是更新之后，我发现首页和正文的字体相比以前变得异常的大，随后通过更改next目录下的<code>_config.yml</code>中的<code>font</code>配置解决，设置此处的size为0.9（非直接设置字体大小，像是设置显示的放大倍数，根据注释猜测基数是16）。
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Lato</span></span><br><span class="line">    <span class="attr">size:</span> <span class="number">0.9</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="开启https">开启Https</h2>
+<p>开启https这一步就很简单了，目前Github已经支持自定义域名强制开启https，在repo的setting下找到<code>Enforce HTTPS</code>并打上勾即可。
+在我第一次开启的时候，发现应该打勾的地方是灰色状态无法勾选，后来搜索之后，发现先删掉<code>Custom domain</code>内的域名，保存一下随后重填即可勾选上。此时已经可以通过带https的域名访问博客了。</p>
+<p><img src="/images/use-cdn-to-speed-up-github-pages/github.png" /></p>
+<h2 id="使用cdn加速js及css文件的访问">使用CDN加速js及CSS文件的访问</h2>
+<p>Next主题引用了大量的js及CSS文件，我们可以配置国内的CDN来加速这些文件的访问，我主要使用的是<a
+href="https://www.bootcdn.cn/">BootCDN</a>提供的服务。在Next配置文件中找到<code>vendors</code>设置，将CDN的链接配置进去即可。如下图所示：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># jquery: //cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js</span></span><br><span class="line"><span class="comment"># fancybox: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js</span></span><br><span class="line"><span class="comment"># fancybox_css: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css</span></span><br><span class="line">jquery: //cdn.bootcss.com/jquery/3.4.1/jquery.min.js</span><br><span class="line">fancybox: //cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js</span><br><span class="line">fancybox_css: //cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：如果注释中写的链接指定了版本，则在<a
+href="https://www.bootcdn.cn/">BootCDN</a>中也最好使用对应版本的镜像链接，否则网页显示可能出错。</p>
+<h2 id="配置cdn服务进行全站加速">配置CDN服务进行全站加速</h2>
+<p>此时网站的访问速度有一些提升了，但还不太理想，毕竟每次都需要请求Github远在国外的服务器。由于之前我的网站已经进行过备案，因此可以使用国内的CDN服务（国内的CDN服务基本都要求网站需要进行过备案，没有备案的同学可以尝试使用Cloudflare等提供的CDN）。大体搜索了一下，腾讯云和又拍云有提供免费的支持https的CDN（当然各有限制）。
+### 配置腾讯云
+出于对腾讯云大品牌的信任，我自然先选择了腾讯云（然后后来发现这是一个错误。。。）。
+配置腾讯云的CDN本身很简单，进入<a
+href="https://console.cloud.tencent.com/cdn/access">域名管理</a>处，添加域名，进行一些基本配置即可，下面记录一下一些关键的配置。
+源站信息填写<a
+href="https://help.github.com/en/articles/troubleshooting-custom-domains#https-errors">Github提供的IP地址</a>即可：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">185.199.108.153</span><br><span class="line">185.199.109.153</span><br><span class="line">185.199.110.153</span><br><span class="line">185.199.111.153</span><br></pre></td></tr></table></figure>
+回源配置填写网站绑定的域名(对我而言是<code>tang.su</code>)。
+在<strong>高级配置</strong>中找到<strong>HTTPS</strong>配置，打开强制跳转HTTPS，设置301跳转。
+<img src="/images/use-cdn-to-speed-up-github-pages/tencent_cdn.png" />
+随后点击右侧的<code>前往配置</code>，并<code>编辑证书</code>，回源方式选择<strong>协议跟随</strong>（因为在Github里我们已经打开了强制https，如果使用http协议回源会失败）。
+<strong>HTTP2.0配置</strong>和<strong>SEO优化配置</strong>下的开关也都可以打开。</p>
+<p>配置了这些之后，我们能拿到腾讯云提供的CNAME地址，去Dnspod上绑定一下即可。
+我设置的是国外地址CNAME至Github，国内CNAME至腾讯云提供的CDN地址。
+见证奇迹的时刻到了，强刷网页，咦？好像并没有怎么变快？再刷，好像又变快了，到底怎么回事？点开<code>开发者工具</code>，发现第一次强刷网页时网站载入很慢，header内的信息显示的<code>Hit From Upstream</code>，即没有命中缓存。但此时再重刷会发现能命中缓存，然后速度也快了很多。但是没有命中缓存的时候，网站的访问速度还不如我直接访问Github！当然，不如直接访问Github
+Pages是正常的，毕竟多了一道中转，需要腾讯云从源服务器去拿数据，但是这个访问速度慢的有点太夸张。在我昨晚几个小时的测试中，未命中缓存时经常需要十多秒才能打开博客内的某个网页。我开始一直怀疑是我腾讯云内的设置有问题，于是翻来覆去的检查试验，最后也没发现什么问题，只好承认就是这个速度了。</p>
+<h3 id="配置又拍云">配置又拍云</h3>
+<p>配置好腾讯云CDN之后的速度实在难以令我满意，后来抱着尝试的心态又去注册了又拍云。配置<a
+href="https://console.upyun.com/services/cdn/">又拍云CDN</a>的方式没有什么不同，创建服务，<strong>源站设置</strong>和<strong>回源
+Host</strong>与之前设置保持一致，同时配置好HTTPS证书，并强制HTTPS访问。
+<img src="/images/use-cdn-to-speed-up-github-pages/upyun_cdn.png" />
+需要说明的是，又拍云也提供了免费的HTTPS证书申请服务，但是我半夜申请了之后，发现需要人工审核，我又急着使用，于是把之前腾讯云的证书下载了下来，并导入了又拍云。
+<strong>导入方法</strong>：
+在腾讯云下载证书解压之后，Nginx目录下会分别有一个<code>.key</code>和<code>.crt</code>结尾的文件。用文本编辑器打开这两个文件，将<code>.crt</code>内的内容<strong>全部</strong>复制至<strong>pem
+证书</strong>内，将<code>.key</code>的<strong>全部</strong>内容复制至<strong>私钥</strong>内导入即可。
+全部配置好之后，同样可以拿到又拍云提供的CNAME地址，将Dnspod内的解析更改至又拍云的地址即可。</p>
+<h2 id="见证奇迹">见证奇迹</h2>
+<p>这个时候我又尝试访问了一下，发现速度比以前快很多，而且在博客内的各个页面跳转及强刷的速度都很快。我没太从又拍云返回的header信息中看出是否命中CDN缓存，但是目前看，无论有没有命中缓存，速度都比之前使用腾讯云CDN时快很多，强制刷新首页也能在两三秒内加载出内容，总之我自己十分满意。</p>
+<h2 id="后记">后记</h2>
+<p>直到现在（这句话好像显得已经过去了很久，然而并没有），我也没弄明白使用腾讯云的时候加速效果为什么那么不明显，但是总之，目前使用又拍云做CDN的效果令我满意，然后也加入了<a
+href="https://www.upyun.com/league">又拍云联盟计划</a>，我当然不会告诉你其实就是在页面底部挂个又拍云的logo就可以了。。。等审核通过之后，以后每个月会有15G的CDN流量，当然是远远超过我实际所需了。</p>
+]]></content>
+      <tags>
+        <tag>CDN</tag>
+        <tag>图床</tag>
+        <tag>https</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>升级Hexo到5.0</title>
+    <url>/2020/09/upgrade-hexo-to-5-0/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
+theme升级到了8.0正式版。刚升级完成时，突然发现next
+theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
+5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
+<span id="more"></span>
+<h2 id="问题">问题</h2>
+<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
+theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
+<h2 id="排查过程">排查过程</h2>
+<ol type="1">
+<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
+8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
+<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
+<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
+<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
+<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
+github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
+<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
+</ol>
+<h2 id="新问题">新问题</h2>
+<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
+<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
+<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
+<p>随后文章的永久链接就会自动变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
+<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
+<p>问题找到了！即hexo
+5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
+<h2 id="解决">解决</h2>
+<p>也不知道哪里来的灵感，我突然想着将post
+front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
+<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
+<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Github Pages双线部署至又拍云存储和Vercel</title>
+    <url>/2020/09/deploy-github-pages-to-upyun-vercel/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>其实几个月以前我就将整站迁往了又拍云存储，最近趁着更新了hexo版本，兴致正浓，进一步对速度进行了优化，将博客进行了双线部署，国内部署至又拍云，国外使用Vercel提供的服务，现在速度应该是更完美了。</p>
+<span id="more"></span>
+<h2 id="单独使用cdn服务的局限">单独使用CDN服务的局限</h2>
+<p>Github
+Pages在国内的直连速度大家都懂的，在这之前我使用了又拍云的CDN进行加速（方案在这个<a
+href="/2019/09/use-cdn-to-speed-up-github-pages/">post</a>内提到过），速度确实有一定的提升，但是这种方案也存在几个明显的缺陷：</p>
+<ol type="1">
+<li>每次<code>hexo g -d</code>部署至Github
+Pages之后，需要去又拍云网站上手动刷新缓存，否则在缓存期内访问到的页面依旧是更新之前的，这个实在是很麻烦。</li>
+<li>对日pv较低的个人博客，加速效果有限。由于流量很低，其他用户第一次访问时，对应的CDN节点大概率是没有你网站的缓存的，需要去源站(Github)回源，而这个过程是很慢的，影响体验。</li>
+<li>虽然又拍云CDN提供了<code>源站资源迁移</code>的选项，介绍说可以将源站静态资源无缝迁移到又拍云存储，但测试下来其迁移逻辑不是很明确，效果感觉一般。</li>
+</ol>
+<p>综上，之后我一直在寻找更优的方案，就是我接下来要介绍的直接部署至又拍云存储。</p>
+<h2 id="部署至又拍云存储">部署至又拍云存储</h2>
+<h3 id="又拍云优势">又拍云优势</h3>
+<p>在进一步介绍之前，先说说我个人为什么采用又拍云吧，个人认为它的核心优势是</p>
+<ul>
+<li>免费。在网站底部挂一个又拍云logo即可拿到每月10G存储空间+15G流量，对个人站足够了。</li>
+<li>提供免费的https加持</li>
+<li>国内访问速度优异</li>
+</ul>
+<h3 id="部署至对象存储的优势">部署至对象存储的优势</h3>
+<p>相比之前的Github
+Pages+CDN加速的方案，我后面直接采用了将整站部署至又拍云的对象存储服务中，这样做的好处在于</p>
+<ul>
+<li>内容更新之后，不用手动刷新缓存，又拍云会自动刷新CDN节点缓存</li>
+<li>又拍云将对象存储服务与CDN服务进行了无缝衔接，无需再手动配置，轻松实现全站接入CDN</li>
+<li>即使CDN节点需要进行回源，去其自家对象存储服务回源应该也是更快的</li>
+</ul>
+<h3 id="操作步骤">操作步骤</h3>
+<ol type="1">
+<li><p>在<a
+href="https://console.upyun.com/services/file/">云存储服务管理</a>中新建服务，应用场景选择<strong>网页图片</strong>，添加一个操作员并记录下密码，其他选项保持默认即可。</p></li>
+<li><p>在<strong>域名管理</strong>中添加自己的域名，随后去DNS服务商中将自己的域名解析至又拍云提供的<code>CNAME</code>。</p></li>
+<li><p><strong>性能优化</strong>中，推荐打开<code>智能压缩</code>，将<code>Gzip</code>和<code>Brotli</code>压缩等级调为3；打开<code>页面压缩</code>和<code>HTTP 302 调度</code>。</p></li>
+<li><p><strong>HTTPS配置</strong>中，推荐配置证书并开启强制访问；同时推荐开启
+<strong>HTTP/2 + Server Push</strong>，具体需要使用Server
+Push推送哪些css和js可以使用开发者工具观察网络加载timeline，我的配置如下图所示。</p>
+<figure>
+<img
+src="/images/deploy-github-pages-to-upyun-vercel/HTTP:2_Server_Push.png"
+alt="HTTP:2_Server_Push" />
+<figcaption aria-hidden="true">HTTP:2_Server_Push</figcaption>
+</figure></li>
+<li><p>在没有充分理解防盗链的情况下，建议<strong>不要打开</strong>访问控制中的防盗链，如果配置的不对会导致从搜索引擎点进博客时，第一次无法正常加载，需要手动刷新才正常。建议将图片文件等上传至另一个对象存储服务中，然后对图片所在的对象存储开启防盗链，而存储博客页面主体的云存储部分可以不开启防盗链。</p></li>
+<li><p><strong>边缘规则</strong>中我添加了<strong>404页面跳转</strong>和<strong>www跳转</strong>。</p>
+<ol type="1">
+<li><p>404页面跳转</p>
+<figure>
+<img
+src="/images/deploy-github-pages-to-upyun-vercel/upyun_edge_rule_404.png"
+alt="upyun_edge_rule_404" />
+<figcaption aria-hidden="true">upyun_edge_rule_404</figcaption>
+</figure></li>
+<li><p>www跳转，即输入<code>www.tang.su</code>时跳转至<code>tang.su</code></p>
+<figure>
+<img
+src="/images/deploy-github-pages-to-upyun-vercel/upyun_edge_rule_www.png"
+alt="upyun_edge_rule_www" />
+<figcaption aria-hidden="true">upyun_edge_rule_www</figcaption>
+</figure></li>
+</ol></li>
+</ol>
+<h2 id="部署至vercel">部署至Vercel</h2>
+<p>关于Vercel的介绍，以及怎么部署至Vercel网上已经有很多介绍了，我不想再赘述了。</p>
+<p>之所以想再额外部署至Vercel，主要是因为虽然又拍云提供了所谓的<code>全球加速</code>功能，但我使用<a
+href="http://tool.chinaz.com/speedworld/tang.su">网站国际速度测试</a>时发现海外节点访问速度还不够极致，而Vercel海外访问速度更好，同时Vercel对国内访问速度也比较友好，这样即使国内访问时被分流到了国外线路，拿到了Vercel的地址，也还能有一个能接受的速度。</p>
+<h2 id="最终方案">最终方案</h2>
+<ul>
+<li>采用DNS进行分流</li>
+<li><code>www.tang.su</code>和<code>tang.su</code>都默认解析至又拍云存储CNAME地址</li>
+<li>同时对于国外线路，均解析至Vercel提供的地址</li>
+<li>在又拍云中采用边缘规则实现<code>www</code>跳转，在Vercel的<code>Project Settings</code>-<code>Domains</code>配置<code>www</code>跳转。</li>
+</ul>
+<p>因为还涉及到MX与CNAME的共存，因此实际上我的DNS配置还会稍微更复杂一点，准备后面写一篇post再介绍。</p>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>Github Pages</tag>
+        <tag>又拍云</tag>
+        <tag>vercel</tag>
+        <tag>cdn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>center loss的TensorFlow实现</title>
+    <url>/2017/04/TensorFlow-center-loss/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本文最开始发表于CSDN<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="http://blog.csdn.net/encodets/article/details/54648015
+">[1]</span></a></sup>，目前重新整理并加上更详细的注释，<del>本周内会于Github上传示例代码</del>
+代码<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="代码地址：https://github.com/EncodeTS/TensorFlow_Center_Loss
+">[2]</span></a></sup>已上传。</p>
+<p>Center loss是ECCV2016中一篇论文《A Discriminative Feature Learning
+Approach for Deep Face
+Recognition》<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://link.springer.com/chapter/10.1007/978-3-319-46478-7_31
+">[3]</span></a></sup>提出来的概念，主要思想就是在softmax
+loss基础上额外加入一个正则项，让网络中每一类样本的特征向量都能够尽量聚在一起，在mnist上的示意效果如下图所示，可以看到每一类样本都聚在类别中心的周围。</p>
+<span id="more"></span>
+<p><img src="/images/paper-notes/Center-Loss/pic1.png" /></p>
+<p>具体的原理推导等请参考原论文，网上目前有Caffe以及Mxnet版的实现，我在Facenet<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://github.com/davidsandberg/facenet/blob/master/src/facenet.py#L76-L88">[4]</span></a></sup>实现版本基础上做了修改，个人认为是更加贴近原论文叙述的方法的，欢迎讨论。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_center_loss</span>(<span class="params">features, labels, alpha, num_classes</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;获取center loss及center的更新op</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        features: Tensor,表征样本特征,一般使用某个fc层的输出,shape应该为[batch_size, feature_length].</span></span><br><span class="line"><span class="string">        labels: Tensor,表征样本label,非one-hot编码,shape应为[batch_size].</span></span><br><span class="line"><span class="string">        alpha: 0-1之间的数字,控制样本类别中心的学习率,细节参考原文.</span></span><br><span class="line"><span class="string">        num_classes: 整数,表明总共有多少个类别,网络分类输出有多少个神经元这里就取多少.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Return：</span></span><br><span class="line"><span class="string">        loss: Tensor,可与softmax loss相加作为总的loss进行优化.</span></span><br><span class="line"><span class="string">        centers: Tensor,存储样本中心值的Tensor，仅查看样本中心存储的具体数值时有用.</span></span><br><span class="line"><span class="string">        centers_update_op: op,用于更新样本中心的op，在训练时需要同时运行该op，否则样本中心不会更新</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取特征的维数，例如256维</span></span><br><span class="line">    len_features = features.get_shape()[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 建立一个Variable,shape为[num_classes, len_features]，用于存储整个网络的样本中心，</span></span><br><span class="line">    <span class="comment"># 设置trainable=False是因为样本中心不是由梯度进行更新的</span></span><br><span class="line">    centers = tf.get_variable(<span class="string">&#x27;centers&#x27;</span>, [num_classes, len_features], dtype=tf.float32,</span><br><span class="line">        initializer=tf.constant_initializer(<span class="number">0</span>), trainable=<span class="literal">False</span>)</span><br><span class="line">    <span class="comment"># 将label展开为一维的，输入如果已经是一维的，则该动作其实无必要</span></span><br><span class="line">    labels = tf.reshape(labels, [-<span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 根据样本label,获取mini-batch中每一个样本对应的中心值</span></span><br><span class="line">    centers_batch = tf.gather(centers, labels)</span><br><span class="line">    <span class="comment"># 计算loss</span></span><br><span class="line">    loss = tf.nn.l2_loss(features - centers_batch)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 当前mini-batch的特征值与它们对应的中心值之间的差</span></span><br><span class="line">    diff = centers_batch - features</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 获取mini-batch中同一类别样本出现的次数,了解原理请参考原文公式(4)</span></span><br><span class="line">    unique_label, unique_idx, unique_count = tf.unique_with_counts(labels)</span><br><span class="line">    appear_times = tf.gather(unique_count, unique_idx)</span><br><span class="line">    appear_times = tf.reshape(appear_times, [-<span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    diff = diff / tf.cast((<span class="number">1</span> + appear_times), tf.float32)</span><br><span class="line">    diff = alpha * diff</span><br><span class="line">    </span><br><span class="line">    centers_update_op = tf.scatter_sub(centers, labels, diff)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> loss, centers, centers_update_op</span><br></pre></td></tr></table></figure>
+<div id="footnotes">
+<hr>
+<div id="footnotelist">
+<ol style="list-style: none; padding-left: 0; margin-left: 40px">
+<li id="fn:1">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">http://blog.csdn.net/encodets/article/details/54648015<a href="#fnref:1" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:2">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">代码地址：https://github.com/EncodeTS/TensorFlow_Center_Loss<a href="#fnref:2" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:3">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://link.springer.com/chapter/10.1007/978-3-319-46478-7_31<a href="#fnref:3" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:4">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/davidsandberg/facenet/blob/master/src/facenet.py#L76-L88<a href="#fnref:4" rev="footnote">
+↩︎</a></span>
+</li>
+</ol>
+</div>
+</div>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+        <tag>center loss</tag>
+      </tags>
+  </entry>
+</search>
