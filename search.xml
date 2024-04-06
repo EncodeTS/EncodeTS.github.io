@@ -133,35 +133,6 @@ src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
       </tags>
   </entry>
   <entry>
-    <title>添加任意数据至TensorBoard</title>
-    <url>/2017/01/manually-create-summary/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>通常情况下，我们在训练网络时添加summary都是通过如下方式：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.scalar_summary(tags, values)</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">summary_op = tf.summary.merge_all()</span><br><span class="line">summary_writer = tf.summary.FileWriter(logdir, graph=sess.graph)</span><br><span class="line">summary_str = sess.run(summary_op)</span><br><span class="line">summary_writer.add_summary(summary_str, global_step)</span><br></pre></td></tr></table></figure>
-<p>当我们自己想添加其他数据到TensorBoard的时候（例如验证时的loss等），这种方式显得太过繁琐，其实我们可以通过如下方式添加自定义数据到TensorBoard内显示。</p>
-<span id="more"></span>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(logdir)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
-<p>或者:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(LOGDIR)</span><br><span class="line">summary = tf.Summary()</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>)</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong>，这里的step只能是整数，如果是小数的话会自动转为整数类型。</p>
-<p>下面给出一段完整的示例代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">summary_writer = tf.summary.FileWriter(<span class="string">&#x27;/tmp/test&#x27;</span>)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">1</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">3</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">summary_writer.close()</span><br></pre></td></tr></table></figure>
-<p>显示效果如下所示：<img
-src="/images/manually-create-summary/sample.png" alt="sample" /></p>
-<h2 id="参考资料">参考资料:</h2>
-<p><a href="">[How to manually create a
-tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create-a-tf-summary)</a></p>
-<h2 id="更新记录">更新记录</h2>
-<p>2017/3/15 更新标题，修改代码兼容TensorFlow1.0版本...</p>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>TensorFlow</tag>
-        <tag>TensorBoard</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>将TensorFlow的网络导出为单个文件</title>
     <url>/2017/01/export-TensorFlow-network/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>有时候，我们需要将TensorFlow的模型导出为单个文件（同时包含模型架构定义与权重），方便在其他地方使用（如在c++中部署网络）。利用<code>tf.train.write_graph()</code>默认情况下只导出了网络的定义（没有权重），而利用<code>tf.train.Saver().save()</code>导出的文件graph_def与权重是分离的，因此需要采用别的方法。</p>
@@ -196,64 +167,6 @@ Tensorflow graphs</a></p>
       </categories>
       <tags>
         <tag>TensorFlow</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>指针数组与数组指针</title>
-    <url>/2017/03/pointers-to-arrays/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天刚好复习了C++
-Primer中关于数组指针的内容，理清了数组指针的几个问题。</p>
-<span id="more"></span>
-<h2 id="指针数组与数组指针定义">指针数组与数组指针定义</h2>
-<p>先看指针数组与数组指针的定义吧：指针数组，主体是数组，数组内存放的元素是指针；而对于数组指针，核心是指针，指针指向的是一个数组。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 指针数组</span></span><br><span class="line"><span class="type">int</span> *ptrs[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 数组指针，指向的是一个含有10个元素的指针</span></span><br><span class="line"><span class="built_in">int</span> (*parray)[<span class="number">10</span>] = &amp;arr;</span><br></pre></td></tr></table></figure>
-<h2 id="解析数组指针">解析数组指针</h2>
-<p>指针数组其实很好理解，难点在于数组指针容易让人糊涂，先看下面这样一段程序吧。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">2</span>][<span class="number">4</span>] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span> &#125;;</span><br><span class="line">    <span class="built_in">int</span>(*Parray)[<span class="number">2</span>][<span class="number">4</span>] = &amp;arr;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;arr:       &quot;</span> &lt;&lt; arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*arr:      &quot;</span> &lt;&lt; *arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**arr:     &quot;</span> &lt;&lt; **arr &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Parray:    &quot;</span> &lt;&lt; Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*Parray:   &quot;</span> &lt;&lt; *Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**Parray:  &quot;</span> &lt;&lt; **Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;***Parray: &quot;</span> &lt;&lt; ***Parray &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>程序的运行结果如下所示：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">arr:       <span class="number">009</span>CFDE8</span><br><span class="line">*arr:      <span class="number">009</span>CFDE8</span><br><span class="line">**arr:     <span class="number">1</span></span><br><span class="line">Parray:    <span class="number">009</span>CFDE8</span><br><span class="line">*Parray:   <span class="number">009</span>CFDE8</span><br><span class="line">**Parray:  <span class="number">009</span>CFDE8</span><br><span class="line">***Parray: <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>很多人看到这可能直接就迷糊了，这些东西到底都是指向的啥？</p>
-<p>要理解这里的各种指针的区别，首先需要理解指针指向的<strong>基本元素</strong>是什么，即*p指向什么，*(p+1)又指向什么，理解了这一点，就能比较容易理解上面的各种指针的含义。</p>
-<p>对于数组而言，数组名代表的是指向数组内<strong>基本元素</strong>的地址，这里的<strong>基本元素</strong>指什么呢？对于一元数组(<code>int a[3]=&#123;1, 2, 3&#125;</code>)而言，基本元素代表数组内的每一个数字，即*a代表1，*(a+1)代表2。而对于二元数组<code>int arr[2][4] = &#123; 1,2,3,4,5,6,7,8 &#125;;</code>，这里的<strong>基本元素</strong>就是二元数组的<strong>一行</strong>，我们可以这样理解，这个数组相当于有2个位置（<strong>把最靠近数组名的数字看做数组的基本元素的数量</strong>），然后每个位置存放了一个容量为4的数组。因此*arr指向的是数组的第一个基本元素（即第一行），*(arr+1)指向数组的第二个基本元素（即第二行）。</p>
-<p>理解上面这一段话之后，我们就能理解上述程序中的<code>arr</code>、<code>*arr</code>和<code>**arr</code>各自代表什么了。arr代表二元数组的第一个基本元素（即第一行）的地址，*arr对第一行的地址解引用了，相当于指向了这第一行的第一个元素的地址。注意这里的<strong>区别</strong>，arr+1是会使地址往后挪一行所占用的字节，而(*arr)+1是只会往后挪一个数字所占用的字节，因为*arr指向了第一行的第一个元素，自然**arr就输出了该元素的值1。</p>
-<p>我们再来看<code>Parray</code>，因为我们把(*Parray)用括号括起来了，因此Parray首先是一个指针，然后看它后面[2][4]，说明他是一个指向大小为[2][4]的数组的指针。所以Parray代表这个<strong>数组整体</strong>的首地址，即Parray指向这个数组，Parray+1指向这个数组整体的尾元素的下一个地址。随后层层解引用，*Parray代表数组的第一行的首地址，*Parray代表数组的第一行的第一个元素的地址，***Parray代表数组的第一个元素的数值。</p>
-<p>再来看看刚才那一段代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; Parray + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; *Parray + <span class="number">2</span>  &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; **Parray + <span class="number">8</span> &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br></pre></td></tr></table></figure>
-<p>可以看到输出是一致的，因为Parray指向整个数组，因此+1会往后挪整个数组所代表的字节数；而对于*Parray，由于Parray指向的是一行，因此需要+2，对于**Parray同理。</p>
-<h2 id="总结">总结</h2>
-<p>在理解数组指针的时候，很多人看见那几个*号直接就晕了，虽然它们指向的元素的首地址是相同的，但是它们+1之后所指向的位置就完全不同了，因此理解这里的<strong>关键</strong>在于理解它们+1之后都指向了什么位置。</p>
-]]></content>
-      <categories>
-        <category>c++</category>
-      </categories>
-      <tags>
-        <tag>指针</tag>
-        <tag>数组</tag>
-        <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Anaconda下安装Scrapy</title>
-    <url>/2017/03/install-scrapy/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
-<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
-<span id="more"></span>
-<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
-<p>注意在安装过程中勾选如下图所示的选项：</p>
-<figure>
-<img src="/images/install-scrapy/copy_to_system_path.png"
-alt="copy-to-system-path" />
-<figcaption aria-hidden="true">copy-to-system-path</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>爬虫</category>
-      </categories>
-      <tags>
-        <tag>Anaconda</tag>
-        <tag>Scrapy</tag>
       </tags>
   </entry>
   <entry>
@@ -352,96 +265,39 @@ age, fine-tune with apparent age.三个阶段的训练。</p>
       </tags>
   </entry>
   <entry>
-    <title>在OpenWrt上配置原生IPv6 NAT</title>
-    <url>/2017/03/openwrt-ipv6-nat/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
+    <title>指针数组与数组指针</title>
+    <url>/2017/03/pointers-to-arrays/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天刚好复习了C++
+Primer中关于数组指针的内容，理清了数组指针的几个问题。</p>
 <span id="more"></span>
-<h2 id="我的网络环境">我的网络环境</h2>
-<ul>
-<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
-<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
-r45918</li>
-<li><strong>内核版本</strong>：3.18.14</li>
-</ul>
-<h2 id="准备工作">准备工作</h2>
-<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
-<h2 id="详细步骤">详细步骤</h2>
-<ol type="1">
-<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
-<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
-<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
-<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
-</ol>
-<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
+<h2 id="指针数组与数组指针定义">指针数组与数组指针定义</h2>
+<p>先看指针数组与数组指针的定义吧：指针数组，主体是数组，数组内存放的元素是指针；而对于数组指针，核心是指针，指针指向的是一个数组。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 指针数组</span></span><br><span class="line"><span class="type">int</span> *ptrs[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 数组指针，指向的是一个含有10个元素的指针</span></span><br><span class="line"><span class="built_in">int</span> (*parray)[<span class="number">10</span>] = &amp;arr;</span><br></pre></td></tr></table></figure>
+<h2 id="解析数组指针">解析数组指针</h2>
+<p>指针数组其实很好理解，难点在于数组指针容易让人糊涂，先看下面这样一段程序吧。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">2</span>][<span class="number">4</span>] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span> &#125;;</span><br><span class="line">    <span class="built_in">int</span>(*Parray)[<span class="number">2</span>][<span class="number">4</span>] = &amp;arr;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;arr:       &quot;</span> &lt;&lt; arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*arr:      &quot;</span> &lt;&lt; *arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**arr:     &quot;</span> &lt;&lt; **arr &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Parray:    &quot;</span> &lt;&lt; Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*Parray:   &quot;</span> &lt;&lt; *Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**Parray:  &quot;</span> &lt;&lt; **Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;***Parray: &quot;</span> &lt;&lt; ***Parray &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序的运行结果如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">arr:       <span class="number">009</span>CFDE8</span><br><span class="line">*arr:      <span class="number">009</span>CFDE8</span><br><span class="line">**arr:     <span class="number">1</span></span><br><span class="line">Parray:    <span class="number">009</span>CFDE8</span><br><span class="line">*Parray:   <span class="number">009</span>CFDE8</span><br><span class="line">**Parray:  <span class="number">009</span>CFDE8</span><br><span class="line">***Parray: <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>很多人看到这可能直接就迷糊了，这些东西到底都是指向的啥？</p>
+<p>要理解这里的各种指针的区别，首先需要理解指针指向的<strong>基本元素</strong>是什么，即*p指向什么，*(p+1)又指向什么，理解了这一点，就能比较容易理解上面的各种指针的含义。</p>
+<p>对于数组而言，数组名代表的是指向数组内<strong>基本元素</strong>的地址，这里的<strong>基本元素</strong>指什么呢？对于一元数组(<code>int a[3]=&#123;1, 2, 3&#125;</code>)而言，基本元素代表数组内的每一个数字，即*a代表1，*(a+1)代表2。而对于二元数组<code>int arr[2][4] = &#123; 1,2,3,4,5,6,7,8 &#125;;</code>，这里的<strong>基本元素</strong>就是二元数组的<strong>一行</strong>，我们可以这样理解，这个数组相当于有2个位置（<strong>把最靠近数组名的数字看做数组的基本元素的数量</strong>），然后每个位置存放了一个容量为4的数组。因此*arr指向的是数组的第一个基本元素（即第一行），*(arr+1)指向数组的第二个基本元素（即第二行）。</p>
+<p>理解上面这一段话之后，我们就能理解上述程序中的<code>arr</code>、<code>*arr</code>和<code>**arr</code>各自代表什么了。arr代表二元数组的第一个基本元素（即第一行）的地址，*arr对第一行的地址解引用了，相当于指向了这第一行的第一个元素的地址。注意这里的<strong>区别</strong>，arr+1是会使地址往后挪一行所占用的字节，而(*arr)+1是只会往后挪一个数字所占用的字节，因为*arr指向了第一行的第一个元素，自然**arr就输出了该元素的值1。</p>
+<p>我们再来看<code>Parray</code>，因为我们把(*Parray)用括号括起来了，因此Parray首先是一个指针，然后看它后面[2][4]，说明他是一个指向大小为[2][4]的数组的指针。所以Parray代表这个<strong>数组整体</strong>的首地址，即Parray指向这个数组，Parray+1指向这个数组整体的尾元素的下一个地址。随后层层解引用，*Parray代表数组的第一行的首地址，*Parray代表数组的第一行的第一个元素的地址，***Parray代表数组的第一个元素的数值。</p>
+<p>再来看看刚才那一段代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; Parray + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; *Parray + <span class="number">2</span>  &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; **Parray + <span class="number">8</span> &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br></pre></td></tr></table></figure>
+<p>可以看到输出是一致的，因为Parray指向整个数组，因此+1会往后挪整个数组所代表的字节数；而对于*Parray，由于Parray指向的是一行，因此需要+2，对于**Parray同理。</p>
+<h2 id="总结">总结</h2>
+<p>在理解数组指针的时候，很多人看见那几个*号直接就晕了，虽然它们指向的元素的首地址是相同的，但是它们+1之后所指向的位置就完全不同了，因此理解这里的<strong>关键</strong>在于理解它们+1之后都指向了什么位置。</p>
 ]]></content>
       <categories>
-        <category>路由器</category>
+        <category>c++</category>
       </categories>
       <tags>
-        <tag>OpenWrt</tag>
-        <tag>IPv6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>联想Y1S LAN口改WAN口</title>
-    <url>/2017/04/Y1s-lan-wan/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>为什么会有把LAN口改WAN口的想法呢？因为联想Y1S的WAN口是<strong>百兆</strong>的，但是却有两个<strong>千兆LAN</strong>口。。如果不把一个千兆LAN口改为WAN口，对外访问的最快速度也就百兆了，这在有IPv6的学校内是一个巨大的浪费。。</p>
-<span id="more"></span>
-<p>今天刚好升级了最新的PandoraBox，固件名为<code>PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin</code>(<a
-href="http://www.pandorabox.com.cn/pandorabox-16-10-stable/targets/ralink/mt7620/PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin">下载链接</a>)，发现VLAN划分的界面变得比以前清晰多了，如下图所示：</p>
-<figure>
-<img src="/images/Y1s-lan-wan/pic1.png" alt="原始配置" />
-<figcaption aria-hidden="true">原始配置</figcaption>
-</figure>
-<p>这下LAN1-LAN4和WAN口与路由器实际端口是对应的了，路由器的LAN1和LAN2是千兆的，因此在这里我把LAN1改为WAN口，而原来的WAN口改为LAN口，只需点几下鼠标即可：</p>
-<figure>
-<img src="/images/Y1s-lan-wan/pic2.png" alt="修改后配置" />
-<figcaption aria-hidden="true">修改后配置</figcaption>
-</figure>
-<p>试一下可以正常联网，大功告成！</p>
-<p><strong>注意</strong></p>
-<p>一定要把第一行设为WAN口，第二行设为LAN口，否则要去接口那里更改LAN和WAN对应的VLAN
-ID。</p>
-<p>另外，我发现luci界面这里的VLAN ID跟配置文件的VLAN
-ID号是不对应的。。luci界面里的VLAN ID 1在配置文件中实际是VLAN ID
-2，这里一定需要注意。</p>
-<p><code>/etc/config/network</code>配置文件中的端口编号与实际端口的对应关系如下</p>
-<table>
-<thead>
-<tr class="header">
-<th>端口编号</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>对应端口</td>
-<td>WAN</td>
-<td>LAN4</td>
-<td>LAN3</td>
-<td>LAN2</td>
-<td>LAN1</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-      <categories>
-        <category>路由器</category>
-      </categories>
-      <tags>
-        <tag>LAN</tag>
-        <tag>WAN</tag>
+        <tag>指针</tag>
+        <tag>数组</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -526,6 +382,128 @@ Transformer Networks</a><a href="#fnref:4" rev="footnote"> ↩︎</a></span>
       </tags>
   </entry>
   <entry>
+    <title>在OpenWrt上配置原生IPv6 NAT</title>
+    <url>/2017/03/openwrt-ipv6-nat/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
+<span id="more"></span>
+<h2 id="我的网络环境">我的网络环境</h2>
+<ul>
+<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
+<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
+r45918</li>
+<li><strong>内核版本</strong>：3.18.14</li>
+</ul>
+<h2 id="准备工作">准备工作</h2>
+<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
+<h2 id="详细步骤">详细步骤</h2>
+<ol type="1">
+<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
+<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
+</ol>
+<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>IPv6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>添加任意数据至TensorBoard</title>
+    <url>/2017/01/manually-create-summary/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>通常情况下，我们在训练网络时添加summary都是通过如下方式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.scalar_summary(tags, values)</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">summary_op = tf.summary.merge_all()</span><br><span class="line">summary_writer = tf.summary.FileWriter(logdir, graph=sess.graph)</span><br><span class="line">summary_str = sess.run(summary_op)</span><br><span class="line">summary_writer.add_summary(summary_str, global_step)</span><br></pre></td></tr></table></figure>
+<p>当我们自己想添加其他数据到TensorBoard的时候（例如验证时的loss等），这种方式显得太过繁琐，其实我们可以通过如下方式添加自定义数据到TensorBoard内显示。</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(logdir)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
+<p>或者:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(LOGDIR)</span><br><span class="line">summary = tf.Summary()</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>)</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>，这里的step只能是整数，如果是小数的话会自动转为整数类型。</p>
+<p>下面给出一段完整的示例代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">summary_writer = tf.summary.FileWriter(<span class="string">&#x27;/tmp/test&#x27;</span>)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">1</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">3</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">summary_writer.close()</span><br></pre></td></tr></table></figure>
+<p>显示效果如下所示：<img
+src="/images/manually-create-summary/sample.png" alt="sample" /></p>
+<h2 id="参考资料">参考资料:</h2>
+<p><a href="">[How to manually create a
+tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create-a-tf-summary)</a></p>
+<h2 id="更新记录">更新记录</h2>
+<p>2017/3/15 更新标题，修改代码兼容TensorFlow1.0版本...</p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+        <tag>TensorBoard</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>联想Y1S LAN口改WAN口</title>
+    <url>/2017/04/Y1s-lan-wan/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>为什么会有把LAN口改WAN口的想法呢？因为联想Y1S的WAN口是<strong>百兆</strong>的，但是却有两个<strong>千兆LAN</strong>口。。如果不把一个千兆LAN口改为WAN口，对外访问的最快速度也就百兆了，这在有IPv6的学校内是一个巨大的浪费。。</p>
+<span id="more"></span>
+<p>今天刚好升级了最新的PandoraBox，固件名为<code>PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin</code>(<a
+href="http://www.pandorabox.com.cn/pandorabox-16-10-stable/targets/ralink/mt7620/PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin">下载链接</a>)，发现VLAN划分的界面变得比以前清晰多了，如下图所示：</p>
+<figure>
+<img src="/images/Y1s-lan-wan/pic1.png" alt="原始配置" />
+<figcaption aria-hidden="true">原始配置</figcaption>
+</figure>
+<p>这下LAN1-LAN4和WAN口与路由器实际端口是对应的了，路由器的LAN1和LAN2是千兆的，因此在这里我把LAN1改为WAN口，而原来的WAN口改为LAN口，只需点几下鼠标即可：</p>
+<figure>
+<img src="/images/Y1s-lan-wan/pic2.png" alt="修改后配置" />
+<figcaption aria-hidden="true">修改后配置</figcaption>
+</figure>
+<p>试一下可以正常联网，大功告成！</p>
+<p><strong>注意</strong></p>
+<p>一定要把第一行设为WAN口，第二行设为LAN口，否则要去接口那里更改LAN和WAN对应的VLAN
+ID。</p>
+<p>另外，我发现luci界面这里的VLAN ID跟配置文件的VLAN
+ID号是不对应的。。luci界面里的VLAN ID 1在配置文件中实际是VLAN ID
+2，这里一定需要注意。</p>
+<p><code>/etc/config/network</code>配置文件中的端口编号与实际端口的对应关系如下</p>
+<table>
+<thead>
+<tr class="header">
+<th>端口编号</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>对应端口</td>
+<td>WAN</td>
+<td>LAN4</td>
+<td>LAN3</td>
+<td>LAN2</td>
+<td>LAN1</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>LAN</tag>
+        <tag>WAN</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>center loss的TensorFlow实现</title>
     <url>/2017/04/TensorFlow-center-loss/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本文最开始发表于CSDN<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
@@ -587,115 +565,6 @@ style="display: inline-block; vertical-align: top; margin-left: 10px;">https://g
       <tags>
         <tag>TensorFlow</tag>
         <tag>center loss</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop伪分布式配置过程</title>
-    <url>/2017/05/config-hadoop-pseudo-distributed/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>由于后续暑期实习的需要，开始学习起了hadoop~首先当然是需要安装一个hadoop的环境了，这里记录一下今天的安装过程，发现其实还是挺简单的(当然配置完全分布式可能比较麻烦。。。)。</p>
-<span id="more"></span>
-<ol type="1">
-<li><p>先在Vmware里面安装一个Ubuntu 14.04，这个就不介绍了。</p></li>
-<li><p>安装一些预备软件。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install ssh rsync</span><br></pre></td></tr></table></figure></li>
-<li><p>安装Java，为了简单直接安装OpenJDK了。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install openjdk-7-jdk</span><br></pre></td></tr></table></figure></li>
-<li><p>下载<a
-href="http://www-eu.apache.org/dist/hadoop/common/">Hadoop包</a>，我这里尝试的是<a
-href="http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz">hadoop-2.7.1.tar.gz</a>，解压压缩包至/home根目录。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -xf hadoop-2.7.1.tar.gz</span><br></pre></td></tr></table></figure></li>
-<li><p>先<code>cd ~/hadoop-2.7.1</code>，后续操作基本都以这个目录为基础进行。修改<code>etc/hadoop/hadoop-env.sh</code>，将<code>export JAVA_HOME=$&#123;JAVA_HOME&#125;</code>修改为<code>export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64</code>。当然如果在环境变量里面加了<code>JAVA_HOME</code>这里应该就不用改了。。。然后尝试运行<code>bin/hadoop</code>，如果能显示提示就说明没问题了。</p></li>
-<li><p>修改下述文件。</p>
-<p>etc/hadoop/core-site.xml:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-<p>etc/hadoop/hdfs-site.xml:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/home/ts/hdfs&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>格式化系统，并开启NameNode daemon和DataNode daemon。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bin/hdfs namenode -format</span><br><span class="line">sbin/start-dfs.sh</span><br></pre></td></tr></table></figure></li>
-<li><p>这时候访问http://localhost:50070/ ,应该可以看到信息了。</p></li>
-<li><p>创建目录，与自己用户名对应。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bin/hdfs dfs -<span class="built_in">mkdir</span> /user</span><br><span class="line">bin/hdfs dfs -<span class="built_in">mkdir</span> /user/ts</span><br></pre></td></tr></table></figure></li>
-<li><p>配置YARN。</p></li>
-</ol>
-<p>配置<code>etc/hadoop/mapred-site.xml</code>:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
-<p>配置<code>etc/hadoop/yarn-site.xml</code>:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
-<p>开启ResourceManager daemon和NodeManager daemon:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sbin/start-yarn.sh</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在服务器上部署Shadowsocks</title>
-    <url>/2017/05/deploy-shadowsocks/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Github学生优惠包里面有一个DigitalOcean的50美元代金券，绑定信用卡充值5美元就可以用了，性价比还是非常高的。事实上我自己已经用了快一年了，一直没有总结过这个搭建步骤，今天姑且写下来吧，还是蛮简单的其实。。。</p>
-<span id="more"></span>
-<p>系统推荐Debian8，以下命令都在终端内执行即可,请先切换至root用户<code>sudo -i</code>。</p>
-<ol type="1">
-<li><p>安装依赖项</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install git build-essential</span><br></pre></td></tr></table></figure></li>
-<li><p>下载Shadowsocks源码并配置好</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b manyuser https://github.com/shadowsocksr/shadowsocksr.git</span><br><span class="line"><span class="built_in">cd</span> shadowsocksr</span><br><span class="line">bash initcfg.sh</span><br><span class="line">vi user-config.json</span><br></pre></td></tr></table></figure>
-<p>主要修改以下几项配置:
-server_port、password、method、protocol，配置具体意义参考<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="https://github.com/breakwa11/shadowsocks-rss/wiki/config.json
-">[1]</span></a></sup></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;server_port&quot;: 443</span><br><span class="line">&quot;method&quot;: &quot;chacha20&quot;</span><br><span class="line">&quot;protocol&quot;: &quot;origin&quot;</span><br><span class="line">&quot;obfs&quot;: &quot;tls1.2_ticket_auth_compatible&quot;</span><br></pre></td></tr></table></figure></li>
-<li><p>配置脚本,<code>vi /etc/init.d/shadowsocks &amp;&amp; chmod +x /etc/init.d/shadowsocks</code>，把以下内容复制进去：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"># chkconfig: 2345 90 10</span><br><span class="line"># description: Start or stop the Shadowsocks R server</span><br><span class="line">#</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides: Shadowsocks-R</span><br><span class="line"># Required-Start: $network $syslog</span><br><span class="line"># Required-Stop: $network</span><br><span class="line"># Default-Start: 2 3 4 5</span><br><span class="line"># Default-Stop: 0 1 6</span><br><span class="line"># Description: Start or stop the Shadowsocks R server</span><br><span class="line">### END INIT INFO</span><br><span class="line"></span><br><span class="line"># Author: Yvonne Lu(Min) &lt;min@utbhost.com&gt;</span><br><span class="line"></span><br><span class="line">name=shadowsocks</span><br><span class="line">PY=/usr/bin/python</span><br><span class="line">SS=/root/shadowsocksr/shadowsocks/server.py</span><br><span class="line">SSPY=server.py</span><br><span class="line">conf=/root/shadowsocksr/user-config.json</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">    $PY $SS -c $conf -d start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">        echo &quot;$name start success&quot;</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name start failed&quot;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ ! -z &quot;$pid&quot; ]; then</span><br><span class="line">        $PY $SS -c $conf -d stop</span><br><span class="line">        RETVAL=$?</span><br><span class="line">        if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">            echo &quot;$name stop success&quot;</span><br><span class="line">        else</span><br><span class="line">            echo &quot;$name stop failed&quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">status()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ -z &quot;$pid&quot; ]; then</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is running with PID $pid&quot;</span><br><span class="line">        RETVAL=0</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">&#x27;start&#x27;)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">&#x27;stop&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">&#x27;status&#x27;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">&#x27;restart&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    echo &quot;Usage: $0 &#123; start | stop | restart | status &#125;&quot;</span><br><span class="line">    RETVAL=1</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">exit $RETVAL</span><br></pre></td></tr></table></figure></p></li>
-<li><p>编译libsodium</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget https://github.com/jedisct1/libsodium/releases/download/1.0.12/libsodium-1.0.12.tar.gz</span><br><span class="line">tar xf libsodium-1.0.12.tar.gz &amp;&amp; <span class="built_in">cd</span> libsodium-1.0.12</span><br><span class="line">./configure &amp;&amp; make -j2 &amp;&amp; make install</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure></p></li>
-<li><p>启动shadowsocks服务</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks start</span><br></pre></td></tr></table></figure></p></li>
-<li><p>(推荐)配置BBR加速，具体参考<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="https://teddysun.com/489.html
-">[2]</span></a></sup></p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br><span class="line"><span class="built_in">chmod</span> +x bbr.sh</span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p></li>
-</ol>
-<div id="footnotes">
-<hr>
-<div id="footnotelist">
-<ol style="list-style: none; padding-left: 0; margin-left: 40px">
-<li id="fn:1">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/breakwa11/shadowsocks-rss/wiki/config.json<a href="#fnref:1" rev="footnote">
-↩︎</a></span>
-</li>
-<li id="fn:2">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">https://teddysun.com/489.html<a href="#fnref:2" rev="footnote">
-↩︎</a></span>
-</li>
-</ol>
-</div>
-</div>
-]]></content>
-      <categories>
-        <category>WEB</category>
-      </categories>
-      <tags>
-        <tag>shadowsocks</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Docker+Nginx+SSL部署Hexo博客到自有VPS</title>
-    <url>/2018/03/use-docker-deploy-hexo/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>买了3年腾讯云，已经把博客迁移过来了。先占个坑，后续再写。</p>
-]]></content>
-      <tags>
-        <tag>Docker</tag>
-        <tag>Nginx</tag>
-        <tag>SSL</tag>
       </tags>
   </entry>
   <entry>
@@ -766,6 +635,128 @@ href="https://www.upyun.com/league">又拍云联盟计划</a>，我当然不会�
         <tag>CDN</tag>
         <tag>图床</tag>
         <tag>https</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker+Nginx+SSL部署Hexo博客到自有VPS</title>
+    <url>/2018/03/use-docker-deploy-hexo/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>买了3年腾讯云，已经把博客迁移过来了。先占个坑，后续再写。</p>
+]]></content>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Nginx</tag>
+        <tag>SSL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>升级Hexo到5.0</title>
+    <url>/2020/09/upgrade-hexo-to-5-0/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
+theme升级到了8.0正式版。刚升级完成时，突然发现next
+theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
+5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
+<span id="more"></span>
+<h2 id="问题">问题</h2>
+<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
+theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
+<h2 id="排查过程">排查过程</h2>
+<ol type="1">
+<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
+8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
+<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
+<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
+<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
+<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
+github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
+<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
+</ol>
+<h2 id="新问题">新问题</h2>
+<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
+<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
+<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
+<p>随后文章的永久链接就会自动变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
+<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
+<p>问题找到了！即hexo
+5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
+<h2 id="解决">解决</h2>
+<p>也不知道哪里来的灵感，我突然想着将post
+front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
+<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
+<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hadoop伪分布式配置过程</title>
+    <url>/2017/05/config-hadoop-pseudo-distributed/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>由于后续暑期实习的需要，开始学习起了hadoop~首先当然是需要安装一个hadoop的环境了，这里记录一下今天的安装过程，发现其实还是挺简单的(当然配置完全分布式可能比较麻烦。。。)。</p>
+<span id="more"></span>
+<ol type="1">
+<li><p>先在Vmware里面安装一个Ubuntu 14.04，这个就不介绍了。</p></li>
+<li><p>安装一些预备软件。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install ssh rsync</span><br></pre></td></tr></table></figure></li>
+<li><p>安装Java，为了简单直接安装OpenJDK了。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install openjdk-7-jdk</span><br></pre></td></tr></table></figure></li>
+<li><p>下载<a
+href="http://www-eu.apache.org/dist/hadoop/common/">Hadoop包</a>，我这里尝试的是<a
+href="http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz">hadoop-2.7.1.tar.gz</a>，解压压缩包至/home根目录。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -xf hadoop-2.7.1.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>先<code>cd ~/hadoop-2.7.1</code>，后续操作基本都以这个目录为基础进行。修改<code>etc/hadoop/hadoop-env.sh</code>，将<code>export JAVA_HOME=$&#123;JAVA_HOME&#125;</code>修改为<code>export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64</code>。当然如果在环境变量里面加了<code>JAVA_HOME</code>这里应该就不用改了。。。然后尝试运行<code>bin/hadoop</code>，如果能显示提示就说明没问题了。</p></li>
+<li><p>修改下述文件。</p>
+<p>etc/hadoop/core-site.xml:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<p>etc/hadoop/hdfs-site.xml:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/home/ts/hdfs&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>格式化系统，并开启NameNode daemon和DataNode daemon。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bin/hdfs namenode -format</span><br><span class="line">sbin/start-dfs.sh</span><br></pre></td></tr></table></figure></li>
+<li><p>这时候访问http://localhost:50070/ ,应该可以看到信息了。</p></li>
+<li><p>创建目录，与自己用户名对应。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bin/hdfs dfs -<span class="built_in">mkdir</span> /user</span><br><span class="line">bin/hdfs dfs -<span class="built_in">mkdir</span> /user/ts</span><br></pre></td></tr></table></figure></li>
+<li><p>配置YARN。</p></li>
+</ol>
+<p>配置<code>etc/hadoop/mapred-site.xml</code>:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>配置<code>etc/hadoop/yarn-site.xml</code>:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>开启ResourceManager daemon和NodeManager daemon:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sbin/start-yarn.sh</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Anaconda下安装Scrapy</title>
+    <url>/2017/03/install-scrapy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
+<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
+<span id="more"></span>
+<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
+<p>注意在安装过程中勾选如下图所示的选项：</p>
+<figure>
+<img src="/images/install-scrapy/copy_to_system_path.png"
+alt="copy-to-system-path" />
+<figcaption aria-hidden="true">copy-to-system-path</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>爬虫</category>
+      </categories>
+      <tags>
+        <tag>Anaconda</tag>
+        <tag>Scrapy</tag>
       </tags>
   </entry>
   <entry>
@@ -858,50 +849,59 @@ href="http://tool.chinaz.com/speedworld/tang.su">网站国际速度测试</a>时
       </tags>
   </entry>
   <entry>
-    <title>升级Hexo到5.0</title>
-    <url>/2020/09/upgrade-hexo-to-5-0/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
-theme升级到了8.0正式版。刚升级完成时，突然发现next
-theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
-5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
+    <title>在服务器上部署Shadowsocks</title>
+    <url>/2017/05/deploy-shadowsocks/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Github学生优惠包里面有一个DigitalOcean的50美元代金券，绑定信用卡充值5美元就可以用了，性价比还是非常高的。事实上我自己已经用了快一年了，一直没有总结过这个搭建步骤，今天姑且写下来吧，还是蛮简单的其实。。。</p>
 <span id="more"></span>
-<h2 id="问题">问题</h2>
-<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
-theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
-<h2 id="排查过程">排查过程</h2>
+<p>系统推荐Debian8，以下命令都在终端内执行即可,请先切换至root用户<code>sudo -i</code>。</p>
 <ol type="1">
-<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
-8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
-<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
-<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
-<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
-<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
-github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
-<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
+<li><p>安装依赖项</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install git build-essential</span><br></pre></td></tr></table></figure></li>
+<li><p>下载Shadowsocks源码并配置好</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b manyuser https://github.com/shadowsocksr/shadowsocksr.git</span><br><span class="line"><span class="built_in">cd</span> shadowsocksr</span><br><span class="line">bash initcfg.sh</span><br><span class="line">vi user-config.json</span><br></pre></td></tr></table></figure>
+<p>主要修改以下几项配置:
+server_port、password、method、protocol，配置具体意义参考<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://github.com/breakwa11/shadowsocks-rss/wiki/config.json
+">[1]</span></a></sup></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;server_port&quot;: 443</span><br><span class="line">&quot;method&quot;: &quot;chacha20&quot;</span><br><span class="line">&quot;protocol&quot;: &quot;origin&quot;</span><br><span class="line">&quot;obfs&quot;: &quot;tls1.2_ticket_auth_compatible&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>配置脚本,<code>vi /etc/init.d/shadowsocks &amp;&amp; chmod +x /etc/init.d/shadowsocks</code>，把以下内容复制进去：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"># chkconfig: 2345 90 10</span><br><span class="line"># description: Start or stop the Shadowsocks R server</span><br><span class="line">#</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides: Shadowsocks-R</span><br><span class="line"># Required-Start: $network $syslog</span><br><span class="line"># Required-Stop: $network</span><br><span class="line"># Default-Start: 2 3 4 5</span><br><span class="line"># Default-Stop: 0 1 6</span><br><span class="line"># Description: Start or stop the Shadowsocks R server</span><br><span class="line">### END INIT INFO</span><br><span class="line"></span><br><span class="line"># Author: Yvonne Lu(Min) &lt;min@utbhost.com&gt;</span><br><span class="line"></span><br><span class="line">name=shadowsocks</span><br><span class="line">PY=/usr/bin/python</span><br><span class="line">SS=/root/shadowsocksr/shadowsocks/server.py</span><br><span class="line">SSPY=server.py</span><br><span class="line">conf=/root/shadowsocksr/user-config.json</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">    $PY $SS -c $conf -d start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">        echo &quot;$name start success&quot;</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name start failed&quot;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ ! -z &quot;$pid&quot; ]; then</span><br><span class="line">        $PY $SS -c $conf -d stop</span><br><span class="line">        RETVAL=$?</span><br><span class="line">        if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">            echo &quot;$name stop success&quot;</span><br><span class="line">        else</span><br><span class="line">            echo &quot;$name stop failed&quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">status()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ -z &quot;$pid&quot; ]; then</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is running with PID $pid&quot;</span><br><span class="line">        RETVAL=0</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">&#x27;start&#x27;)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">&#x27;stop&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">&#x27;status&#x27;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">&#x27;restart&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    echo &quot;Usage: $0 &#123; start | stop | restart | status &#125;&quot;</span><br><span class="line">    RETVAL=1</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">exit $RETVAL</span><br></pre></td></tr></table></figure></p></li>
+<li><p>编译libsodium</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget https://github.com/jedisct1/libsodium/releases/download/1.0.12/libsodium-1.0.12.tar.gz</span><br><span class="line">tar xf libsodium-1.0.12.tar.gz &amp;&amp; <span class="built_in">cd</span> libsodium-1.0.12</span><br><span class="line">./configure &amp;&amp; make -j2 &amp;&amp; make install</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure></p></li>
+<li><p>启动shadowsocks服务</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks start</span><br></pre></td></tr></table></figure></p></li>
+<li><p>(推荐)配置BBR加速，具体参考<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://teddysun.com/489.html
+">[2]</span></a></sup></p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br><span class="line"><span class="built_in">chmod</span> +x bbr.sh</span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p></li>
 </ol>
-<h2 id="新问题">新问题</h2>
-<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
-<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
-<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
-<p>随后文章的永久链接就会自动变为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
-<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
-<p>问题找到了！即hexo
-5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
-<h2 id="解决">解决</h2>
-<p>也不知道哪里来的灵感，我突然想着将post
-front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
-<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
-<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
+<div id="footnotes">
+<hr>
+<div id="footnotelist">
+<ol style="list-style: none; padding-left: 0; margin-left: 40px">
+<li id="fn:1">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/breakwa11/shadowsocks-rss/wiki/config.json<a href="#fnref:1" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:2">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://teddysun.com/489.html<a href="#fnref:2" rev="footnote">
+↩︎</a></span>
+</li>
+</ol>
+</div>
+</div>
 ]]></content>
       <categories>
         <category>WEB</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
+        <tag>shadowsocks</tag>
       </tags>
   </entry>
 </search>
