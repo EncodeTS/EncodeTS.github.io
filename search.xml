@@ -44,47 +44,6 @@ href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华pypi镜像</a>加�
       </tags>
   </entry>
   <entry>
-    <title>Windows下编译OpenCV-Python3</title>
-    <url>/2016/06/compile-opencv-python3/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OpenCV3已经开始支持python3版本了，但是需要自己编译，以下简要记录一下编译的流程。
-<span id="more"></span></p>
-<p>2016/11/20更新：其实最简单的办法是安装anaconda，然后在cmd里用<code>conda install -c menpo opencv3=3.1.0</code>安装即可。</p>
-<h2 id="安装预备软件">安装预备软件</h2>
-<p>首先安装以下软件： - <a href="https://git-scm.com/downloads">git</a>
-- <a href="https://cmake.org/download/">CMake</a> - VS 2013</p>
-<h2 id="下载源码">下载源码</h2>
-<p>在你想保存源码的位置，单击鼠标右键，点击“Git Bash
-Here”，键入以下命令：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:Itseez/opencv.git</span><br></pre></td></tr></table></figure>
-<p>新建一个build文件夹，用于存放编译后的文件。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> opencv</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br></pre></td></tr></table></figure>
-<h2 id="配置cmake">配置CMake</h2>
-<p>运行CMake，在最上面两栏内填上源码和build文件夹的位置，勾上<code>Grouped</code>，</p>
-<p><img src="/images/compile-opencv-python3/cmake1.png" /></p>
-<p>点击<code>Configure</code>，选择已安装的编译器，然后点击<code>Finish</code></p>
-<p><img src="/images/compile-opencv-python3/cmake2.png" /></p>
-<p>根据自己情况选择或者取消勾选某些选项(注意<strong>不要勾选</strong><code>BUILD_opencv_world</code>，我测试发现勾选这个之后不会编译python的相关文件，另外不需要cuda的话可以在<code>WITH</code>里面把<code>WITH_CUDA</code>和<code>WITH_CUFFT</code>勾去掉)，对于我们编译OpenCV-Python3而言，比较重要的是以下两个部分：
-- BUILD 只编译python3就取消勾选掉python2的勾 <img
-src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
-一般来说这里的几个选项CMake是可以自动检测到的，如果没有自动检测到，则自己手动填入吧，填写方式参考下图，一定不能漏。
-<img src="/images/compile-opencv-python3/cmake5.png" /></p>
-<p>搞定之后点击"Generate"，直到看到"Generate done"。</p>
-<h2 id="编译">编译</h2>
-<p>在BUILD文件夹下找到一个名为<code>OpenCV.sln</code>的文件，双击，会进入VS。
-在左侧找到<code>ALL_BUILD</code>，右键单击并选择<code>生成</code>，后续耐心等待编译完成即可。</p>
-<h2 id="配置环境变量">配置环境变量</h2>
-<p>编译完成之后，在BUILD，把它复制到python安装目录下的<code>Lib\site-packages</code>目录下，随后将BUILD文件夹下的<code>bin\Release</code>的<strong>完整路径</strong>添加到系统环境变量中。
-这时候启动python，运行<code>import cv2</code>命令，如果没有错误，则说明安装成功了。</p>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>opencv</tag>
-        <tag>python3</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu14.04+cuda8.0+Anaconda3下编译caffe</title>
     <url>/2016/11/compile-anaconda3-caffe/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>踩了很多坑，终于在Ubuntu14.04+cuda8.0+Anaconda3环境下成功编译Caffe。</p>
@@ -133,40 +92,73 @@ src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
       </tags>
   </entry>
   <entry>
-    <title>将TensorFlow的网络导出为单个文件</title>
-    <url>/2017/01/export-TensorFlow-network/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>有时候，我们需要将TensorFlow的模型导出为单个文件（同时包含模型架构定义与权重），方便在其他地方使用（如在c++中部署网络）。利用<code>tf.train.write_graph()</code>默认情况下只导出了网络的定义（没有权重），而利用<code>tf.train.Saver().save()</code>导出的文件graph_def与权重是分离的，因此需要采用别的方法。</p>
+    <title>Windows下编译OpenCV-Python3</title>
+    <url>/2016/06/compile-opencv-python3/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OpenCV3已经开始支持python3版本了，但是需要自己编译，以下简要记录一下编译的流程。
+<span id="more"></span></p>
+<p>2016/11/20更新：其实最简单的办法是安装anaconda，然后在cmd里用<code>conda install -c menpo opencv3=3.1.0</code>安装即可。</p>
+<h2 id="安装预备软件">安装预备软件</h2>
+<p>首先安装以下软件： - <a href="https://git-scm.com/downloads">git</a>
+- <a href="https://cmake.org/download/">CMake</a> - VS 2013</p>
+<h2 id="下载源码">下载源码</h2>
+<p>在你想保存源码的位置，单击鼠标右键，点击“Git Bash
+Here”，键入以下命令：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:Itseez/opencv.git</span><br></pre></td></tr></table></figure>
+<p>新建一个build文件夹，用于存放编译后的文件。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> opencv</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br></pre></td></tr></table></figure>
+<h2 id="配置cmake">配置CMake</h2>
+<p>运行CMake，在最上面两栏内填上源码和build文件夹的位置，勾上<code>Grouped</code>，</p>
+<p><img src="/images/compile-opencv-python3/cmake1.png" /></p>
+<p>点击<code>Configure</code>，选择已安装的编译器，然后点击<code>Finish</code></p>
+<p><img src="/images/compile-opencv-python3/cmake2.png" /></p>
+<p>根据自己情况选择或者取消勾选某些选项(注意<strong>不要勾选</strong><code>BUILD_opencv_world</code>，我测试发现勾选这个之后不会编译python的相关文件，另外不需要cuda的话可以在<code>WITH</code>里面把<code>WITH_CUDA</code>和<code>WITH_CUFFT</code>勾去掉)，对于我们编译OpenCV-Python3而言，比较重要的是以下两个部分：
+- BUILD 只编译python3就取消勾选掉python2的勾 <img
+src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
+一般来说这里的几个选项CMake是可以自动检测到的，如果没有自动检测到，则自己手动填入吧，填写方式参考下图，一定不能漏。
+<img src="/images/compile-opencv-python3/cmake5.png" /></p>
+<p>搞定之后点击"Generate"，直到看到"Generate done"。</p>
+<h2 id="编译">编译</h2>
+<p>在BUILD文件夹下找到一个名为<code>OpenCV.sln</code>的文件，双击，会进入VS。
+在左侧找到<code>ALL_BUILD</code>，右键单击并选择<code>生成</code>，后续耐心等待编译完成即可。</p>
+<h2 id="配置环境变量">配置环境变量</h2>
+<p>编译完成之后，在BUILD，把它复制到python安装目录下的<code>Lib\site-packages</code>目录下，随后将BUILD文件夹下的<code>bin\Release</code>的<strong>完整路径</strong>添加到系统环境变量中。
+这时候启动python，运行<code>import cv2</code>命令，如果没有错误，则说明安装成功了。</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>opencv</tag>
+        <tag>python3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>添加任意数据至TensorBoard</title>
+    <url>/2017/01/manually-create-summary/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>通常情况下，我们在训练网络时添加summary都是通过如下方式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.scalar_summary(tags, values)</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">summary_op = tf.summary.merge_all()</span><br><span class="line">summary_writer = tf.summary.FileWriter(logdir, graph=sess.graph)</span><br><span class="line">summary_str = sess.run(summary_op)</span><br><span class="line">summary_writer.add_summary(summary_str, global_step)</span><br></pre></td></tr></table></figure>
+<p>当我们自己想添加其他数据到TensorBoard的时候（例如验证时的loss等），这种方式显得太过繁琐，其实我们可以通过如下方式添加自定义数据到TensorBoard内显示。</p>
 <span id="more"></span>
-<p>我们知道，graph_def文件中没有包含网络中的Variable值（通常情况存储了权重），但是却包含了constant值，所以如果我们能把Variable转换为constant，即可达到使用一个文件同时存储网络架构与权重的目标。</p>
-<p>我们可以采用以下方式冻结权重并保存网络：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造网络</span></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"><span class="comment"># 一定要给输出tensor取一个名字！！</span></span><br><span class="line">output = tf.add(a, b, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转换Variable为constant，并将网络写入到文件</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment"># 这里需要填入输出tensor的名字</span></span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<p>当恢复网络时，可以使用如下方式：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
-<p>输出结果为:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 7.],</span><br><span class="line">       [ 8.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
-<p>可以看到之前的权重确实保存了下来!!</p>
-<p>问题来了，我们的网络需要能有一个输入自定义数据的接口啊！不然这玩意有什么用。。别急，当然有办法。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">input_tensor = tf.placeholder(tf.float32, name=<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line">output = tf.add((a+b), input_tensor, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<p>用上述代码重新保存网络至graph.pb，这次我们有了一个输入placeholder，下面来看看怎么恢复网络并输入自定义数据。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:<span class="number">4.</span>&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
-<p>输出结果为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
-<p>可以看到结果没有问题，当然在<code>input_map</code>那里可以替换为新的自定义的placeholder，如下所示：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">new_input = tf.placeholder(tf.float32, shape=())</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:new_input&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output, feed_dict=&#123;new_input:<span class="number">4</span>&#125;))</span><br></pre></td></tr></table></figure>
-<p>看看输出，同样没有问题。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
-<p>另外需要说明的一点是，在利用<code>tf.train.write_graph</code>写网络架构的时候，如果令<code>as_text=True</code>了，则在导入网络的时候，需要做一点小修改。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> google.protobuf <span class="keyword">import</span> text_format</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	<span class="comment"># 不使用&#x27;rb&#x27;模式</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        <span class="comment"># 不使用graph_def.ParseFromString(f.read())</span></span><br><span class="line">        text_format.Merge(f.read(), graph_def)</span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
-<p>##参考资料 <a
-href="http://stackoverflow.com/questions/34343259/is-there-an-example-on-how-to-generate-protobuf-files-holding-trained-tensorflow">Is
-there an example on how to generate protobuf files holding trained
-Tensorflow graphs</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(logdir)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
+<p>或者:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(LOGDIR)</span><br><span class="line">summary = tf.Summary()</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>)</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>，这里的step只能是整数，如果是小数的话会自动转为整数类型。</p>
+<p>下面给出一段完整的示例代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">summary_writer = tf.summary.FileWriter(<span class="string">&#x27;/tmp/test&#x27;</span>)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">1</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">3</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">summary_writer.close()</span><br></pre></td></tr></table></figure>
+<p>显示效果如下所示：<img
+src="/images/manually-create-summary/sample.png" alt="sample" /></p>
+<h2 id="参考资料">参考资料:</h2>
+<p><a href="">[How to manually create a
+tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create-a-tf-summary)</a></p>
+<h2 id="更新记录">更新记录</h2>
+<p>2017/3/15 更新标题，修改代码兼容TensorFlow1.0版本...</p>
 ]]></content>
       <categories>
         <category>Deep Learning</category>
       </categories>
       <tags>
         <tag>TensorFlow</tag>
+        <tag>TensorBoard</tag>
       </tags>
   </entry>
   <entry>
@@ -265,6 +257,65 @@ age, fine-tune with apparent age.三个阶段的训练。</p>
       </tags>
   </entry>
   <entry>
+    <title>将TensorFlow的网络导出为单个文件</title>
+    <url>/2017/01/export-TensorFlow-network/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>有时候，我们需要将TensorFlow的模型导出为单个文件（同时包含模型架构定义与权重），方便在其他地方使用（如在c++中部署网络）。利用<code>tf.train.write_graph()</code>默认情况下只导出了网络的定义（没有权重），而利用<code>tf.train.Saver().save()</code>导出的文件graph_def与权重是分离的，因此需要采用别的方法。</p>
+<span id="more"></span>
+<p>我们知道，graph_def文件中没有包含网络中的Variable值（通常情况存储了权重），但是却包含了constant值，所以如果我们能把Variable转换为constant，即可达到使用一个文件同时存储网络架构与权重的目标。</p>
+<p>我们可以采用以下方式冻结权重并保存网络：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造网络</span></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"><span class="comment"># 一定要给输出tensor取一个名字！！</span></span><br><span class="line">output = tf.add(a, b, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转换Variable为constant，并将网络写入到文件</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment"># 这里需要填入输出tensor的名字</span></span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>当恢复网络时，可以使用如下方式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>输出结果为:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 7.],</span><br><span class="line">       [ 8.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>可以看到之前的权重确实保存了下来!!</p>
+<p>问题来了，我们的网络需要能有一个输入自定义数据的接口啊！不然这玩意有什么用。。别急，当然有办法。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">input_tensor = tf.placeholder(tf.float32, name=<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line">output = tf.add((a+b), input_tensor, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>用上述代码重新保存网络至graph.pb，这次我们有了一个输入placeholder，下面来看看怎么恢复网络并输入自定义数据。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:<span class="number">4.</span>&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>可以看到结果没有问题，当然在<code>input_map</code>那里可以替换为新的自定义的placeholder，如下所示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">new_input = tf.placeholder(tf.float32, shape=())</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:new_input&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output, feed_dict=&#123;new_input:<span class="number">4</span>&#125;))</span><br></pre></td></tr></table></figure>
+<p>看看输出，同样没有问题。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>另外需要说明的一点是，在利用<code>tf.train.write_graph</code>写网络架构的时候，如果令<code>as_text=True</code>了，则在导入网络的时候，需要做一点小修改。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> google.protobuf <span class="keyword">import</span> text_format</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	<span class="comment"># 不使用&#x27;rb&#x27;模式</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        <span class="comment"># 不使用graph_def.ParseFromString(f.read())</span></span><br><span class="line">        text_format.Merge(f.read(), graph_def)</span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>##参考资料 <a
+href="http://stackoverflow.com/questions/34343259/is-there-an-example-on-how-to-generate-protobuf-files-holding-trained-tensorflow">Is
+there an example on how to generate protobuf files holding trained
+Tensorflow graphs</a></p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Anaconda下安装Scrapy</title>
+    <url>/2017/03/install-scrapy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
+<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
+<span id="more"></span>
+<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
+<p>注意在安装过程中勾选如下图所示的选项：</p>
+<figure>
+<img src="/images/install-scrapy/copy_to_system_path.png"
+alt="copy-to-system-path" />
+<figcaption aria-hidden="true">copy-to-system-path</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>爬虫</category>
+      </categories>
+      <tags>
+        <tag>Anaconda</tag>
+        <tag>Scrapy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>指针数组与数组指针</title>
     <url>/2017/03/pointers-to-arrays/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天刚好复习了C++
@@ -298,6 +349,61 @@ Primer中关于数组指针的内容，理清了数组指针的几个问题。</
         <tag>指针</tag>
         <tag>数组</tag>
         <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>联想Y1S LAN口改WAN口</title>
+    <url>/2017/04/Y1s-lan-wan/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>为什么会有把LAN口改WAN口的想法呢？因为联想Y1S的WAN口是<strong>百兆</strong>的，但是却有两个<strong>千兆LAN</strong>口。。如果不把一个千兆LAN口改为WAN口，对外访问的最快速度也就百兆了，这在有IPv6的学校内是一个巨大的浪费。。</p>
+<span id="more"></span>
+<p>今天刚好升级了最新的PandoraBox，固件名为<code>PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin</code>(<a
+href="http://www.pandorabox.com.cn/pandorabox-16-10-stable/targets/ralink/mt7620/PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin">下载链接</a>)，发现VLAN划分的界面变得比以前清晰多了，如下图所示：</p>
+<figure>
+<img src="/images/Y1s-lan-wan/pic1.png" alt="原始配置" />
+<figcaption aria-hidden="true">原始配置</figcaption>
+</figure>
+<p>这下LAN1-LAN4和WAN口与路由器实际端口是对应的了，路由器的LAN1和LAN2是千兆的，因此在这里我把LAN1改为WAN口，而原来的WAN口改为LAN口，只需点几下鼠标即可：</p>
+<figure>
+<img src="/images/Y1s-lan-wan/pic2.png" alt="修改后配置" />
+<figcaption aria-hidden="true">修改后配置</figcaption>
+</figure>
+<p>试一下可以正常联网，大功告成！</p>
+<p><strong>注意</strong></p>
+<p>一定要把第一行设为WAN口，第二行设为LAN口，否则要去接口那里更改LAN和WAN对应的VLAN
+ID。</p>
+<p>另外，我发现luci界面这里的VLAN ID跟配置文件的VLAN
+ID号是不对应的。。luci界面里的VLAN ID 1在配置文件中实际是VLAN ID
+2，这里一定需要注意。</p>
+<p><code>/etc/config/network</code>配置文件中的端口编号与实际端口的对应关系如下</p>
+<table>
+<thead>
+<tr class="header">
+<th>端口编号</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>对应端口</td>
+<td>WAN</td>
+<td>LAN4</td>
+<td>LAN3</td>
+<td>LAN2</td>
+<td>LAN1</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>LAN</tag>
+        <tag>WAN</tag>
       </tags>
   </entry>
   <entry>
@@ -382,125 +488,45 @@ Transformer Networks</a><a href="#fnref:4" rev="footnote"> ↩︎</a></span>
       </tags>
   </entry>
   <entry>
-    <title>在OpenWrt上配置原生IPv6 NAT</title>
-    <url>/2017/03/openwrt-ipv6-nat/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
+    <title>Hadoop伪分布式配置过程</title>
+    <url>/2017/05/config-hadoop-pseudo-distributed/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>由于后续暑期实习的需要，开始学习起了hadoop~首先当然是需要安装一个hadoop的环境了，这里记录一下今天的安装过程，发现其实还是挺简单的(当然配置完全分布式可能比较麻烦。。。)。</p>
 <span id="more"></span>
-<h2 id="我的网络环境">我的网络环境</h2>
-<ul>
-<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
-<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
-r45918</li>
-<li><strong>内核版本</strong>：3.18.14</li>
-</ul>
-<h2 id="准备工作">准备工作</h2>
-<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
-<h2 id="详细步骤">详细步骤</h2>
 <ol type="1">
-<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
-<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
-<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
-<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
+<li><p>先在Vmware里面安装一个Ubuntu 14.04，这个就不介绍了。</p></li>
+<li><p>安装一些预备软件。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install ssh rsync</span><br></pre></td></tr></table></figure></li>
+<li><p>安装Java，为了简单直接安装OpenJDK了。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install openjdk-7-jdk</span><br></pre></td></tr></table></figure></li>
+<li><p>下载<a
+href="http://www-eu.apache.org/dist/hadoop/common/">Hadoop包</a>，我这里尝试的是<a
+href="http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz">hadoop-2.7.1.tar.gz</a>，解压压缩包至/home根目录。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -xf hadoop-2.7.1.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>先<code>cd ~/hadoop-2.7.1</code>，后续操作基本都以这个目录为基础进行。修改<code>etc/hadoop/hadoop-env.sh</code>，将<code>export JAVA_HOME=$&#123;JAVA_HOME&#125;</code>修改为<code>export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64</code>。当然如果在环境变量里面加了<code>JAVA_HOME</code>这里应该就不用改了。。。然后尝试运行<code>bin/hadoop</code>，如果能显示提示就说明没问题了。</p></li>
+<li><p>修改下述文件。</p>
+<p>etc/hadoop/core-site.xml:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<p>etc/hadoop/hdfs-site.xml:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/home/ts/hdfs&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>格式化系统，并开启NameNode daemon和DataNode daemon。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bin/hdfs namenode -format</span><br><span class="line">sbin/start-dfs.sh</span><br></pre></td></tr></table></figure></li>
+<li><p>这时候访问http://localhost:50070/ ,应该可以看到信息了。</p></li>
+<li><p>创建目录，与自己用户名对应。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bin/hdfs dfs -<span class="built_in">mkdir</span> /user</span><br><span class="line">bin/hdfs dfs -<span class="built_in">mkdir</span> /user/ts</span><br></pre></td></tr></table></figure></li>
+<li><p>配置YARN。</p></li>
 </ol>
-<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
+<p>配置<code>etc/hadoop/mapred-site.xml</code>:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>配置<code>etc/hadoop/yarn-site.xml</code>:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>开启ResourceManager daemon和NodeManager daemon:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sbin/start-yarn.sh</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <categories>
-        <category>路由器</category>
+        <category>Hadoop</category>
       </categories>
       <tags>
-        <tag>OpenWrt</tag>
-        <tag>IPv6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>添加任意数据至TensorBoard</title>
-    <url>/2017/01/manually-create-summary/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>通常情况下，我们在训练网络时添加summary都是通过如下方式：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.scalar_summary(tags, values)</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">summary_op = tf.summary.merge_all()</span><br><span class="line">summary_writer = tf.summary.FileWriter(logdir, graph=sess.graph)</span><br><span class="line">summary_str = sess.run(summary_op)</span><br><span class="line">summary_writer.add_summary(summary_str, global_step)</span><br></pre></td></tr></table></figure>
-<p>当我们自己想添加其他数据到TensorBoard的时候（例如验证时的loss等），这种方式显得太过繁琐，其实我们可以通过如下方式添加自定义数据到TensorBoard内显示。</p>
-<span id="more"></span>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(logdir)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
-<p>或者:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(LOGDIR)</span><br><span class="line">summary = tf.Summary()</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>)</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong>，这里的step只能是整数，如果是小数的话会自动转为整数类型。</p>
-<p>下面给出一段完整的示例代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">summary_writer = tf.summary.FileWriter(<span class="string">&#x27;/tmp/test&#x27;</span>)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">1</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">3</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">summary_writer.close()</span><br></pre></td></tr></table></figure>
-<p>显示效果如下所示：<img
-src="/images/manually-create-summary/sample.png" alt="sample" /></p>
-<h2 id="参考资料">参考资料:</h2>
-<p><a href="">[How to manually create a
-tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create-a-tf-summary)</a></p>
-<h2 id="更新记录">更新记录</h2>
-<p>2017/3/15 更新标题，修改代码兼容TensorFlow1.0版本...</p>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>TensorFlow</tag>
-        <tag>TensorBoard</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>联想Y1S LAN口改WAN口</title>
-    <url>/2017/04/Y1s-lan-wan/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>为什么会有把LAN口改WAN口的想法呢？因为联想Y1S的WAN口是<strong>百兆</strong>的，但是却有两个<strong>千兆LAN</strong>口。。如果不把一个千兆LAN口改为WAN口，对外访问的最快速度也就百兆了，这在有IPv6的学校内是一个巨大的浪费。。</p>
-<span id="more"></span>
-<p>今天刚好升级了最新的PandoraBox，固件名为<code>PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin</code>(<a
-href="http://www.pandorabox.com.cn/pandorabox-16-10-stable/targets/ralink/mt7620/PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin">下载链接</a>)，发现VLAN划分的界面变得比以前清晰多了，如下图所示：</p>
-<figure>
-<img src="/images/Y1s-lan-wan/pic1.png" alt="原始配置" />
-<figcaption aria-hidden="true">原始配置</figcaption>
-</figure>
-<p>这下LAN1-LAN4和WAN口与路由器实际端口是对应的了，路由器的LAN1和LAN2是千兆的，因此在这里我把LAN1改为WAN口，而原来的WAN口改为LAN口，只需点几下鼠标即可：</p>
-<figure>
-<img src="/images/Y1s-lan-wan/pic2.png" alt="修改后配置" />
-<figcaption aria-hidden="true">修改后配置</figcaption>
-</figure>
-<p>试一下可以正常联网，大功告成！</p>
-<p><strong>注意</strong></p>
-<p>一定要把第一行设为WAN口，第二行设为LAN口，否则要去接口那里更改LAN和WAN对应的VLAN
-ID。</p>
-<p>另外，我发现luci界面这里的VLAN ID跟配置文件的VLAN
-ID号是不对应的。。luci界面里的VLAN ID 1在配置文件中实际是VLAN ID
-2，这里一定需要注意。</p>
-<p><code>/etc/config/network</code>配置文件中的端口编号与实际端口的对应关系如下</p>
-<table>
-<thead>
-<tr class="header">
-<th>端口编号</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>对应端口</td>
-<td>WAN</td>
-<td>LAN4</td>
-<td>LAN3</td>
-<td>LAN2</td>
-<td>LAN1</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-      <categories>
-        <category>路由器</category>
-      </categories>
-      <tags>
-        <tag>LAN</tag>
-        <tag>WAN</tag>
+        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -565,6 +591,147 @@ style="display: inline-block; vertical-align: top; margin-left: 10px;">https://g
       <tags>
         <tag>TensorFlow</tag>
         <tag>center loss</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>升级Hexo到5.0</title>
+    <url>/2020/09/upgrade-hexo-to-5-0/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
+theme升级到了8.0正式版。刚升级完成时，突然发现next
+theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
+5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
+<span id="more"></span>
+<h2 id="问题">问题</h2>
+<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
+theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
+<h2 id="排查过程">排查过程</h2>
+<ol type="1">
+<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
+8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
+<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
+<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
+<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
+<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
+github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
+<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
+</ol>
+<h2 id="新问题">新问题</h2>
+<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
+<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
+<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
+<p>随后文章的永久链接就会自动变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
+<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
+<p>问题找到了！即hexo
+5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
+<h2 id="解决">解决</h2>
+<p>也不知道哪里来的灵感，我突然想着将post
+front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
+<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
+<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在服务器上部署Shadowsocks</title>
+    <url>/2017/05/deploy-shadowsocks/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Github学生优惠包里面有一个DigitalOcean的50美元代金券，绑定信用卡充值5美元就可以用了，性价比还是非常高的。事实上我自己已经用了快一年了，一直没有总结过这个搭建步骤，今天姑且写下来吧，还是蛮简单的其实。。。</p>
+<span id="more"></span>
+<p>系统推荐Debian8，以下命令都在终端内执行即可,请先切换至root用户<code>sudo -i</code>。</p>
+<ol type="1">
+<li><p>安装依赖项</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install git build-essential</span><br></pre></td></tr></table></figure></li>
+<li><p>下载Shadowsocks源码并配置好</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b manyuser https://github.com/shadowsocksr/shadowsocksr.git</span><br><span class="line"><span class="built_in">cd</span> shadowsocksr</span><br><span class="line">bash initcfg.sh</span><br><span class="line">vi user-config.json</span><br></pre></td></tr></table></figure>
+<p>主要修改以下几项配置:
+server_port、password、method、protocol，配置具体意义参考<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://github.com/breakwa11/shadowsocks-rss/wiki/config.json
+">[1]</span></a></sup></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;server_port&quot;: 443</span><br><span class="line">&quot;method&quot;: &quot;chacha20&quot;</span><br><span class="line">&quot;protocol&quot;: &quot;origin&quot;</span><br><span class="line">&quot;obfs&quot;: &quot;tls1.2_ticket_auth_compatible&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>配置脚本,<code>vi /etc/init.d/shadowsocks &amp;&amp; chmod +x /etc/init.d/shadowsocks</code>，把以下内容复制进去：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"># chkconfig: 2345 90 10</span><br><span class="line"># description: Start or stop the Shadowsocks R server</span><br><span class="line">#</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides: Shadowsocks-R</span><br><span class="line"># Required-Start: $network $syslog</span><br><span class="line"># Required-Stop: $network</span><br><span class="line"># Default-Start: 2 3 4 5</span><br><span class="line"># Default-Stop: 0 1 6</span><br><span class="line"># Description: Start or stop the Shadowsocks R server</span><br><span class="line">### END INIT INFO</span><br><span class="line"></span><br><span class="line"># Author: Yvonne Lu(Min) &lt;min@utbhost.com&gt;</span><br><span class="line"></span><br><span class="line">name=shadowsocks</span><br><span class="line">PY=/usr/bin/python</span><br><span class="line">SS=/root/shadowsocksr/shadowsocks/server.py</span><br><span class="line">SSPY=server.py</span><br><span class="line">conf=/root/shadowsocksr/user-config.json</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">    $PY $SS -c $conf -d start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">        echo &quot;$name start success&quot;</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name start failed&quot;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ ! -z &quot;$pid&quot; ]; then</span><br><span class="line">        $PY $SS -c $conf -d stop</span><br><span class="line">        RETVAL=$?</span><br><span class="line">        if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">            echo &quot;$name stop success&quot;</span><br><span class="line">        else</span><br><span class="line">            echo &quot;$name stop failed&quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">status()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ -z &quot;$pid&quot; ]; then</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is running with PID $pid&quot;</span><br><span class="line">        RETVAL=0</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">&#x27;start&#x27;)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">&#x27;stop&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">&#x27;status&#x27;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">&#x27;restart&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    echo &quot;Usage: $0 &#123; start | stop | restart | status &#125;&quot;</span><br><span class="line">    RETVAL=1</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">exit $RETVAL</span><br></pre></td></tr></table></figure></p></li>
+<li><p>编译libsodium</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget https://github.com/jedisct1/libsodium/releases/download/1.0.12/libsodium-1.0.12.tar.gz</span><br><span class="line">tar xf libsodium-1.0.12.tar.gz &amp;&amp; <span class="built_in">cd</span> libsodium-1.0.12</span><br><span class="line">./configure &amp;&amp; make -j2 &amp;&amp; make install</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure></p></li>
+<li><p>启动shadowsocks服务</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks start</span><br></pre></td></tr></table></figure></p></li>
+<li><p>(推荐)配置BBR加速，具体参考<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://teddysun.com/489.html
+">[2]</span></a></sup></p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br><span class="line"><span class="built_in">chmod</span> +x bbr.sh</span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<div id="footnotes">
+<hr>
+<div id="footnotelist">
+<ol style="list-style: none; padding-left: 0; margin-left: 40px">
+<li id="fn:1">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/breakwa11/shadowsocks-rss/wiki/config.json<a href="#fnref:1" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:2">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://teddysun.com/489.html<a href="#fnref:2" rev="footnote">
+↩︎</a></span>
+</li>
+</ol>
+</div>
+</div>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>shadowsocks</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在OpenWrt上配置原生IPv6 NAT</title>
+    <url>/2017/03/openwrt-ipv6-nat/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
+<span id="more"></span>
+<h2 id="我的网络环境">我的网络环境</h2>
+<ul>
+<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
+<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
+r45918</li>
+<li><strong>内核版本</strong>：3.18.14</li>
+</ul>
+<h2 id="准备工作">准备工作</h2>
+<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
+<h2 id="详细步骤">详细步骤</h2>
+<ol type="1">
+<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
+<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
+</ol>
+<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>IPv6</tag>
       </tags>
   </entry>
   <entry>
@@ -646,117 +813,6 @@ href="https://www.upyun.com/league">又拍云联盟计划</a>，我当然不会�
         <tag>Docker</tag>
         <tag>Nginx</tag>
         <tag>SSL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>升级Hexo到5.0</title>
-    <url>/2020/09/upgrade-hexo-to-5-0/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
-theme升级到了8.0正式版。刚升级完成时，突然发现next
-theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
-5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
-<span id="more"></span>
-<h2 id="问题">问题</h2>
-<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
-theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
-<h2 id="排查过程">排查过程</h2>
-<ol type="1">
-<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
-8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
-<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
-<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
-<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
-<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
-github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
-<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
-</ol>
-<h2 id="新问题">新问题</h2>
-<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
-<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
-<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
-<p>随后文章的永久链接就会自动变为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
-<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
-<p>问题找到了！即hexo
-5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
-<h2 id="解决">解决</h2>
-<p>也不知道哪里来的灵感，我突然想着将post
-front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
-<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
-<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
-]]></content>
-      <categories>
-        <category>WEB</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop伪分布式配置过程</title>
-    <url>/2017/05/config-hadoop-pseudo-distributed/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>由于后续暑期实习的需要，开始学习起了hadoop~首先当然是需要安装一个hadoop的环境了，这里记录一下今天的安装过程，发现其实还是挺简单的(当然配置完全分布式可能比较麻烦。。。)。</p>
-<span id="more"></span>
-<ol type="1">
-<li><p>先在Vmware里面安装一个Ubuntu 14.04，这个就不介绍了。</p></li>
-<li><p>安装一些预备软件。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install ssh rsync</span><br></pre></td></tr></table></figure></li>
-<li><p>安装Java，为了简单直接安装OpenJDK了。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install openjdk-7-jdk</span><br></pre></td></tr></table></figure></li>
-<li><p>下载<a
-href="http://www-eu.apache.org/dist/hadoop/common/">Hadoop包</a>，我这里尝试的是<a
-href="http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz">hadoop-2.7.1.tar.gz</a>，解压压缩包至/home根目录。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -xf hadoop-2.7.1.tar.gz</span><br></pre></td></tr></table></figure></li>
-<li><p>先<code>cd ~/hadoop-2.7.1</code>，后续操作基本都以这个目录为基础进行。修改<code>etc/hadoop/hadoop-env.sh</code>，将<code>export JAVA_HOME=$&#123;JAVA_HOME&#125;</code>修改为<code>export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64</code>。当然如果在环境变量里面加了<code>JAVA_HOME</code>这里应该就不用改了。。。然后尝试运行<code>bin/hadoop</code>，如果能显示提示就说明没问题了。</p></li>
-<li><p>修改下述文件。</p>
-<p>etc/hadoop/core-site.xml:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-<p>etc/hadoop/hdfs-site.xml:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/home/ts/hdfs&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>格式化系统，并开启NameNode daemon和DataNode daemon。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bin/hdfs namenode -format</span><br><span class="line">sbin/start-dfs.sh</span><br></pre></td></tr></table></figure></li>
-<li><p>这时候访问http://localhost:50070/ ,应该可以看到信息了。</p></li>
-<li><p>创建目录，与自己用户名对应。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">bin/hdfs dfs -<span class="built_in">mkdir</span> /user</span><br><span class="line">bin/hdfs dfs -<span class="built_in">mkdir</span> /user/ts</span><br></pre></td></tr></table></figure></li>
-<li><p>配置YARN。</p></li>
-</ol>
-<p>配置<code>etc/hadoop/mapred-site.xml</code>:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
-<p>配置<code>etc/hadoop/yarn-site.xml</code>:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
-<p>开启ResourceManager daemon和NodeManager daemon:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sbin/start-yarn.sh</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Anaconda下安装Scrapy</title>
-    <url>/2017/03/install-scrapy/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
-<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
-<span id="more"></span>
-<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
-<p>注意在安装过程中勾选如下图所示的选项：</p>
-<figure>
-<img src="/images/install-scrapy/copy_to_system_path.png"
-alt="copy-to-system-path" />
-<figcaption aria-hidden="true">copy-to-system-path</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>爬虫</category>
-      </categories>
-      <tags>
-        <tag>Anaconda</tag>
-        <tag>Scrapy</tag>
       </tags>
   </entry>
   <entry>
@@ -846,62 +902,6 @@ href="http://tool.chinaz.com/speedworld/tang.su">网站国际速度测试</a>时
         <tag>又拍云</tag>
         <tag>vercel</tag>
         <tag>cdn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在服务器上部署Shadowsocks</title>
-    <url>/2017/05/deploy-shadowsocks/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Github学生优惠包里面有一个DigitalOcean的50美元代金券，绑定信用卡充值5美元就可以用了，性价比还是非常高的。事实上我自己已经用了快一年了，一直没有总结过这个搭建步骤，今天姑且写下来吧，还是蛮简单的其实。。。</p>
-<span id="more"></span>
-<p>系统推荐Debian8，以下命令都在终端内执行即可,请先切换至root用户<code>sudo -i</code>。</p>
-<ol type="1">
-<li><p>安装依赖项</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install git build-essential</span><br></pre></td></tr></table></figure></li>
-<li><p>下载Shadowsocks源码并配置好</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b manyuser https://github.com/shadowsocksr/shadowsocksr.git</span><br><span class="line"><span class="built_in">cd</span> shadowsocksr</span><br><span class="line">bash initcfg.sh</span><br><span class="line">vi user-config.json</span><br></pre></td></tr></table></figure>
-<p>主要修改以下几项配置:
-server_port、password、method、protocol，配置具体意义参考<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="https://github.com/breakwa11/shadowsocks-rss/wiki/config.json
-">[1]</span></a></sup></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;server_port&quot;: 443</span><br><span class="line">&quot;method&quot;: &quot;chacha20&quot;</span><br><span class="line">&quot;protocol&quot;: &quot;origin&quot;</span><br><span class="line">&quot;obfs&quot;: &quot;tls1.2_ticket_auth_compatible&quot;</span><br></pre></td></tr></table></figure></li>
-<li><p>配置脚本,<code>vi /etc/init.d/shadowsocks &amp;&amp; chmod +x /etc/init.d/shadowsocks</code>，把以下内容复制进去：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"># chkconfig: 2345 90 10</span><br><span class="line"># description: Start or stop the Shadowsocks R server</span><br><span class="line">#</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides: Shadowsocks-R</span><br><span class="line"># Required-Start: $network $syslog</span><br><span class="line"># Required-Stop: $network</span><br><span class="line"># Default-Start: 2 3 4 5</span><br><span class="line"># Default-Stop: 0 1 6</span><br><span class="line"># Description: Start or stop the Shadowsocks R server</span><br><span class="line">### END INIT INFO</span><br><span class="line"></span><br><span class="line"># Author: Yvonne Lu(Min) &lt;min@utbhost.com&gt;</span><br><span class="line"></span><br><span class="line">name=shadowsocks</span><br><span class="line">PY=/usr/bin/python</span><br><span class="line">SS=/root/shadowsocksr/shadowsocks/server.py</span><br><span class="line">SSPY=server.py</span><br><span class="line">conf=/root/shadowsocksr/user-config.json</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">    $PY $SS -c $conf -d start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">        echo &quot;$name start success&quot;</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name start failed&quot;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ ! -z &quot;$pid&quot; ]; then</span><br><span class="line">        $PY $SS -c $conf -d stop</span><br><span class="line">        RETVAL=$?</span><br><span class="line">        if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">            echo &quot;$name stop success&quot;</span><br><span class="line">        else</span><br><span class="line">            echo &quot;$name stop failed&quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">status()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;SSPY&#125;&quot; | awk &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line">    if [ -z &quot;$pid&quot; ]; then</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is running with PID $pid&quot;</span><br><span class="line">        RETVAL=0</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">&#x27;start&#x27;)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">&#x27;stop&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">&#x27;status&#x27;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">&#x27;restart&#x27;)</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    echo &quot;Usage: $0 &#123; start | stop | restart | status &#125;&quot;</span><br><span class="line">    RETVAL=1</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">exit $RETVAL</span><br></pre></td></tr></table></figure></p></li>
-<li><p>编译libsodium</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget https://github.com/jedisct1/libsodium/releases/download/1.0.12/libsodium-1.0.12.tar.gz</span><br><span class="line">tar xf libsodium-1.0.12.tar.gz &amp;&amp; <span class="built_in">cd</span> libsodium-1.0.12</span><br><span class="line">./configure &amp;&amp; make -j2 &amp;&amp; make install</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure></p></li>
-<li><p>启动shadowsocks服务</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks start</span><br></pre></td></tr></table></figure></p></li>
-<li><p>(推荐)配置BBR加速，具体参考<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="https://teddysun.com/489.html
-">[2]</span></a></sup></p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br><span class="line"><span class="built_in">chmod</span> +x bbr.sh</span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p></li>
-</ol>
-<div id="footnotes">
-<hr>
-<div id="footnotelist">
-<ol style="list-style: none; padding-left: 0; margin-left: 40px">
-<li id="fn:1">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/breakwa11/shadowsocks-rss/wiki/config.json<a href="#fnref:1" rev="footnote">
-↩︎</a></span>
-</li>
-<li id="fn:2">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">https://teddysun.com/489.html<a href="#fnref:2" rev="footnote">
-↩︎</a></span>
-</li>
-</ol>
-</div>
-</div>
-]]></content>
-      <categories>
-        <category>WEB</category>
-      </categories>
-      <tags>
-        <tag>shadowsocks</tag>
       </tags>
   </entry>
 </search>
