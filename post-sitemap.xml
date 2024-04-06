@@ -49,6 +49,15 @@
     </url>
 
     <url>
+        <loc>https://tang.su/2017/04/TensorFlow-center-loss/</loc>
+        <lastmod>2024-04-05T13:46:42.441Z</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    
+    
+    </url>
+
+    <url>
         <loc>https://tang.su/2017/05/deploy-shadowsocks/</loc>
         <lastmod>2024-04-05T13:46:42.441Z</lastmod>
         <changefreq>always</changefreq>
@@ -67,34 +76,7 @@
     </url>
 
     <url>
-        <loc>https://tang.su/2017/04/TensorFlow-center-loss/</loc>
-        <lastmod>2024-04-05T13:46:42.441Z</lastmod>
-        <changefreq>always</changefreq>
-        <priority>1</priority>
-    
-    
-    </url>
-
-    <url>
-        <loc>https://tang.su/2017/03/paper-notes-AgeNet/</loc>
-        <lastmod>2024-04-05T13:46:42.440Z</lastmod>
-        <changefreq>always</changefreq>
-        <priority>1</priority>
-    
-    
-    </url>
-
-    <url>
         <loc>https://tang.su/2017/03/install-scrapy/</loc>
-        <lastmod>2024-04-05T13:46:42.440Z</lastmod>
-        <changefreq>always</changefreq>
-        <priority>1</priority>
-    
-    
-    </url>
-
-    <url>
-        <loc>https://tang.su/2017/03/pointers-to-arrays/</loc>
         <lastmod>2024-04-05T13:46:42.440Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>
@@ -121,6 +103,15 @@
     </url>
 
     <url>
+        <loc>https://tang.su/2017/03/paper-notes-AgeNet/</loc>
+        <lastmod>2024-04-05T13:46:42.440Z</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    
+    
+    </url>
+
+    <url>
         <loc>https://tang.su/2017/04/Y1s-lan-wan/</loc>
         <lastmod>2024-04-05T13:46:42.440Z</lastmod>
         <changefreq>always</changefreq>
@@ -130,17 +121,8 @@
     </url>
 
     <url>
-        <loc>https://tang.su/2016/05/install-tensorflow/</loc>
-        <lastmod>2024-04-05T13:46:42.439Z</lastmod>
-        <changefreq>always</changefreq>
-        <priority>1</priority>
-    
-    
-    </url>
-
-    <url>
-        <loc>https://tang.su/2016/06/compile-opencv-python3/</loc>
-        <lastmod>2024-04-05T13:46:42.439Z</lastmod>
+        <loc>https://tang.su/2017/03/pointers-to-arrays/</loc>
+        <lastmod>2024-04-05T13:46:42.440Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>
     
@@ -158,6 +140,24 @@
 
     <url>
         <loc>https://tang.su/2016/11/compile-anaconda3-caffe/</loc>
+        <lastmod>2024-04-05T13:46:42.439Z</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    
+    
+    </url>
+
+    <url>
+        <loc>https://tang.su/2016/06/compile-opencv-python3/</loc>
+        <lastmod>2024-04-05T13:46:42.439Z</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    
+    
+    </url>
+
+    <url>
+        <loc>https://tang.su/2016/05/install-tensorflow/</loc>
         <lastmod>2024-04-05T13:46:42.439Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>

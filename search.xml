@@ -1,90 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Linux下安装TensorFlow</title>
-    <url>/2016/05/install-tensorflow/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>TensorFlow是Google推出的一个数值计算库，下面详述一下我个人推荐的安装方法。
-<span id="more"></span> ## 安装Anaconda</p>
-<p>Anaconda是一个python的发行版本，集成了数百个科学计算库，使用十分方便；同时包含了conda包管理器，不仅可以用于安装其他库，也可以用于创建虚拟环境，后续你就能体会到它的方便之处了。</p>
-<p>可以去<a
-href="https://www.continuum.io/downloads">Anaconda</a>这里下载完整的安装包(包含了数百个库)，或者安装<a
-href="http://conda.pydata.org/miniconda.html">Miniconda</a>(含conda包管理器，但没有第三方库)之后使用<code>conda install xxx</code>安装自己所需的其他库，推荐下载64-bit的版本，选择python2.7还是python3.5则根据个人喜好选择，最后下载之后的安装包名称应该是以<code>.sh</code>结尾的文件，放置在Linux用户主目录中。</p>
-<p>使用下列命令安装(建议使用4.2.0版本，4.3.0里包含的是Python3.6，用起来暂时不太方便)：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bash Anaconda3-4.2.0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure></p>
-<p><code>Anaconda3-4.2.0-Linux-x86_64.sh</code>替换为你实际下载的安装包名称，一路回车即安装好了，默认是安装在主目录下的。在安装过程中，有一个选项问你是否将anaconda目录添加至<code>.bashrc</code>中，这个时候推荐输入yes，这样在终端内启动python时会默认启动Anaconda中的python，而不是系统自带的python，使用起来方便很多。</p>
-<h2 id="创建虚拟环境">创建虚拟环境</h2>
-<p>Anaconda安装好之后，使用下列命令创建一个python2.7或者python3.5的虚拟环境:
-<code>conda create -n py2 python=2.7</code>或<code>conda create -n py3 python=3.5</code>。
-命令中的<code>py2</code>和<code>py3</code>只是一个名字，可以任意取。</p>
-<h2 id="激活虚拟环境">激活虚拟环境</h2>
-<p>使用<code>source activate py3</code>命令激活虚拟环境（自行替换<code>py3</code>为你自己的命名），这时候在终端中可以看到提示符最前面有一个<code>(py3)</code>。</p>
-<h2 id="安装tensorflow">安装TensorFlow</h2>
-<p>TensorFlow已经被上传至pypi了，现在安装非常方便了...
-如果安装CPU版本，使用 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow</span><br></pre></td></tr></table></figure> 如果安装GPU版本，使用
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow-gpu</span><br></pre></td></tr></table></figure></p>
-<p>如果下载速度过慢，可以使用<a
-href="https://lug.ustc.edu.cn/wiki/mirrors/help/pypi">科大pypi镜像</a>或者<a
-href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华pypi镜像</a>加速。</p>
-<p><strong>注意：</strong>安装好之后，在保证命令符前有<code>(py3)</code>的情况下，进行python并输入<code>import tensorflow</code>，如果没有报错说明安装成功。</p>
-<h2 id="从源码编译">从源码编译</h2>
-<p>官网提供的安装包为了保持最大的兼容性，<strong>去掉了优化编译选项</strong>，不能达到最快的速度，因此最好是自己从源码编译...这个有空再写吧...</p>
-<h2 id="安装其他附加包">安装其他附加包</h2>
-<p>需要安装其他附加库到我们的py3虚拟环境中时，同样使用<code>source acitvate py3</code>先激活虚拟环境，然后使用<code>conda install xx</code>安装包，xx代表包名。
-我个人一般会安装这些包：
-<code>conda install numpy scipy matplotlib scikit-learn scikit-image pillow spyder jupyter notebook</code></p>
-<h2 id="更新记录">更新记录</h2>
-<p>2017/3/15 TensorFlow早已经被上传至pypi了，因此删掉大量篇幅...</p>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>TensorFlow</tag>
-        <tag>Anaconda</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows下编译OpenCV-Python3</title>
-    <url>/2016/06/compile-opencv-python3/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OpenCV3已经开始支持python3版本了，但是需要自己编译，以下简要记录一下编译的流程。
-<span id="more"></span></p>
-<p>2016/11/20更新：其实最简单的办法是安装anaconda，然后在cmd里用<code>conda install -c menpo opencv3=3.1.0</code>安装即可。</p>
-<h2 id="安装预备软件">安装预备软件</h2>
-<p>首先安装以下软件： - <a href="https://git-scm.com/downloads">git</a>
-- <a href="https://cmake.org/download/">CMake</a> - VS 2013</p>
-<h2 id="下载源码">下载源码</h2>
-<p>在你想保存源码的位置，单击鼠标右键，点击“Git Bash
-Here”，键入以下命令：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:Itseez/opencv.git</span><br></pre></td></tr></table></figure>
-<p>新建一个build文件夹，用于存放编译后的文件。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> opencv</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br></pre></td></tr></table></figure>
-<h2 id="配置cmake">配置CMake</h2>
-<p>运行CMake，在最上面两栏内填上源码和build文件夹的位置，勾上<code>Grouped</code>，</p>
-<p><img src="/images/compile-opencv-python3/cmake1.png" /></p>
-<p>点击<code>Configure</code>，选择已安装的编译器，然后点击<code>Finish</code></p>
-<p><img src="/images/compile-opencv-python3/cmake2.png" /></p>
-<p>根据自己情况选择或者取消勾选某些选项(注意<strong>不要勾选</strong><code>BUILD_opencv_world</code>，我测试发现勾选这个之后不会编译python的相关文件，另外不需要cuda的话可以在<code>WITH</code>里面把<code>WITH_CUDA</code>和<code>WITH_CUFFT</code>勾去掉)，对于我们编译OpenCV-Python3而言，比较重要的是以下两个部分：
-- BUILD 只编译python3就取消勾选掉python2的勾 <img
-src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
-一般来说这里的几个选项CMake是可以自动检测到的，如果没有自动检测到，则自己手动填入吧，填写方式参考下图，一定不能漏。
-<img src="/images/compile-opencv-python3/cmake5.png" /></p>
-<p>搞定之后点击"Generate"，直到看到"Generate done"。</p>
-<h2 id="编译">编译</h2>
-<p>在BUILD文件夹下找到一个名为<code>OpenCV.sln</code>的文件，双击，会进入VS。
-在左侧找到<code>ALL_BUILD</code>，右键单击并选择<code>生成</code>，后续耐心等待编译完成即可。</p>
-<h2 id="配置环境变量">配置环境变量</h2>
-<p>编译完成之后，在BUILD，把它复制到python安装目录下的<code>Lib\site-packages</code>目录下，随后将BUILD文件夹下的<code>bin\Release</code>的<strong>完整路径</strong>添加到系统环境变量中。
-这时候启动python，运行<code>import cv2</code>命令，如果没有错误，则说明安装成功了。</p>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>opencv</tag>
-        <tag>python3</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>添加任意数据至TensorBoard</title>
     <url>/2017/01/manually-create-summary/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>通常情况下，我们在训练网络时添加summary都是通过如下方式：</p>
@@ -159,6 +75,144 @@ tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create
       <tags>
         <tag>Anaconda</tag>
         <tag>Caffe</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows下编译OpenCV-Python3</title>
+    <url>/2016/06/compile-opencv-python3/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OpenCV3已经开始支持python3版本了，但是需要自己编译，以下简要记录一下编译的流程。
+<span id="more"></span></p>
+<p>2016/11/20更新：其实最简单的办法是安装anaconda，然后在cmd里用<code>conda install -c menpo opencv3=3.1.0</code>安装即可。</p>
+<h2 id="安装预备软件">安装预备软件</h2>
+<p>首先安装以下软件： - <a href="https://git-scm.com/downloads">git</a>
+- <a href="https://cmake.org/download/">CMake</a> - VS 2013</p>
+<h2 id="下载源码">下载源码</h2>
+<p>在你想保存源码的位置，单击鼠标右键，点击“Git Bash
+Here”，键入以下命令：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:Itseez/opencv.git</span><br></pre></td></tr></table></figure>
+<p>新建一个build文件夹，用于存放编译后的文件。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> opencv</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br></pre></td></tr></table></figure>
+<h2 id="配置cmake">配置CMake</h2>
+<p>运行CMake，在最上面两栏内填上源码和build文件夹的位置，勾上<code>Grouped</code>，</p>
+<p><img src="/images/compile-opencv-python3/cmake1.png" /></p>
+<p>点击<code>Configure</code>，选择已安装的编译器，然后点击<code>Finish</code></p>
+<p><img src="/images/compile-opencv-python3/cmake2.png" /></p>
+<p>根据自己情况选择或者取消勾选某些选项(注意<strong>不要勾选</strong><code>BUILD_opencv_world</code>，我测试发现勾选这个之后不会编译python的相关文件，另外不需要cuda的话可以在<code>WITH</code>里面把<code>WITH_CUDA</code>和<code>WITH_CUFFT</code>勾去掉)，对于我们编译OpenCV-Python3而言，比较重要的是以下两个部分：
+- BUILD 只编译python3就取消勾选掉python2的勾 <img
+src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
+一般来说这里的几个选项CMake是可以自动检测到的，如果没有自动检测到，则自己手动填入吧，填写方式参考下图，一定不能漏。
+<img src="/images/compile-opencv-python3/cmake5.png" /></p>
+<p>搞定之后点击"Generate"，直到看到"Generate done"。</p>
+<h2 id="编译">编译</h2>
+<p>在BUILD文件夹下找到一个名为<code>OpenCV.sln</code>的文件，双击，会进入VS。
+在左侧找到<code>ALL_BUILD</code>，右键单击并选择<code>生成</code>，后续耐心等待编译完成即可。</p>
+<h2 id="配置环境变量">配置环境变量</h2>
+<p>编译完成之后，在BUILD，把它复制到python安装目录下的<code>Lib\site-packages</code>目录下，随后将BUILD文件夹下的<code>bin\Release</code>的<strong>完整路径</strong>添加到系统环境变量中。
+这时候启动python，运行<code>import cv2</code>命令，如果没有错误，则说明安装成功了。</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>opencv</tag>
+        <tag>python3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Anaconda下安装Scrapy</title>
+    <url>/2017/03/install-scrapy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
+<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
+<span id="more"></span>
+<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
+<p>注意在安装过程中勾选如下图所示的选项：</p>
+<figure>
+<img src="/images/install-scrapy/copy_to_system_path.png"
+alt="copy-to-system-path" />
+<figcaption aria-hidden="true">copy-to-system-path</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>爬虫</category>
+      </categories>
+      <tags>
+        <tag>Anaconda</tag>
+        <tag>Scrapy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>将TensorFlow的网络导出为单个文件</title>
+    <url>/2017/01/export-TensorFlow-network/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>有时候，我们需要将TensorFlow的模型导出为单个文件（同时包含模型架构定义与权重），方便在其他地方使用（如在c++中部署网络）。利用<code>tf.train.write_graph()</code>默认情况下只导出了网络的定义（没有权重），而利用<code>tf.train.Saver().save()</code>导出的文件graph_def与权重是分离的，因此需要采用别的方法。</p>
+<span id="more"></span>
+<p>我们知道，graph_def文件中没有包含网络中的Variable值（通常情况存储了权重），但是却包含了constant值，所以如果我们能把Variable转换为constant，即可达到使用一个文件同时存储网络架构与权重的目标。</p>
+<p>我们可以采用以下方式冻结权重并保存网络：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造网络</span></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"><span class="comment"># 一定要给输出tensor取一个名字！！</span></span><br><span class="line">output = tf.add(a, b, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转换Variable为constant，并将网络写入到文件</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment"># 这里需要填入输出tensor的名字</span></span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>当恢复网络时，可以使用如下方式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>输出结果为:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 7.],</span><br><span class="line">       [ 8.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>可以看到之前的权重确实保存了下来!!</p>
+<p>问题来了，我们的网络需要能有一个输入自定义数据的接口啊！不然这玩意有什么用。。别急，当然有办法。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">input_tensor = tf.placeholder(tf.float32, name=<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line">output = tf.add((a+b), input_tensor, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>用上述代码重新保存网络至graph.pb，这次我们有了一个输入placeholder，下面来看看怎么恢复网络并输入自定义数据。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:<span class="number">4.</span>&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>可以看到结果没有问题，当然在<code>input_map</code>那里可以替换为新的自定义的placeholder，如下所示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">new_input = tf.placeholder(tf.float32, shape=())</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:new_input&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output, feed_dict=&#123;new_input:<span class="number">4</span>&#125;))</span><br></pre></td></tr></table></figure>
+<p>看看输出，同样没有问题。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>另外需要说明的一点是，在利用<code>tf.train.write_graph</code>写网络架构的时候，如果令<code>as_text=True</code>了，则在导入网络的时候，需要做一点小修改。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> google.protobuf <span class="keyword">import</span> text_format</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	<span class="comment"># 不使用&#x27;rb&#x27;模式</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        <span class="comment"># 不使用graph_def.ParseFromString(f.read())</span></span><br><span class="line">        text_format.Merge(f.read(), graph_def)</span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>##参考资料 <a
+href="http://stackoverflow.com/questions/34343259/is-there-an-example-on-how-to-generate-protobuf-files-holding-trained-tensorflow">Is
+there an example on how to generate protobuf files holding trained
+Tensorflow graphs</a></p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在OpenWrt上配置原生IPv6 NAT</title>
+    <url>/2017/03/openwrt-ipv6-nat/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
+<span id="more"></span>
+<h2 id="我的网络环境">我的网络环境</h2>
+<ul>
+<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
+<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
+r45918</li>
+<li><strong>内核版本</strong>：3.18.14</li>
+</ul>
+<h2 id="准备工作">准备工作</h2>
+<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
+<h2 id="详细步骤">详细步骤</h2>
+<ol type="1">
+<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
+<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
+</ol>
+<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>IPv6</tag>
       </tags>
   </entry>
   <entry>
@@ -257,139 +311,6 @@ age, fine-tune with apparent age.三个阶段的训练。</p>
       </tags>
   </entry>
   <entry>
-    <title>Anaconda下安装Scrapy</title>
-    <url>/2017/03/install-scrapy/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
-<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
-<span id="more"></span>
-<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
-<p>注意在安装过程中勾选如下图所示的选项：</p>
-<figure>
-<img src="/images/install-scrapy/copy_to_system_path.png"
-alt="copy-to-system-path" />
-<figcaption aria-hidden="true">copy-to-system-path</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>爬虫</category>
-      </categories>
-      <tags>
-        <tag>Anaconda</tag>
-        <tag>Scrapy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>指针数组与数组指针</title>
-    <url>/2017/03/pointers-to-arrays/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天刚好复习了C++
-Primer中关于数组指针的内容，理清了数组指针的几个问题。</p>
-<span id="more"></span>
-<h2 id="指针数组与数组指针定义">指针数组与数组指针定义</h2>
-<p>先看指针数组与数组指针的定义吧：指针数组，主体是数组，数组内存放的元素是指针；而对于数组指针，核心是指针，指针指向的是一个数组。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 指针数组</span></span><br><span class="line"><span class="type">int</span> *ptrs[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 数组指针，指向的是一个含有10个元素的指针</span></span><br><span class="line"><span class="built_in">int</span> (*parray)[<span class="number">10</span>] = &amp;arr;</span><br></pre></td></tr></table></figure>
-<h2 id="解析数组指针">解析数组指针</h2>
-<p>指针数组其实很好理解，难点在于数组指针容易让人糊涂，先看下面这样一段程序吧。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">2</span>][<span class="number">4</span>] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span> &#125;;</span><br><span class="line">    <span class="built_in">int</span>(*Parray)[<span class="number">2</span>][<span class="number">4</span>] = &amp;arr;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;arr:       &quot;</span> &lt;&lt; arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*arr:      &quot;</span> &lt;&lt; *arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**arr:     &quot;</span> &lt;&lt; **arr &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Parray:    &quot;</span> &lt;&lt; Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*Parray:   &quot;</span> &lt;&lt; *Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**Parray:  &quot;</span> &lt;&lt; **Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;***Parray: &quot;</span> &lt;&lt; ***Parray &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>程序的运行结果如下所示：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">arr:       <span class="number">009</span>CFDE8</span><br><span class="line">*arr:      <span class="number">009</span>CFDE8</span><br><span class="line">**arr:     <span class="number">1</span></span><br><span class="line">Parray:    <span class="number">009</span>CFDE8</span><br><span class="line">*Parray:   <span class="number">009</span>CFDE8</span><br><span class="line">**Parray:  <span class="number">009</span>CFDE8</span><br><span class="line">***Parray: <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>很多人看到这可能直接就迷糊了，这些东西到底都是指向的啥？</p>
-<p>要理解这里的各种指针的区别，首先需要理解指针指向的<strong>基本元素</strong>是什么，即*p指向什么，*(p+1)又指向什么，理解了这一点，就能比较容易理解上面的各种指针的含义。</p>
-<p>对于数组而言，数组名代表的是指向数组内<strong>基本元素</strong>的地址，这里的<strong>基本元素</strong>指什么呢？对于一元数组(<code>int a[3]=&#123;1, 2, 3&#125;</code>)而言，基本元素代表数组内的每一个数字，即*a代表1，*(a+1)代表2。而对于二元数组<code>int arr[2][4] = &#123; 1,2,3,4,5,6,7,8 &#125;;</code>，这里的<strong>基本元素</strong>就是二元数组的<strong>一行</strong>，我们可以这样理解，这个数组相当于有2个位置（<strong>把最靠近数组名的数字看做数组的基本元素的数量</strong>），然后每个位置存放了一个容量为4的数组。因此*arr指向的是数组的第一个基本元素（即第一行），*(arr+1)指向数组的第二个基本元素（即第二行）。</p>
-<p>理解上面这一段话之后，我们就能理解上述程序中的<code>arr</code>、<code>*arr</code>和<code>**arr</code>各自代表什么了。arr代表二元数组的第一个基本元素（即第一行）的地址，*arr对第一行的地址解引用了，相当于指向了这第一行的第一个元素的地址。注意这里的<strong>区别</strong>，arr+1是会使地址往后挪一行所占用的字节，而(*arr)+1是只会往后挪一个数字所占用的字节，因为*arr指向了第一行的第一个元素，自然**arr就输出了该元素的值1。</p>
-<p>我们再来看<code>Parray</code>，因为我们把(*Parray)用括号括起来了，因此Parray首先是一个指针，然后看它后面[2][4]，说明他是一个指向大小为[2][4]的数组的指针。所以Parray代表这个<strong>数组整体</strong>的首地址，即Parray指向这个数组，Parray+1指向这个数组整体的尾元素的下一个地址。随后层层解引用，*Parray代表数组的第一行的首地址，*Parray代表数组的第一行的第一个元素的地址，***Parray代表数组的第一个元素的数值。</p>
-<p>再来看看刚才那一段代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; Parray + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; *Parray + <span class="number">2</span>  &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; **Parray + <span class="number">8</span> &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br></pre></td></tr></table></figure>
-<p>可以看到输出是一致的，因为Parray指向整个数组，因此+1会往后挪整个数组所代表的字节数；而对于*Parray，由于Parray指向的是一行，因此需要+2，对于**Parray同理。</p>
-<h2 id="总结">总结</h2>
-<p>在理解数组指针的时候，很多人看见那几个*号直接就晕了，虽然它们指向的元素的首地址是相同的，但是它们+1之后所指向的位置就完全不同了，因此理解这里的<strong>关键</strong>在于理解它们+1之后都指向了什么位置。</p>
-]]></content>
-      <categories>
-        <category>c++</category>
-      </categories>
-      <tags>
-        <tag>指针</tag>
-        <tag>数组</tag>
-        <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>将TensorFlow的网络导出为单个文件</title>
-    <url>/2017/01/export-TensorFlow-network/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>有时候，我们需要将TensorFlow的模型导出为单个文件（同时包含模型架构定义与权重），方便在其他地方使用（如在c++中部署网络）。利用<code>tf.train.write_graph()</code>默认情况下只导出了网络的定义（没有权重），而利用<code>tf.train.Saver().save()</code>导出的文件graph_def与权重是分离的，因此需要采用别的方法。</p>
-<span id="more"></span>
-<p>我们知道，graph_def文件中没有包含网络中的Variable值（通常情况存储了权重），但是却包含了constant值，所以如果我们能把Variable转换为constant，即可达到使用一个文件同时存储网络架构与权重的目标。</p>
-<p>我们可以采用以下方式冻结权重并保存网络：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造网络</span></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"><span class="comment"># 一定要给输出tensor取一个名字！！</span></span><br><span class="line">output = tf.add(a, b, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转换Variable为constant，并将网络写入到文件</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment"># 这里需要填入输出tensor的名字</span></span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<p>当恢复网络时，可以使用如下方式：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
-<p>输出结果为:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 7.],</span><br><span class="line">       [ 8.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
-<p>可以看到之前的权重确实保存了下来!!</p>
-<p>问题来了，我们的网络需要能有一个输入自定义数据的接口啊！不然这玩意有什么用。。别急，当然有办法。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">input_tensor = tf.placeholder(tf.float32, name=<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line">output = tf.add((a+b), input_tensor, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<p>用上述代码重新保存网络至graph.pb，这次我们有了一个输入placeholder，下面来看看怎么恢复网络并输入自定义数据。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:<span class="number">4.</span>&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
-<p>输出结果为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
-<p>可以看到结果没有问题，当然在<code>input_map</code>那里可以替换为新的自定义的placeholder，如下所示：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">new_input = tf.placeholder(tf.float32, shape=())</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:new_input&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output, feed_dict=&#123;new_input:<span class="number">4</span>&#125;))</span><br></pre></td></tr></table></figure>
-<p>看看输出，同样没有问题。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
-<p>另外需要说明的一点是，在利用<code>tf.train.write_graph</code>写网络架构的时候，如果令<code>as_text=True</code>了，则在导入网络的时候，需要做一点小修改。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> google.protobuf <span class="keyword">import</span> text_format</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	<span class="comment"># 不使用&#x27;rb&#x27;模式</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        <span class="comment"># 不使用graph_def.ParseFromString(f.read())</span></span><br><span class="line">        text_format.Merge(f.read(), graph_def)</span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
-<p>##参考资料 <a
-href="http://stackoverflow.com/questions/34343259/is-there-an-example-on-how-to-generate-protobuf-files-holding-trained-tensorflow">Is
-there an example on how to generate protobuf files holding trained
-Tensorflow graphs</a></p>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>TensorFlow</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在OpenWrt上配置原生IPv6 NAT</title>
-    <url>/2017/03/openwrt-ipv6-nat/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
-<span id="more"></span>
-<h2 id="我的网络环境">我的网络环境</h2>
-<ul>
-<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
-<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
-r45918</li>
-<li><strong>内核版本</strong>：3.18.14</li>
-</ul>
-<h2 id="准备工作">准备工作</h2>
-<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
-<h2 id="详细步骤">详细步骤</h2>
-<ol type="1">
-<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
-<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
-<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
-<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
-</ol>
-<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>路由器</category>
-      </categories>
-      <tags>
-        <tag>OpenWrt</tag>
-        <tag>IPv6</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>联想Y1S LAN口改WAN口</title>
     <url>/2017/04/Y1s-lan-wan/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>为什么会有把LAN口改WAN口的想法呢？因为联想Y1S的WAN口是<strong>百兆</strong>的，但是却有两个<strong>千兆LAN</strong>口。。如果不把一个千兆LAN口改为WAN口，对外访问的最快速度也就百兆了，这在有IPv6的学校内是一个巨大的浪费。。</p>
@@ -442,6 +363,42 @@ ID号是不对应的。。luci界面里的VLAN ID 1在配置文件中实际是VL
       <tags>
         <tag>LAN</tag>
         <tag>WAN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>指针数组与数组指针</title>
+    <url>/2017/03/pointers-to-arrays/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天刚好复习了C++
+Primer中关于数组指针的内容，理清了数组指针的几个问题。</p>
+<span id="more"></span>
+<h2 id="指针数组与数组指针定义">指针数组与数组指针定义</h2>
+<p>先看指针数组与数组指针的定义吧：指针数组，主体是数组，数组内存放的元素是指针；而对于数组指针，核心是指针，指针指向的是一个数组。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 指针数组</span></span><br><span class="line"><span class="type">int</span> *ptrs[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 数组指针，指向的是一个含有10个元素的指针</span></span><br><span class="line"><span class="built_in">int</span> (*parray)[<span class="number">10</span>] = &amp;arr;</span><br></pre></td></tr></table></figure>
+<h2 id="解析数组指针">解析数组指针</h2>
+<p>指针数组其实很好理解，难点在于数组指针容易让人糊涂，先看下面这样一段程序吧。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">2</span>][<span class="number">4</span>] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span> &#125;;</span><br><span class="line">    <span class="built_in">int</span>(*Parray)[<span class="number">2</span>][<span class="number">4</span>] = &amp;arr;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;arr:       &quot;</span> &lt;&lt; arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*arr:      &quot;</span> &lt;&lt; *arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**arr:     &quot;</span> &lt;&lt; **arr &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Parray:    &quot;</span> &lt;&lt; Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*Parray:   &quot;</span> &lt;&lt; *Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**Parray:  &quot;</span> &lt;&lt; **Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;***Parray: &quot;</span> &lt;&lt; ***Parray &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序的运行结果如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">arr:       <span class="number">009</span>CFDE8</span><br><span class="line">*arr:      <span class="number">009</span>CFDE8</span><br><span class="line">**arr:     <span class="number">1</span></span><br><span class="line">Parray:    <span class="number">009</span>CFDE8</span><br><span class="line">*Parray:   <span class="number">009</span>CFDE8</span><br><span class="line">**Parray:  <span class="number">009</span>CFDE8</span><br><span class="line">***Parray: <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>很多人看到这可能直接就迷糊了，这些东西到底都是指向的啥？</p>
+<p>要理解这里的各种指针的区别，首先需要理解指针指向的<strong>基本元素</strong>是什么，即*p指向什么，*(p+1)又指向什么，理解了这一点，就能比较容易理解上面的各种指针的含义。</p>
+<p>对于数组而言，数组名代表的是指向数组内<strong>基本元素</strong>的地址，这里的<strong>基本元素</strong>指什么呢？对于一元数组(<code>int a[3]=&#123;1, 2, 3&#125;</code>)而言，基本元素代表数组内的每一个数字，即*a代表1，*(a+1)代表2。而对于二元数组<code>int arr[2][4] = &#123; 1,2,3,4,5,6,7,8 &#125;;</code>，这里的<strong>基本元素</strong>就是二元数组的<strong>一行</strong>，我们可以这样理解，这个数组相当于有2个位置（<strong>把最靠近数组名的数字看做数组的基本元素的数量</strong>），然后每个位置存放了一个容量为4的数组。因此*arr指向的是数组的第一个基本元素（即第一行），*(arr+1)指向数组的第二个基本元素（即第二行）。</p>
+<p>理解上面这一段话之后，我们就能理解上述程序中的<code>arr</code>、<code>*arr</code>和<code>**arr</code>各自代表什么了。arr代表二元数组的第一个基本元素（即第一行）的地址，*arr对第一行的地址解引用了，相当于指向了这第一行的第一个元素的地址。注意这里的<strong>区别</strong>，arr+1是会使地址往后挪一行所占用的字节，而(*arr)+1是只会往后挪一个数字所占用的字节，因为*arr指向了第一行的第一个元素，自然**arr就输出了该元素的值1。</p>
+<p>我们再来看<code>Parray</code>，因为我们把(*Parray)用括号括起来了，因此Parray首先是一个指针，然后看它后面[2][4]，说明他是一个指向大小为[2][4]的数组的指针。所以Parray代表这个<strong>数组整体</strong>的首地址，即Parray指向这个数组，Parray+1指向这个数组整体的尾元素的下一个地址。随后层层解引用，*Parray代表数组的第一行的首地址，*Parray代表数组的第一行的第一个元素的地址，***Parray代表数组的第一个元素的数值。</p>
+<p>再来看看刚才那一段代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; Parray + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; *Parray + <span class="number">2</span>  &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; **Parray + <span class="number">8</span> &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br></pre></td></tr></table></figure>
+<p>可以看到输出是一致的，因为Parray指向整个数组，因此+1会往后挪整个数组所代表的字节数；而对于*Parray，由于Parray指向的是一行，因此需要+2，对于**Parray同理。</p>
+<h2 id="总结">总结</h2>
+<p>在理解数组指针的时候，很多人看见那几个*号直接就晕了，虽然它们指向的元素的首地址是相同的，但是它们+1之后所指向的位置就完全不同了，因此理解这里的<strong>关键</strong>在于理解它们+1之后都指向了什么位置。</p>
+]]></content>
+      <categories>
+        <category>c++</category>
+      </categories>
+      <tags>
+        <tag>指针</tag>
+        <tag>数组</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -526,6 +483,70 @@ Transformer Networks</a><a href="#fnref:4" rev="footnote"> ↩︎</a></span>
       </tags>
   </entry>
   <entry>
+    <title>center loss的TensorFlow实现</title>
+    <url>/2017/04/TensorFlow-center-loss/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本文最开始发表于CSDN<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="http://blog.csdn.net/encodets/article/details/54648015
+">[1]</span></a></sup>，目前重新整理并加上更详细的注释，<del>本周内会于Github上传示例代码</del>
+代码<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="代码地址：https://github.com/EncodeTS/TensorFlow_Center_Loss
+">[2]</span></a></sup>已上传。</p>
+<p>Center loss是ECCV2016中一篇论文《A Discriminative Feature Learning
+Approach for Deep Face
+Recognition》<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://link.springer.com/chapter/10.1007/978-3-319-46478-7_31
+">[3]</span></a></sup>提出来的概念，主要思想就是在softmax
+loss基础上额外加入一个正则项，让网络中每一类样本的特征向量都能够尽量聚在一起，在mnist上的示意效果如下图所示，可以看到每一类样本都聚在类别中心的周围。</p>
+<span id="more"></span>
+<p><img src="/images/paper-notes/Center-Loss/pic1.png" /></p>
+<p>具体的原理推导等请参考原论文，网上目前有Caffe以及Mxnet版的实现，我在Facenet<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span
+class="hint--top hint--error hint--medium hint--rounded hint--bounce"
+aria-label="https://github.com/davidsandberg/facenet/blob/master/src/facenet.py#L76-L88">[4]</span></a></sup>实现版本基础上做了修改，个人认为是更加贴近原论文叙述的方法的，欢迎讨论。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_center_loss</span>(<span class="params">features, labels, alpha, num_classes</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;获取center loss及center的更新op</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        features: Tensor,表征样本特征,一般使用某个fc层的输出,shape应该为[batch_size, feature_length].</span></span><br><span class="line"><span class="string">        labels: Tensor,表征样本label,非one-hot编码,shape应为[batch_size].</span></span><br><span class="line"><span class="string">        alpha: 0-1之间的数字,控制样本类别中心的学习率,细节参考原文.</span></span><br><span class="line"><span class="string">        num_classes: 整数,表明总共有多少个类别,网络分类输出有多少个神经元这里就取多少.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Return：</span></span><br><span class="line"><span class="string">        loss: Tensor,可与softmax loss相加作为总的loss进行优化.</span></span><br><span class="line"><span class="string">        centers: Tensor,存储样本中心值的Tensor，仅查看样本中心存储的具体数值时有用.</span></span><br><span class="line"><span class="string">        centers_update_op: op,用于更新样本中心的op，在训练时需要同时运行该op，否则样本中心不会更新</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取特征的维数，例如256维</span></span><br><span class="line">    len_features = features.get_shape()[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 建立一个Variable,shape为[num_classes, len_features]，用于存储整个网络的样本中心，</span></span><br><span class="line">    <span class="comment"># 设置trainable=False是因为样本中心不是由梯度进行更新的</span></span><br><span class="line">    centers = tf.get_variable(<span class="string">&#x27;centers&#x27;</span>, [num_classes, len_features], dtype=tf.float32,</span><br><span class="line">        initializer=tf.constant_initializer(<span class="number">0</span>), trainable=<span class="literal">False</span>)</span><br><span class="line">    <span class="comment"># 将label展开为一维的，输入如果已经是一维的，则该动作其实无必要</span></span><br><span class="line">    labels = tf.reshape(labels, [-<span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 根据样本label,获取mini-batch中每一个样本对应的中心值</span></span><br><span class="line">    centers_batch = tf.gather(centers, labels)</span><br><span class="line">    <span class="comment"># 计算loss</span></span><br><span class="line">    loss = tf.nn.l2_loss(features - centers_batch)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 当前mini-batch的特征值与它们对应的中心值之间的差</span></span><br><span class="line">    diff = centers_batch - features</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 获取mini-batch中同一类别样本出现的次数,了解原理请参考原文公式(4)</span></span><br><span class="line">    unique_label, unique_idx, unique_count = tf.unique_with_counts(labels)</span><br><span class="line">    appear_times = tf.gather(unique_count, unique_idx)</span><br><span class="line">    appear_times = tf.reshape(appear_times, [-<span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    diff = diff / tf.cast((<span class="number">1</span> + appear_times), tf.float32)</span><br><span class="line">    diff = alpha * diff</span><br><span class="line">    </span><br><span class="line">    centers_update_op = tf.scatter_sub(centers, labels, diff)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> loss, centers, centers_update_op</span><br></pre></td></tr></table></figure>
+<div id="footnotes">
+<hr>
+<div id="footnotelist">
+<ol style="list-style: none; padding-left: 0; margin-left: 40px">
+<li id="fn:1">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">http://blog.csdn.net/encodets/article/details/54648015<a href="#fnref:1" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:2">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">代码地址：https://github.com/EncodeTS/TensorFlow_Center_Loss<a href="#fnref:2" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:3">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://link.springer.com/chapter/10.1007/978-3-319-46478-7_31<a href="#fnref:3" rev="footnote">
+↩︎</a></span>
+</li>
+<li id="fn:4">
+<span
+style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span
+style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/davidsandberg/facenet/blob/master/src/facenet.py#L76-L88<a href="#fnref:4" rev="footnote">
+↩︎</a></span>
+</li>
+</ol>
+</div>
+</div>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+        <tag>center loss</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在服务器上部署Shadowsocks</title>
     <url>/2017/05/deploy-shadowsocks/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Github学生优惠包里面有一个DigitalOcean的50美元代金券，绑定信用卡充值5美元就可以用了，性价比还是非常高的。事实上我自己已经用了快一年了，一直没有总结过这个搭建步骤，今天姑且写下来吧，还是蛮简单的其实。。。</p>
@@ -582,6 +603,49 @@ style="display: inline-block; vertical-align: top; margin-left: 10px;">https://t
       </tags>
   </entry>
   <entry>
+    <title>Linux下安装TensorFlow</title>
+    <url>/2016/05/install-tensorflow/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>TensorFlow是Google推出的一个数值计算库，下面详述一下我个人推荐的安装方法。
+<span id="more"></span> ## 安装Anaconda</p>
+<p>Anaconda是一个python的发行版本，集成了数百个科学计算库，使用十分方便；同时包含了conda包管理器，不仅可以用于安装其他库，也可以用于创建虚拟环境，后续你就能体会到它的方便之处了。</p>
+<p>可以去<a
+href="https://www.continuum.io/downloads">Anaconda</a>这里下载完整的安装包(包含了数百个库)，或者安装<a
+href="http://conda.pydata.org/miniconda.html">Miniconda</a>(含conda包管理器，但没有第三方库)之后使用<code>conda install xxx</code>安装自己所需的其他库，推荐下载64-bit的版本，选择python2.7还是python3.5则根据个人喜好选择，最后下载之后的安装包名称应该是以<code>.sh</code>结尾的文件，放置在Linux用户主目录中。</p>
+<p>使用下列命令安装(建议使用4.2.0版本，4.3.0里包含的是Python3.6，用起来暂时不太方便)：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bash Anaconda3-4.2.0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure></p>
+<p><code>Anaconda3-4.2.0-Linux-x86_64.sh</code>替换为你实际下载的安装包名称，一路回车即安装好了，默认是安装在主目录下的。在安装过程中，有一个选项问你是否将anaconda目录添加至<code>.bashrc</code>中，这个时候推荐输入yes，这样在终端内启动python时会默认启动Anaconda中的python，而不是系统自带的python，使用起来方便很多。</p>
+<h2 id="创建虚拟环境">创建虚拟环境</h2>
+<p>Anaconda安装好之后，使用下列命令创建一个python2.7或者python3.5的虚拟环境:
+<code>conda create -n py2 python=2.7</code>或<code>conda create -n py3 python=3.5</code>。
+命令中的<code>py2</code>和<code>py3</code>只是一个名字，可以任意取。</p>
+<h2 id="激活虚拟环境">激活虚拟环境</h2>
+<p>使用<code>source activate py3</code>命令激活虚拟环境（自行替换<code>py3</code>为你自己的命名），这时候在终端中可以看到提示符最前面有一个<code>(py3)</code>。</p>
+<h2 id="安装tensorflow">安装TensorFlow</h2>
+<p>TensorFlow已经被上传至pypi了，现在安装非常方便了...
+如果安装CPU版本，使用 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow</span><br></pre></td></tr></table></figure> 如果安装GPU版本，使用
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow-gpu</span><br></pre></td></tr></table></figure></p>
+<p>如果下载速度过慢，可以使用<a
+href="https://lug.ustc.edu.cn/wiki/mirrors/help/pypi">科大pypi镜像</a>或者<a
+href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华pypi镜像</a>加速。</p>
+<p><strong>注意：</strong>安装好之后，在保证命令符前有<code>(py3)</code>的情况下，进行python并输入<code>import tensorflow</code>，如果没有报错说明安装成功。</p>
+<h2 id="从源码编译">从源码编译</h2>
+<p>官网提供的安装包为了保持最大的兼容性，<strong>去掉了优化编译选项</strong>，不能达到最快的速度，因此最好是自己从源码编译...这个有空再写吧...</p>
+<h2 id="安装其他附加包">安装其他附加包</h2>
+<p>需要安装其他附加库到我们的py3虚拟环境中时，同样使用<code>source acitvate py3</code>先激活虚拟环境，然后使用<code>conda install xx</code>安装包，xx代表包名。
+我个人一般会安装这些包：
+<code>conda install numpy scipy matplotlib scikit-learn scikit-image pillow spyder jupyter notebook</code></p>
+<h2 id="更新记录">更新记录</h2>
+<p>2017/3/15 TensorFlow早已经被上传至pypi了，因此删掉大量篇幅...</p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+        <tag>Anaconda</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hadoop伪分布式配置过程</title>
     <url>/2017/05/config-hadoop-pseudo-distributed/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>由于后续暑期实习的需要，开始学习起了hadoop~首先当然是需要安装一个hadoop的环境了，这里记录一下今天的安装过程，发现其实还是挺简单的(当然配置完全分布式可能比较麻烦。。。)。</p>
@@ -632,6 +696,53 @@ href="http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.
         <tag>Docker</tag>
         <tag>Nginx</tag>
         <tag>SSL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>升级Hexo到5.0</title>
+    <url>/2020/09/upgrade-hexo-to-5-0/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
+theme升级到了8.0正式版。刚升级完成时，突然发现next
+theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
+5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
+<span id="more"></span>
+<h2 id="问题">问题</h2>
+<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
+theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
+<h2 id="排查过程">排查过程</h2>
+<ol type="1">
+<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
+8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
+<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
+<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
+<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
+<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
+github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
+<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
+</ol>
+<h2 id="新问题">新问题</h2>
+<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
+<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
+<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
+<p>随后文章的永久链接就会自动变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
+<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
+<p>问题找到了！即hexo
+5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
+<h2 id="解决">解决</h2>
+<p>也不知道哪里来的灵感，我突然想着将post
+front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
+<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
+<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -702,53 +813,6 @@ href="https://www.upyun.com/league">又拍云联盟计划</a>，我当然不会�
         <tag>CDN</tag>
         <tag>图床</tag>
         <tag>https</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>升级Hexo到5.0</title>
-    <url>/2020/09/upgrade-hexo-to-5-0/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
-theme升级到了8.0正式版。刚升级完成时，突然发现next
-theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
-5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
-<span id="more"></span>
-<h2 id="问题">问题</h2>
-<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
-theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
-<h2 id="排查过程">排查过程</h2>
-<ol type="1">
-<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
-8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
-<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
-<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
-<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
-<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
-github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
-<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
-</ol>
-<h2 id="新问题">新问题</h2>
-<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
-<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
-<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
-<p>随后文章的永久链接就会自动变为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
-<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
-<p>问题找到了！即hexo
-5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
-<h2 id="解决">解决</h2>
-<p>也不知道哪里来的灵感，我突然想着将post
-front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
-<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
-<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
-]]></content>
-      <categories>
-        <category>WEB</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -838,70 +902,6 @@ href="http://tool.chinaz.com/speedworld/tang.su">网站国际速度测试</a>时
         <tag>又拍云</tag>
         <tag>vercel</tag>
         <tag>cdn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>center loss的TensorFlow实现</title>
-    <url>/2017/04/TensorFlow-center-loss/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本文最开始发表于CSDN<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="http://blog.csdn.net/encodets/article/details/54648015
-">[1]</span></a></sup>，目前重新整理并加上更详细的注释，<del>本周内会于Github上传示例代码</del>
-代码<sup id="fnref:2"><a href="#fn:2" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="代码地址：https://github.com/EncodeTS/TensorFlow_Center_Loss
-">[2]</span></a></sup>已上传。</p>
-<p>Center loss是ECCV2016中一篇论文《A Discriminative Feature Learning
-Approach for Deep Face
-Recognition》<sup id="fnref:3"><a href="#fn:3" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="https://link.springer.com/chapter/10.1007/978-3-319-46478-7_31
-">[3]</span></a></sup>提出来的概念，主要思想就是在softmax
-loss基础上额外加入一个正则项，让网络中每一类样本的特征向量都能够尽量聚在一起，在mnist上的示意效果如下图所示，可以看到每一类样本都聚在类别中心的周围。</p>
-<span id="more"></span>
-<p><img src="/images/paper-notes/Center-Loss/pic1.png" /></p>
-<p>具体的原理推导等请参考原论文，网上目前有Caffe以及Mxnet版的实现，我在Facenet<sup id="fnref:4"><a href="#fn:4" rel="footnote"><span
-class="hint--top hint--error hint--medium hint--rounded hint--bounce"
-aria-label="https://github.com/davidsandberg/facenet/blob/master/src/facenet.py#L76-L88">[4]</span></a></sup>实现版本基础上做了修改，个人认为是更加贴近原论文叙述的方法的，欢迎讨论。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_center_loss</span>(<span class="params">features, labels, alpha, num_classes</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;获取center loss及center的更新op</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        features: Tensor,表征样本特征,一般使用某个fc层的输出,shape应该为[batch_size, feature_length].</span></span><br><span class="line"><span class="string">        labels: Tensor,表征样本label,非one-hot编码,shape应为[batch_size].</span></span><br><span class="line"><span class="string">        alpha: 0-1之间的数字,控制样本类别中心的学习率,细节参考原文.</span></span><br><span class="line"><span class="string">        num_classes: 整数,表明总共有多少个类别,网络分类输出有多少个神经元这里就取多少.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Return：</span></span><br><span class="line"><span class="string">        loss: Tensor,可与softmax loss相加作为总的loss进行优化.</span></span><br><span class="line"><span class="string">        centers: Tensor,存储样本中心值的Tensor，仅查看样本中心存储的具体数值时有用.</span></span><br><span class="line"><span class="string">        centers_update_op: op,用于更新样本中心的op，在训练时需要同时运行该op，否则样本中心不会更新</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取特征的维数，例如256维</span></span><br><span class="line">    len_features = features.get_shape()[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 建立一个Variable,shape为[num_classes, len_features]，用于存储整个网络的样本中心，</span></span><br><span class="line">    <span class="comment"># 设置trainable=False是因为样本中心不是由梯度进行更新的</span></span><br><span class="line">    centers = tf.get_variable(<span class="string">&#x27;centers&#x27;</span>, [num_classes, len_features], dtype=tf.float32,</span><br><span class="line">        initializer=tf.constant_initializer(<span class="number">0</span>), trainable=<span class="literal">False</span>)</span><br><span class="line">    <span class="comment"># 将label展开为一维的，输入如果已经是一维的，则该动作其实无必要</span></span><br><span class="line">    labels = tf.reshape(labels, [-<span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 根据样本label,获取mini-batch中每一个样本对应的中心值</span></span><br><span class="line">    centers_batch = tf.gather(centers, labels)</span><br><span class="line">    <span class="comment"># 计算loss</span></span><br><span class="line">    loss = tf.nn.l2_loss(features - centers_batch)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 当前mini-batch的特征值与它们对应的中心值之间的差</span></span><br><span class="line">    diff = centers_batch - features</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 获取mini-batch中同一类别样本出现的次数,了解原理请参考原文公式(4)</span></span><br><span class="line">    unique_label, unique_idx, unique_count = tf.unique_with_counts(labels)</span><br><span class="line">    appear_times = tf.gather(unique_count, unique_idx)</span><br><span class="line">    appear_times = tf.reshape(appear_times, [-<span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    diff = diff / tf.cast((<span class="number">1</span> + appear_times), tf.float32)</span><br><span class="line">    diff = alpha * diff</span><br><span class="line">    </span><br><span class="line">    centers_update_op = tf.scatter_sub(centers, labels, diff)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> loss, centers, centers_update_op</span><br></pre></td></tr></table></figure>
-<div id="footnotes">
-<hr>
-<div id="footnotelist">
-<ol style="list-style: none; padding-left: 0; margin-left: 40px">
-<li id="fn:1">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">http://blog.csdn.net/encodets/article/details/54648015<a href="#fnref:1" rev="footnote">
-↩︎</a></span>
-</li>
-<li id="fn:2">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">代码地址：https://github.com/EncodeTS/TensorFlow_Center_Loss<a href="#fnref:2" rev="footnote">
-↩︎</a></span>
-</li>
-<li id="fn:3">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">https://link.springer.com/chapter/10.1007/978-3-319-46478-7_31<a href="#fnref:3" rev="footnote">
-↩︎</a></span>
-</li>
-<li id="fn:4">
-<span
-style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span
-style="display: inline-block; vertical-align: top; margin-left: 10px;">https://github.com/davidsandberg/facenet/blob/master/src/facenet.py#L76-L88<a href="#fnref:4" rev="footnote">
-↩︎</a></span>
-</li>
-</ol>
-</div>
-</div>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>TensorFlow</tag>
-        <tag>center loss</tag>
       </tags>
   </entry>
 </search>
