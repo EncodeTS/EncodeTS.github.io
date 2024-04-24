@@ -29,15 +29,19 @@
     <lastmod>2024-04-05</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2017/05/config-hadoop-pseudo-distributed/</loc>
-    <lastmod>2024-04-05</lastmod>
-  </url>
-  <url>
     <loc>https://tang.su/2017/05/deploy-shadowsocks/</loc>
     <lastmod>2024-04-05</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2017/03/openwrt-ipv6-nat/</loc>
+    <loc>https://tang.su/2017/05/config-hadoop-pseudo-distributed/</loc>
+    <lastmod>2024-04-05</lastmod>
+  </url>
+  <url>
+    <loc>https://tang.su/2017/01/export-TensorFlow-network/</loc>
+    <lastmod>2024-04-05</lastmod>
+  </url>
+  <url>
+    <loc>https://tang.su/2017/03/pointers-to-arrays/</loc>
     <lastmod>2024-04-05</lastmod>
   </url>
   <url>
@@ -49,15 +53,11 @@
     <lastmod>2024-04-05</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2017/01/export-TensorFlow-network/</loc>
-    <lastmod>2024-04-05</lastmod>
-  </url>
-  <url>
     <loc>https://tang.su/2017/04/Y1s-lan-wan/</loc>
     <lastmod>2024-04-05</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2017/03/pointers-to-arrays/</loc>
+    <loc>https://tang.su/2017/03/openwrt-ipv6-nat/</loc>
     <lastmod>2024-04-05</lastmod>
   </url>
   <url>
@@ -65,7 +65,7 @@
     <lastmod>2024-04-05</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2017/01/manually-create-summary/</loc>
+    <loc>https://tang.su/2016/06/compile-opencv-python3/</loc>
     <lastmod>2024-04-05</lastmod>
   </url>
   <url>
@@ -73,7 +73,7 @@
     <lastmod>2024-04-05</lastmod>
   </url>
   <url>
-    <loc>https://tang.su/2016/06/compile-opencv-python3/</loc>
+    <loc>https://tang.su/2017/01/manually-create-summary/</loc>
     <lastmod>2024-04-05</lastmod>
   </url>
 </urlset> 
