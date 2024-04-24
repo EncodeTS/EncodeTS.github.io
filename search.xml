@@ -904,4 +904,29 @@ href="https://www.upyun.com/league">又拍云联盟计划</a>，我当然不会�
         <tag>https</tag>
       </tags>
   </entry>
+  <entry>
+    <title>使用BGE-M3筛选图片</title>
+    <url>/2024/04/use-bge-m3-query-pic/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>最近在做多模态LLM的业务，需要从开源数据集中筛选一些符合我需求的图片，想到了使用
+BGE-M3 结合图像 caption 数据来实现这个功能。 <span id="more"></span></p>
+<h2 id="准备-sharegpt4v-数据">准备 sharegpt4v 数据</h2>
+<p>首先准备 sharegpt4v 的数据，在<a
+href="https://github.com/InternLM/InternLM-XComposer/blob/main/projects/ShareGPT4V/docs/Data.md">sharegpt4v</a>有详细说明，在此不再赘述。</p>
+<h2 id="使用-bge-m3-进行向量检索">使用 bge-m3 进行向量检索</h2>
+<p>在这里直接给代码吧，应该很容易看懂，document 直接使用图像的 caption
+数据，因此不用再使用 langchain 中的各种 loader。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_core.documents.base <span class="keyword">import</span> Document</span><br><span class="line"><span class="keyword">from</span> langchain.embeddings <span class="keyword">import</span> HuggingFaceEmbeddings</span><br><span class="line"><span class="keyword">from</span> langchain_community.vectorstores <span class="keyword">import</span> FAISS</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果没有 gpu 的话，&#x27;device&#x27;给&#x27;cpu&#x27;</span></span><br><span class="line">embeddings = HuggingFaceEmbeddings(model_name=<span class="string">&quot;BAAI/bge-m3&quot;</span>, model_kwargs = &#123;<span class="string">&#x27;device&#x27;</span>: <span class="string">&#x27;cuda&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;share-captioner_coco_lcs_sam_1246k_1107.json&quot;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    captioner_json = json.load(file.read())</span><br><span class="line"></span><br><span class="line">docs = []</span><br><span class="line"><span class="keyword">for</span> doc_json <span class="keyword">in</span> captioner_json:</span><br><span class="line">    curr_doc = Document(doc_json[<span class="string">&#x27;conversations&#x27;</span>][<span class="number">1</span>][<span class="string">&#x27;value&#x27;</span>])</span><br><span class="line">    curr_doc.metadata[<span class="string">&#x27;id&#x27;</span>] = doc_json[<span class="string">&#x27;id&#x27;</span>]</span><br><span class="line">    curr_doc.metadata[<span class="string">&#x27;image_path&#x27;</span>] = doc_json[<span class="string">&#x27;image&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    docs.append(curr_doc)</span><br><span class="line"></span><br><span class="line">db = FAISS.from_documents(docs, embeddings)</span><br><span class="line">search_docs = db.similarity_search(<span class="string">&quot;some landscape photos&quot;</span>, k=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>因为在 document 的 meta 信息中添加了图片的 id
+和路径，因此可以很容易地在向量检索完成之后，找到原始的图片链接。</p>
+]]></content>
+      <categories>
+        <category>LLM</category>
+      </categories>
+      <tags>
+        <tag>langchain</tag>
+        <tag>BGE-M3</tag>
+        <tag>向量检索</tag>
+        <tag>RAG</tag>
+      </tags>
+  </entry>
 </search>
