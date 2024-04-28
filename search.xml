@@ -44,6 +44,47 @@ href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华pypi镜像</a>加�
       </tags>
   </entry>
   <entry>
+    <title>Windows下编译OpenCV-Python3</title>
+    <url>/2016/06/compile-opencv-python3/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OpenCV3已经开始支持python3版本了，但是需要自己编译，以下简要记录一下编译的流程。
+<span id="more"></span></p>
+<p>2016/11/20更新：其实最简单的办法是安装anaconda，然后在cmd里用<code>conda install -c menpo opencv3=3.1.0</code>安装即可。</p>
+<h2 id="安装预备软件">安装预备软件</h2>
+<p>首先安装以下软件： - <a href="https://git-scm.com/downloads">git</a>
+- <a href="https://cmake.org/download/">CMake</a> - VS 2013</p>
+<h2 id="下载源码">下载源码</h2>
+<p>在你想保存源码的位置，单击鼠标右键，点击“Git Bash
+Here”，键入以下命令：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:Itseez/opencv.git</span><br></pre></td></tr></table></figure>
+<p>新建一个build文件夹，用于存放编译后的文件。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> opencv</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br></pre></td></tr></table></figure>
+<h2 id="配置cmake">配置CMake</h2>
+<p>运行CMake，在最上面两栏内填上源码和build文件夹的位置，勾上<code>Grouped</code>，</p>
+<p><img src="/images/compile-opencv-python3/cmake1.png" /></p>
+<p>点击<code>Configure</code>，选择已安装的编译器，然后点击<code>Finish</code></p>
+<p><img src="/images/compile-opencv-python3/cmake2.png" /></p>
+<p>根据自己情况选择或者取消勾选某些选项(注意<strong>不要勾选</strong><code>BUILD_opencv_world</code>，我测试发现勾选这个之后不会编译python的相关文件，另外不需要cuda的话可以在<code>WITH</code>里面把<code>WITH_CUDA</code>和<code>WITH_CUFFT</code>勾去掉)，对于我们编译OpenCV-Python3而言，比较重要的是以下两个部分：
+- BUILD 只编译python3就取消勾选掉python2的勾 <img
+src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
+一般来说这里的几个选项CMake是可以自动检测到的，如果没有自动检测到，则自己手动填入吧，填写方式参考下图，一定不能漏。
+<img src="/images/compile-opencv-python3/cmake5.png" /></p>
+<p>搞定之后点击"Generate"，直到看到"Generate done"。</p>
+<h2 id="编译">编译</h2>
+<p>在BUILD文件夹下找到一个名为<code>OpenCV.sln</code>的文件，双击，会进入VS。
+在左侧找到<code>ALL_BUILD</code>，右键单击并选择<code>生成</code>，后续耐心等待编译完成即可。</p>
+<h2 id="配置环境变量">配置环境变量</h2>
+<p>编译完成之后，在BUILD，把它复制到python安装目录下的<code>Lib\site-packages</code>目录下，随后将BUILD文件夹下的<code>bin\Release</code>的<strong>完整路径</strong>添加到系统环境变量中。
+这时候启动python，运行<code>import cv2</code>命令，如果没有错误，则说明安装成功了。</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>opencv</tag>
+        <tag>python3</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu14.04+cuda8.0+Anaconda3下编译caffe</title>
     <url>/2016/11/compile-anaconda3-caffe/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>踩了很多坑，终于在Ubuntu14.04+cuda8.0+Anaconda3环境下成功编译Caffe。</p>
@@ -92,44 +133,32 @@ href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华pypi镜像</a>加�
       </tags>
   </entry>
   <entry>
-    <title>Windows下编译OpenCV-Python3</title>
-    <url>/2016/06/compile-opencv-python3/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OpenCV3已经开始支持python3版本了，但是需要自己编译，以下简要记录一下编译的流程。
-<span id="more"></span></p>
-<p>2016/11/20更新：其实最简单的办法是安装anaconda，然后在cmd里用<code>conda install -c menpo opencv3=3.1.0</code>安装即可。</p>
-<h2 id="安装预备软件">安装预备软件</h2>
-<p>首先安装以下软件： - <a href="https://git-scm.com/downloads">git</a>
-- <a href="https://cmake.org/download/">CMake</a> - VS 2013</p>
-<h2 id="下载源码">下载源码</h2>
-<p>在你想保存源码的位置，单击鼠标右键，点击“Git Bash
-Here”，键入以下命令：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:Itseez/opencv.git</span><br></pre></td></tr></table></figure>
-<p>新建一个build文件夹，用于存放编译后的文件。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> opencv</span><br><span class="line"><span class="built_in">mkdir</span> build</span><br></pre></td></tr></table></figure>
-<h2 id="配置cmake">配置CMake</h2>
-<p>运行CMake，在最上面两栏内填上源码和build文件夹的位置，勾上<code>Grouped</code>，</p>
-<p><img src="/images/compile-opencv-python3/cmake1.png" /></p>
-<p>点击<code>Configure</code>，选择已安装的编译器，然后点击<code>Finish</code></p>
-<p><img src="/images/compile-opencv-python3/cmake2.png" /></p>
-<p>根据自己情况选择或者取消勾选某些选项(注意<strong>不要勾选</strong><code>BUILD_opencv_world</code>，我测试发现勾选这个之后不会编译python的相关文件，另外不需要cuda的话可以在<code>WITH</code>里面把<code>WITH_CUDA</code>和<code>WITH_CUFFT</code>勾去掉)，对于我们编译OpenCV-Python3而言，比较重要的是以下两个部分：
-- BUILD 只编译python3就取消勾选掉python2的勾 <img
-src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
-一般来说这里的几个选项CMake是可以自动检测到的，如果没有自动检测到，则自己手动填入吧，填写方式参考下图，一定不能漏。
-<img src="/images/compile-opencv-python3/cmake5.png" /></p>
-<p>搞定之后点击"Generate"，直到看到"Generate done"。</p>
-<h2 id="编译">编译</h2>
-<p>在BUILD文件夹下找到一个名为<code>OpenCV.sln</code>的文件，双击，会进入VS。
-在左侧找到<code>ALL_BUILD</code>，右键单击并选择<code>生成</code>，后续耐心等待编译完成即可。</p>
-<h2 id="配置环境变量">配置环境变量</h2>
-<p>编译完成之后，在BUILD，把它复制到python安装目录下的<code>Lib\site-packages</code>目录下，随后将BUILD文件夹下的<code>bin\Release</code>的<strong>完整路径</strong>添加到系统环境变量中。
-这时候启动python，运行<code>import cv2</code>命令，如果没有错误，则说明安装成功了。</p>
+    <title>添加任意数据至TensorBoard</title>
+    <url>/2017/01/manually-create-summary/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>通常情况下，我们在训练网络时添加summary都是通过如下方式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.scalar_summary(tags, values)</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">summary_op = tf.summary.merge_all()</span><br><span class="line">summary_writer = tf.summary.FileWriter(logdir, graph=sess.graph)</span><br><span class="line">summary_str = sess.run(summary_op)</span><br><span class="line">summary_writer.add_summary(summary_str, global_step)</span><br></pre></td></tr></table></figure>
+<p>当我们自己想添加其他数据到TensorBoard的时候（例如验证时的loss等），这种方式显得太过繁琐，其实我们可以通过如下方式添加自定义数据到TensorBoard内显示。</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(logdir)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
+<p>或者:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(LOGDIR)</span><br><span class="line">summary = tf.Summary()</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>)</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>，这里的step只能是整数，如果是小数的话会自动转为整数类型。</p>
+<p>下面给出一段完整的示例代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">summary_writer = tf.summary.FileWriter(<span class="string">&#x27;/tmp/test&#x27;</span>)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">1</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">3</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">summary_writer.close()</span><br></pre></td></tr></table></figure>
+<p>显示效果如下所示：<img
+src="/images/manually-create-summary/sample.png" alt="sample" /></p>
+<h2 id="参考资料">参考资料:</h2>
+<p><a href="">[How to manually create a
+tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create-a-tf-summary)</a></p>
+<h2 id="更新记录">更新记录</h2>
+<p>2017/3/15 更新标题，修改代码兼容TensorFlow1.0版本...</p>
 ]]></content>
       <categories>
-        <category>Python</category>
+        <category>Deep Learning</category>
       </categories>
       <tags>
-        <tag>opencv</tag>
-        <tag>python3</tag>
+        <tag>TensorFlow</tag>
+        <tag>TensorBoard</tag>
       </tags>
   </entry>
   <entry>
@@ -167,35 +196,6 @@ Tensorflow graphs</a></p>
       </categories>
       <tags>
         <tag>TensorFlow</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>添加任意数据至TensorBoard</title>
-    <url>/2017/01/manually-create-summary/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>通常情况下，我们在训练网络时添加summary都是通过如下方式：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.scalar_summary(tags, values)</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">summary_op = tf.summary.merge_all()</span><br><span class="line">summary_writer = tf.summary.FileWriter(logdir, graph=sess.graph)</span><br><span class="line">summary_str = sess.run(summary_op)</span><br><span class="line">summary_writer.add_summary(summary_str, global_step)</span><br></pre></td></tr></table></figure>
-<p>当我们自己想添加其他数据到TensorBoard的时候（例如验证时的loss等），这种方式显得太过繁琐，其实我们可以通过如下方式添加自定义数据到TensorBoard内显示。</p>
-<span id="more"></span>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(logdir)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
-<p>或者:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(LOGDIR)</span><br><span class="line">summary = tf.Summary()</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>)</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong>，这里的step只能是整数，如果是小数的话会自动转为整数类型。</p>
-<p>下面给出一段完整的示例代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">summary_writer = tf.summary.FileWriter(<span class="string">&#x27;/tmp/test&#x27;</span>)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">1</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">3</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">summary_writer.close()</span><br></pre></td></tr></table></figure>
-<p>显示效果如下所示：<img
-src="/images/manually-create-summary/sample.png" alt="sample" /></p>
-<h2 id="参考资料">参考资料:</h2>
-<p><a href="">[How to manually create a
-tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create-a-tf-summary)</a></p>
-<h2 id="更新记录">更新记录</h2>
-<p>2017/3/15 更新标题，修改代码兼容TensorFlow1.0版本...</p>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>TensorFlow</tag>
-        <tag>TensorBoard</tag>
       </tags>
   </entry>
   <entry>
@@ -349,6 +349,44 @@ age, fine-tune with apparent age.三个阶段的训练。</p>
       </categories>
       <tags>
         <tag>AgeNet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在OpenWrt上配置原生IPv6 NAT</title>
+    <url>/2017/03/openwrt-ipv6-nat/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
+<span id="more"></span>
+<h2 id="我的网络环境">我的网络环境</h2>
+<ul>
+<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
+<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
+r45918</li>
+<li><strong>内核版本</strong>：3.18.14</li>
+</ul>
+<h2 id="准备工作">准备工作</h2>
+<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
+<h2 id="详细步骤">详细步骤</h2>
+<ol type="1">
+<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
+<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
+<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
+<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
+</ol>
+<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>OpenWrt</tag>
+        <tag>IPv6</tag>
       </tags>
   </entry>
   <entry>
@@ -661,53 +699,6 @@ href="http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.
       </tags>
   </entry>
   <entry>
-    <title>升级Hexo到5.0</title>
-    <url>/2020/09/upgrade-hexo-to-5-0/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
-theme升级到了8.0正式版。刚升级完成时，突然发现next
-theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
-5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
-<span id="more"></span>
-<h2 id="问题">问题</h2>
-<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
-theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
-<h2 id="排查过程">排查过程</h2>
-<ol type="1">
-<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
-8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
-<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
-<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
-<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
-<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
-github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
-<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
-</ol>
-<h2 id="新问题">新问题</h2>
-<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
-<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
-<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
-<p>随后文章的永久链接就会自动变为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
-<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
-<p>问题找到了！即hexo
-5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
-<h2 id="解决">解决</h2>
-<p>也不知道哪里来的灵感，我突然想着将post
-front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
-<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
-<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
-]]></content>
-      <categories>
-        <category>WEB</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>利用CDN加速Github Pages访问</title>
     <url>/2019/09/use-cdn-to-speed-up-github-pages/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>毕业以后，一直没有更新博客。工作这一年多来，愈发觉得应该记录下工作中的思考和感悟，趁昨日假期，折腾了一整天，重新配置了博客，并加入了CDN优化，现在这访问速度，自己都忍不住想多刷新几次。</p>
@@ -775,6 +766,53 @@ href="https://www.upyun.com/league">又拍云联盟计划</a>，我当然不会�
         <tag>CDN</tag>
         <tag>图床</tag>
         <tag>https</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>升级Hexo到5.0</title>
+    <url>/2020/09/upgrade-hexo-to-5-0/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
+theme升级到了8.0正式版。刚升级完成时，突然发现next
+theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
+5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
+<span id="more"></span>
+<h2 id="问题">问题</h2>
+<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
+theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
+<h2 id="排查过程">排查过程</h2>
+<ol type="1">
+<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
+8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
+<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
+<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
+<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
+<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
+github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
+<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
+</ol>
+<h2 id="新问题">新问题</h2>
+<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
+<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
+<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
+<p>随后文章的永久链接就会自动变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
+<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
+<p>问题找到了！即hexo
+5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
+<h2 id="解决">解决</h2>
+<p>也不知道哪里来的灵感，我突然想着将post
+front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
+<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
+<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -889,44 +927,6 @@ href="https://github.com/InternLM/InternLM-XComposer/blob/main/projects/ShareGPT
         <tag>BGE-M3</tag>
         <tag>向量检索</tag>
         <tag>RAG</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在OpenWrt上配置原生IPv6 NAT</title>
-    <url>/2017/03/openwrt-ipv6-nat/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>以前这篇文章是发在CSDN上面的，访问量已经9000多了，应该还是帮过不少人吧。。这次重新更新整理到hexo上面。</p>
-<span id="more"></span>
-<h2 id="我的网络环境">我的网络环境</h2>
-<ul>
-<li><strong>网络</strong>：教育网原生双栈，IPv4固定地址，IPv6地址自动获取</li>
-<li><strong>固件版本</strong>：OpenWrt Chaos Calmer 15.05-rc2
-r45918</li>
-<li><strong>内核版本</strong>：3.18.14</li>
-</ul>
-<h2 id="准备工作">准备工作</h2>
-<p>配置好路由使其能够连接网络，WAN口能够获取全球单播IPv6地址，在我的环境下WAN口是可以自动获取到IPv6地址的，因此如果你的环境不能自动获取到IPv6地址，请谷歌一下解决办法。</p>
-<h2 id="详细步骤">详细步骤</h2>
-<ol type="1">
-<li><p>安装<code>ip6tables</code>和<code>kmod-ipt-nat6</code>。</p>
-<p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ip6tables</span><br><span class="line">opkg install kmod-ipt-nat6</span><br></pre></td></tr></table></figure></p></li>
-<li><p>使用WinSCP更改<code>/etc/config/network</code>文件内容,在<code>config interface 'lan'</code>下添加一行：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">option ip6addr &#x27;fc00:100:100:1::1/64&#x27;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>更改<code>/etc/config/dhcp</code>文件,将<code>config dhcp 'lan'</code>那一栏改为以下内容:</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">config dhcp &#x27;lan&#x27;</span><br><span class="line">    option interface &#x27;lan&#x27;</span><br><span class="line">    option start &#x27;100&#x27;</span><br><span class="line">    option limit &#x27;150&#x27;</span><br><span class="line">    option leasetime &#x27;12h&#x27;</span><br><span class="line">    option dhcpv6 &#x27;server&#x27;</span><br><span class="line">    option ra &#x27;server&#x27;</span><br><span class="line">    option ra_management &#x27;1&#x27;</span><br><span class="line">    option ra_default &#x27;1&#x27;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>更改<code>/etc/firewall.user</code>，假设WAN对应的接口为eth0.2，则添加以下内容：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ip6tables -t nat -A POSTROUTING -o eth0.2 -j MASQUERADE</span><br></pre></td></tr></table></figure></p></li>
-<li><p>使用<code>tracepath6 -b tv.byr.cn</code>命令，获取目前网络的IPv6网关地址(找最上面的IPv6地址)，假定是<code>2001:1234:1234:1234::1</code>。</p></li>
-<li><p>使用<code>route -A inet6 add default gw 2001:1234:1234:1234::1</code>命令，为路由器添加默认网关。这一步非常<strong>重要</strong>，不进行的话是上不了IPv6的。。。完成之后，连接到路由器的计算机应该可以访问IPv6网站了。</p></li>
-</ol>
-<p>重启之后，需要<strong>重新添加</strong>网关，如果要做到路由器开机自动添加该网关,可以在<code>/etc/hotplug.d/iface/</code>下新建一个文件90-ipv6,给予可执行权限,内容为(注意替换为自己的网关地址)
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">[ &quot;$ACTION&quot; = ifup ] || exit 0</span><br><span class="line">route -A inet6 add default gw 2001:1234:1234:1234::1</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>路由器</category>
-      </categories>
-      <tags>
-        <tag>OpenWrt</tag>
-        <tag>IPv6</tag>
       </tags>
   </entry>
 </search>
