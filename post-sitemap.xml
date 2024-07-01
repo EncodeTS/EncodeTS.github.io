@@ -4,6 +4,15 @@
 
 
     <url>
+        <loc>https://tang.su/2017/01/export-TensorFlow-network/</loc>
+        <lastmod>2024-07-01T06:51:05.086Z</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1</priority>
+    
+    
+    </url>
+
+    <url>
         <loc>https://tang.su/2024/04/use-bge-m3-query-pic/</loc>
         <lastmod>2024-04-24T08:43:58.133Z</lastmod>
         <changefreq>always</changefreq>
@@ -78,15 +87,6 @@
     <url>
         <loc>https://tang.su/2017/05/config-hadoop-pseudo-distributed/</loc>
         <lastmod>2024-04-05T13:46:42.441Z</lastmod>
-        <changefreq>always</changefreq>
-        <priority>1</priority>
-    
-    
-    </url>
-
-    <url>
-        <loc>https://tang.su/2017/01/export-TensorFlow-network/</loc>
-        <lastmod>2024-04-05T13:46:42.440Z</lastmod>
         <changefreq>always</changefreq>
         <priority>1</priority>
     

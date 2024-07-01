@@ -186,7 +186,8 @@ tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
 <p>另外需要说明的一点是，在利用<code>tf.train.write_graph</code>写网络架构的时候，如果令<code>as_text=True</code>了，则在导入网络的时候，需要做一点小修改。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> google.protobuf <span class="keyword">import</span> text_format</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	<span class="comment"># 不使用&#x27;rb&#x27;模式</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        <span class="comment"># 不使用graph_def.ParseFromString(f.read())</span></span><br><span class="line">        text_format.Merge(f.read(), graph_def)</span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
-<p>##参考资料 <a
+<h2 id="参考资料">参考资料</h2>
+<p><a
 href="http://stackoverflow.com/questions/34343259/is-there-an-example-on-how-to-generate-protobuf-files-holding-trained-tensorflow">Is
 there an example on how to generate protobuf files holding trained
 Tensorflow graphs</a></p>
