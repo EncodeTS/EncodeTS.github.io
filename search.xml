@@ -93,16 +93,16 @@ src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
 <li><p>安装纯净的Ubuntu14.04，安装显卡驱动、cuda以及cudnn并配置好系统环境变量，这里不进行详述。</p></li>
 <li><p>使用<code>bash Anaconda3-4.2.0-Linux-x86_64.sh</code>命令安装Anaconda3，这里假定安装目录为<code>/home/xx/anaconda3</code>，安装结束的时候会问是否将Anaconda3目录加入环境变量，选择<strong>是</strong>。</p></li>
 <li><p>打开终端，安装依赖库</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo apt-get install libboost1.55-all-dev libleveldb-dev libsnappy-dev liblmdb-dev libhdf5-serial-dev libgoogle-glog-dev libgflags-dev</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">sudo</span> apt-get install libboost1.55-all-dev libleveldb-dev libsnappy-dev liblmdb-dev libhdf5-serial-dev libgoogle-glog-dev libgflags-dev</span></span><br></pre></td></tr></table></figure>
 <p>注意，安装<strong><code>libboost1.55-all-dev</code></strong>，Ubuntu14.04默认安装的是1.54版本；另外<strong>不要</strong>用<code>apt-get</code>安装<code>libprotobuf-dev</code>，因为apt-get安装的是2.x版本，不支持python3；这里也<strong>不安装</strong><code>libopencv-dev</code>，同样是因为apt-get安装的版本没有附带TIFF支持，后期编译会报错。</p>
 <p>之后，添加符号链接</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_python-py34.so.1.55.0 /usr/lib/x86_64-linux-gnu/libboost_python3.so</span><br></pre></td></tr></table></figure></li>
 <li><p>编译并安装Protobuf3</p>
 <p>进入任意目录，然后依次执行以下命令即可，完成之后系统及python都会完成protobuf3.0.0的安装。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> protobuf &amp;&amp; <span class="built_in">cd</span> protobuf</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> cpp &amp;&amp; <span class="built_in">cd</span> cpp</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://github.com/google/protobuf/releases/download/v3.0.0/protobuf-cpp-3.0.0.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xvf protobuf-cpp-3.0.0.tar.gz &amp;&amp; <span class="built_in">cd</span> protobuf-3.0.0</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./configure &amp;&amp; make</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make check</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo ldconfig</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> ../..</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> python &amp;&amp; <span class="built_in">cd</span> python</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://github.com/google/protobuf/releases/download/v3.0.0/protobuf-python-3.0.0.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xvf protobuf-python-3.0.0.tar.gz &amp;&amp; <span class="built_in">cd</span> protobuf-3.0.0/python/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py <span class="built_in">test</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py install</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> protobuf &amp;&amp; <span class="built_in">cd</span> protobuf</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> cpp &amp;&amp; <span class="built_in">cd</span> cpp</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://github.com/google/protobuf/releases/download/v3.0.0/protobuf-cpp-3.0.0.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xvf protobuf-cpp-3.0.0.tar.gz &amp;&amp; <span class="built_in">cd</span> protobuf-3.0.0</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./configure &amp;&amp; make</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make check</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">sudo</span> make install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">sudo</span> ldconfig</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> ../..</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> python &amp;&amp; <span class="built_in">cd</span> python</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget https://github.com/google/protobuf/releases/download/v3.0.0/protobuf-python-3.0.0.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar xvf protobuf-python-3.0.0.tar.gz &amp;&amp; <span class="built_in">cd</span> protobuf-3.0.0/python/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py <span class="built_in">test</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python setup.py install</span></span><br></pre></td></tr></table></figure></li>
 <li><p>编译并安装openCV3</p>
 <p>同样进入任意目录，在终端内依次执行以下命令即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/opencv/opencv.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> opencv</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D BUILD_TIFF=ON -D BUILD_EXAMPLES=ON  -D WITH_OPENGL=ON -D WITH_EIGEN=ON -D WITH_CUDA=ON -D WITH_CUBLAS=ON ..</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/opencv/opencv.git</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> opencv</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D BUILD_TIFF=ON -D BUILD_EXAMPLES=ON  -D WITH_OPENGL=ON -D WITH_EIGEN=ON -D WITH_CUDA=ON -D WITH_CUBLAS=ON ..</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -j4</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">sudo</span> make install</span></span><br></pre></td></tr></table></figure></li>
 <li><p>编译caffe</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git clone https://github.com/BVLC/caffe.git</span><br><span class="line">$ cd caffe</span><br><span class="line">$ cp Makefile.config.example Makefile.config</span><br></pre></td></tr></table></figure>
 <p>然后更改Makefile.config文件内容，改变地方主要有以下几点：</p>
@@ -212,7 +212,7 @@ Primer中关于数组指针的内容，理清了数组指针的几个问题。</
 <p>指针数组其实很好理解，难点在于数组指针容易让人糊涂，先看下面这样一段程序吧。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">2</span>][<span class="number">4</span>] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span> &#125;;</span><br><span class="line">    <span class="built_in">int</span>(*Parray)[<span class="number">2</span>][<span class="number">4</span>] = &amp;arr;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;arr:       &quot;</span> &lt;&lt; arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*arr:      &quot;</span> &lt;&lt; *arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**arr:     &quot;</span> &lt;&lt; **arr &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Parray:    &quot;</span> &lt;&lt; Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*Parray:   &quot;</span> &lt;&lt; *Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**Parray:  &quot;</span> &lt;&lt; **Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;***Parray: &quot;</span> &lt;&lt; ***Parray &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>程序的运行结果如下所示：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">arr:       <span class="number">009</span>CFDE8</span><br><span class="line">*arr:      <span class="number">009</span>CFDE8</span><br><span class="line">**arr:     <span class="number">1</span></span><br><span class="line">Parray:    <span class="number">009</span>CFDE8</span><br><span class="line">*Parray:   <span class="number">009</span>CFDE8</span><br><span class="line">**Parray:  <span class="number">009</span>CFDE8</span><br><span class="line">***Parray: <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">arr:       <span class="number">00</span>9CFDE8</span><br><span class="line">*arr:      <span class="number">00</span>9CFDE8</span><br><span class="line">**arr:     <span class="number">1</span></span><br><span class="line">Parray:    <span class="number">00</span>9CFDE8</span><br><span class="line">*Parray:   <span class="number">00</span>9CFDE8</span><br><span class="line">**Parray:  <span class="number">00</span>9CFDE8</span><br><span class="line">***Parray: <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>很多人看到这可能直接就迷糊了，这些东西到底都是指向的啥？</p>
 <p>要理解这里的各种指针的区别，首先需要理解指针指向的<strong>基本元素</strong>是什么，即*p指向什么，*(p+1)又指向什么，理解了这一点，就能比较容易理解上面的各种指针的含义。</p>
 <p>对于数组而言，数组名代表的是指向数组内<strong>基本元素</strong>的地址，这里的<strong>基本元素</strong>指什么呢？对于一元数组(<code>int a[3]=&#123;1, 2, 3&#125;</code>)而言，基本元素代表数组内的每一个数字，即*a代表1，*(a+1)代表2。而对于二元数组<code>int arr[2][4] = &#123; 1,2,3,4,5,6,7,8 &#125;;</code>，这里的<strong>基本元素</strong>就是二元数组的<strong>一行</strong>，我们可以这样理解，这个数组相当于有2个位置（<strong>把最靠近数组名的数字看做数组的基本元素的数量</strong>），然后每个位置存放了一个容量为4的数组。因此*arr指向的是数组的第一个基本元素（即第一行），*(arr+1)指向数组的第二个基本元素（即第二行）。</p>
@@ -233,28 +233,6 @@ Primer中关于数组指针的内容，理清了数组指针的几个问题。</
         <tag>指针</tag>
         <tag>数组</tag>
         <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Anaconda下安装Scrapy</title>
-    <url>/2017/03/install-scrapy/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
-<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
-<span id="more"></span>
-<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
-<p>注意在安装过程中勾选如下图所示的选项：</p>
-<figure>
-<img src="/images/install-scrapy/copy_to_system_path.png"
-alt="copy-to-system-path" />
-<figcaption aria-hidden="true">copy-to-system-path</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>爬虫</category>
-      </categories>
-      <tags>
-        <tag>Anaconda</tag>
-        <tag>Scrapy</tag>
       </tags>
   </entry>
   <entry>
@@ -350,6 +328,28 @@ age, fine-tune with apparent age.三个阶段的训练。</p>
       </categories>
       <tags>
         <tag>AgeNet</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Anaconda下安装Scrapy</title>
+    <url>/2017/03/install-scrapy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
+<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
+<span id="more"></span>
+<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
+<p>注意在安装过程中勾选如下图所示的选项：</p>
+<figure>
+<img src="/images/install-scrapy/copy_to_system_path.png"
+alt="copy-to-system-path" />
+<figcaption aria-hidden="true">copy-to-system-path</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>爬虫</category>
+      </categories>
+      <tags>
+        <tag>Anaconda</tag>
+        <tag>Scrapy</tag>
       </tags>
   </entry>
   <entry>
@@ -657,9 +657,9 @@ style="display: inline-block; vertical-align: top; margin-left: 10px;">https://t
 <ol type="1">
 <li><p>先在Vmware里面安装一个Ubuntu 14.04，这个就不介绍了。</p></li>
 <li><p>安装一些预备软件。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install ssh rsync</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install ssh rsync</span><br></pre></td></tr></table></figure></li>
 <li><p>安装Java，为了简单直接安装OpenJDK了。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt-get install openjdk-7-jdk</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install openjdk-7-jdk</span><br></pre></td></tr></table></figure></li>
 <li><p>下载<a
 href="http://www-eu.apache.org/dist/hadoop/common/">Hadoop包</a>，我这里尝试的是<a
 href="http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz">hadoop-2.7.1.tar.gz</a>，解压压缩包至/home根目录。</p>
