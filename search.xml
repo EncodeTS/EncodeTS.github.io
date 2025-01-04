@@ -236,6 +236,28 @@ Primer中关于数组指针的内容，理清了数组指针的几个问题。</
       </tags>
   </entry>
   <entry>
+    <title>Anaconda下安装Scrapy</title>
+    <url>/2017/03/install-scrapy/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
+<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
+<span id="more"></span>
+<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
+<p>注意在安装过程中勾选如下图所示的选项：</p>
+<figure>
+<img src="/images/install-scrapy/copy_to_system_path.png"
+alt="copy-to-system-path" />
+<figcaption aria-hidden="true">copy-to-system-path</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>爬虫</category>
+      </categories>
+      <tags>
+        <tag>Anaconda</tag>
+        <tag>Scrapy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AgeNet: Deeply Learned Regressor and Classifier for Robust Apparent Age Estimation 论文笔记</title>
     <url>/2017/03/paper-notes-AgeNet/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>摘要：这篇论文要解决的问题是<strong>表观年龄估计</strong>，即从给定人脸的图片估计该人的<strong>外表年龄</strong>，而非<strong>真实年龄</strong>（某个人可能实际50岁，但是在标注者眼中看起来像35岁），面临的最大问题是<strong>表观年龄数据样本少</strong>。</p>
@@ -328,28 +350,6 @@ age, fine-tune with apparent age.三个阶段的训练。</p>
       </categories>
       <tags>
         <tag>AgeNet</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Anaconda下安装Scrapy</title>
-    <url>/2017/03/install-scrapy/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>在Anaconda中，安装Scrapy很简单，只需要<code>conda install scrapy</code>就ok了，但是在命令行中使用<code>scrapy -h</code>的时候，出现了<code>ImportError: DLL load failed: 操作系统无法运行 %1。</code>的错误。</p>
-<p>查找了一下资料，发现这个问题实质是OpenSSL版本的问题。</p>
-<span id="more"></span>
-<p>解决方法很简单，去<code>https://slproweb.com/products/Win32OpenSSL.html</code>这里下一个<code>[Win64 OpenSSL v1.0.2k](https://slproweb.com/download/Win64OpenSSL-1_0_2k.exe)</code>，安装后即可解决。如果是32位系统，则下载win32版本的。</p>
-<p>注意在安装过程中勾选如下图所示的选项：</p>
-<figure>
-<img src="/images/install-scrapy/copy_to_system_path.png"
-alt="copy-to-system-path" />
-<figcaption aria-hidden="true">copy-to-system-path</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>爬虫</category>
-      </categories>
-      <tags>
-        <tag>Anaconda</tag>
-        <tag>Scrapy</tag>
       </tags>
   </entry>
   <entry>
