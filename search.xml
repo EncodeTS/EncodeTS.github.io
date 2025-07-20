@@ -1,49 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Linux下安装TensorFlow</title>
-    <url>/2016/05/install-tensorflow/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>TensorFlow是Google推出的一个数值计算库，下面详述一下我个人推荐的安装方法。
-<span id="more"></span> ## 安装Anaconda</p>
-<p>Anaconda是一个python的发行版本，集成了数百个科学计算库，使用十分方便；同时包含了conda包管理器，不仅可以用于安装其他库，也可以用于创建虚拟环境，后续你就能体会到它的方便之处了。</p>
-<p>可以去<a
-href="https://www.continuum.io/downloads">Anaconda</a>这里下载完整的安装包(包含了数百个库)，或者安装<a
-href="http://conda.pydata.org/miniconda.html">Miniconda</a>(含conda包管理器，但没有第三方库)之后使用<code>conda install xxx</code>安装自己所需的其他库，推荐下载64-bit的版本，选择python2.7还是python3.5则根据个人喜好选择，最后下载之后的安装包名称应该是以<code>.sh</code>结尾的文件，放置在Linux用户主目录中。</p>
-<p>使用下列命令安装(建议使用4.2.0版本，4.3.0里包含的是Python3.6，用起来暂时不太方便)：</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bash Anaconda3-4.2.0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure></p>
-<p><code>Anaconda3-4.2.0-Linux-x86_64.sh</code>替换为你实际下载的安装包名称，一路回车即安装好了，默认是安装在主目录下的。在安装过程中，有一个选项问你是否将anaconda目录添加至<code>.bashrc</code>中，这个时候推荐输入yes，这样在终端内启动python时会默认启动Anaconda中的python，而不是系统自带的python，使用起来方便很多。</p>
-<h2 id="创建虚拟环境">创建虚拟环境</h2>
-<p>Anaconda安装好之后，使用下列命令创建一个python2.7或者python3.5的虚拟环境:
-<code>conda create -n py2 python=2.7</code>或<code>conda create -n py3 python=3.5</code>。
-命令中的<code>py2</code>和<code>py3</code>只是一个名字，可以任意取。</p>
-<h2 id="激活虚拟环境">激活虚拟环境</h2>
-<p>使用<code>source activate py3</code>命令激活虚拟环境（自行替换<code>py3</code>为你自己的命名），这时候在终端中可以看到提示符最前面有一个<code>(py3)</code>。</p>
-<h2 id="安装tensorflow">安装TensorFlow</h2>
-<p>TensorFlow已经被上传至pypi了，现在安装非常方便了...
-如果安装CPU版本，使用 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow</span><br></pre></td></tr></table></figure> 如果安装GPU版本，使用
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow-gpu</span><br></pre></td></tr></table></figure></p>
-<p>如果下载速度过慢，可以使用<a
-href="https://lug.ustc.edu.cn/wiki/mirrors/help/pypi">科大pypi镜像</a>或者<a
-href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华pypi镜像</a>加速。</p>
-<p><strong>注意：</strong>安装好之后，在保证命令符前有<code>(py3)</code>的情况下，进行python并输入<code>import tensorflow</code>，如果没有报错说明安装成功。</p>
-<h2 id="从源码编译">从源码编译</h2>
-<p>官网提供的安装包为了保持最大的兼容性，<strong>去掉了优化编译选项</strong>，不能达到最快的速度，因此最好是自己从源码编译...这个有空再写吧...</p>
-<h2 id="安装其他附加包">安装其他附加包</h2>
-<p>需要安装其他附加库到我们的py3虚拟环境中时，同样使用<code>source acitvate py3</code>先激活虚拟环境，然后使用<code>conda install xx</code>安装包，xx代表包名。
-我个人一般会安装这些包：
-<code>conda install numpy scipy matplotlib scikit-learn scikit-image pillow spyder jupyter notebook</code></p>
-<h2 id="更新记录">更新记录</h2>
-<p>2017/3/15 TensorFlow早已经被上传至pypi了，因此删掉大量篇幅...</p>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>TensorFlow</tag>
-        <tag>Anaconda</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows下编译OpenCV-Python3</title>
     <url>/2016/06/compile-opencv-python3/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>OpenCV3已经开始支持python3版本了，但是需要自己编译，以下简要记录一下编译的流程。
@@ -82,6 +39,35 @@ src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
       <tags>
         <tag>opencv</tag>
         <tag>python3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>添加任意数据至TensorBoard</title>
+    <url>/2017/01/manually-create-summary/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>通常情况下，我们在训练网络时添加summary都是通过如下方式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.scalar_summary(tags, values)</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">summary_op = tf.summary.merge_all()</span><br><span class="line">summary_writer = tf.summary.FileWriter(logdir, graph=sess.graph)</span><br><span class="line">summary_str = sess.run(summary_op)</span><br><span class="line">summary_writer.add_summary(summary_str, global_step)</span><br></pre></td></tr></table></figure>
+<p>当我们自己想添加其他数据到TensorBoard的时候（例如验证时的loss等），这种方式显得太过繁琐，其实我们可以通过如下方式添加自定义数据到TensorBoard内显示。</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(logdir)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
+<p>或者:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(LOGDIR)</span><br><span class="line">summary = tf.Summary()</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>)</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>，这里的step只能是整数，如果是小数的话会自动转为整数类型。</p>
+<p>下面给出一段完整的示例代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">summary_writer = tf.summary.FileWriter(<span class="string">&#x27;/tmp/test&#x27;</span>)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">1</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">3</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">summary_writer.close()</span><br></pre></td></tr></table></figure>
+<p>显示效果如下所示：<img
+src="/images/manually-create-summary/sample.png" alt="sample" /></p>
+<h2 id="参考资料">参考资料:</h2>
+<p><a href="">[How to manually create a
+tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create-a-tf-summary)</a></p>
+<h2 id="更新记录">更新记录</h2>
+<p>2017/3/15 更新标题，修改代码兼容TensorFlow1.0版本...</p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
+        <tag>TensorBoard</tag>
       </tags>
   </entry>
   <entry>
@@ -133,106 +119,46 @@ src="/images/compile-opencv-python3/cmake4.png" /> - PYTHON
       </tags>
   </entry>
   <entry>
-    <title>添加任意数据至TensorBoard</title>
-    <url>/2017/01/manually-create-summary/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>通常情况下，我们在训练网络时添加summary都是通过如下方式：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tf.scalar_summary(tags, values)</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">summary_op = tf.summary.merge_all()</span><br><span class="line">summary_writer = tf.summary.FileWriter(logdir, graph=sess.graph)</span><br><span class="line">summary_str = sess.run(summary_op)</span><br><span class="line">summary_writer.add_summary(summary_str, global_step)</span><br></pre></td></tr></table></figure>
-<p>当我们自己想添加其他数据到TensorBoard的时候（例如验证时的loss等），这种方式显得太过繁琐，其实我们可以通过如下方式添加自定义数据到TensorBoard内显示。</p>
-<span id="more"></span>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(logdir)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
-<p>或者:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">summary_writer = tf.summary.FileWriter(LOGDIR)</span><br><span class="line">summary = tf.Summary()</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>)</span><br><span class="line">summary.value.add(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># step代表横轴坐标</span></span><br><span class="line">summary_writer.add_summary(summary, step)</span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong>，这里的step只能是整数，如果是小数的话会自动转为整数类型。</p>
-<p>下面给出一段完整的示例代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">summary_writer = tf.summary.FileWriter(<span class="string">&#x27;/tmp/test&#x27;</span>)</span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">0</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">1</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">summary = tf.Summary(value=[</span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag&quot;</span>, simple_value=<span class="number">1</span>), </span><br><span class="line">    tf.Summary.Value(tag=<span class="string">&quot;summary_tag2&quot;</span>, simple_value=<span class="number">3</span>),</span><br><span class="line">])</span><br><span class="line">summary_writer.add_summary(summary, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">summary_writer.close()</span><br></pre></td></tr></table></figure>
-<p>显示效果如下所示：<img
-src="/images/manually-create-summary/sample.png" alt="sample" /></p>
-<h2 id="参考资料">参考资料:</h2>
-<p><a href="">[How to manually create a
-tf.Summary()](http://stackoverflow.com/questions/37902705/how-to-manually-create-a-tf-summary)</a></p>
+    <title>Linux下安装TensorFlow</title>
+    <url>/2016/05/install-tensorflow/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>TensorFlow是Google推出的一个数值计算库，下面详述一下我个人推荐的安装方法。
+<span id="more"></span> ## 安装Anaconda</p>
+<p>Anaconda是一个python的发行版本，集成了数百个科学计算库，使用十分方便；同时包含了conda包管理器，不仅可以用于安装其他库，也可以用于创建虚拟环境，后续你就能体会到它的方便之处了。</p>
+<p>可以去<a
+href="https://www.continuum.io/downloads">Anaconda</a>这里下载完整的安装包(包含了数百个库)，或者安装<a
+href="http://conda.pydata.org/miniconda.html">Miniconda</a>(含conda包管理器，但没有第三方库)之后使用<code>conda install xxx</code>安装自己所需的其他库，推荐下载64-bit的版本，选择python2.7还是python3.5则根据个人喜好选择，最后下载之后的安装包名称应该是以<code>.sh</code>结尾的文件，放置在Linux用户主目录中。</p>
+<p>使用下列命令安装(建议使用4.2.0版本，4.3.0里包含的是Python3.6，用起来暂时不太方便)：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bash Anaconda3-4.2.0-Linux-x86_64.sh</span><br></pre></td></tr></table></figure></p>
+<p><code>Anaconda3-4.2.0-Linux-x86_64.sh</code>替换为你实际下载的安装包名称，一路回车即安装好了，默认是安装在主目录下的。在安装过程中，有一个选项问你是否将anaconda目录添加至<code>.bashrc</code>中，这个时候推荐输入yes，这样在终端内启动python时会默认启动Anaconda中的python，而不是系统自带的python，使用起来方便很多。</p>
+<h2 id="创建虚拟环境">创建虚拟环境</h2>
+<p>Anaconda安装好之后，使用下列命令创建一个python2.7或者python3.5的虚拟环境:
+<code>conda create -n py2 python=2.7</code>或<code>conda create -n py3 python=3.5</code>。
+命令中的<code>py2</code>和<code>py3</code>只是一个名字，可以任意取。</p>
+<h2 id="激活虚拟环境">激活虚拟环境</h2>
+<p>使用<code>source activate py3</code>命令激活虚拟环境（自行替换<code>py3</code>为你自己的命名），这时候在终端中可以看到提示符最前面有一个<code>(py3)</code>。</p>
+<h2 id="安装tensorflow">安装TensorFlow</h2>
+<p>TensorFlow已经被上传至pypi了，现在安装非常方便了...
+如果安装CPU版本，使用 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow</span><br></pre></td></tr></table></figure> 如果安装GPU版本，使用
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install --ignore-installed --upgrade tensorflow-gpu</span><br></pre></td></tr></table></figure></p>
+<p>如果下载速度过慢，可以使用<a
+href="https://lug.ustc.edu.cn/wiki/mirrors/help/pypi">科大pypi镜像</a>或者<a
+href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华pypi镜像</a>加速。</p>
+<p><strong>注意：</strong>安装好之后，在保证命令符前有<code>(py3)</code>的情况下，进行python并输入<code>import tensorflow</code>，如果没有报错说明安装成功。</p>
+<h2 id="从源码编译">从源码编译</h2>
+<p>官网提供的安装包为了保持最大的兼容性，<strong>去掉了优化编译选项</strong>，不能达到最快的速度，因此最好是自己从源码编译...这个有空再写吧...</p>
+<h2 id="安装其他附加包">安装其他附加包</h2>
+<p>需要安装其他附加库到我们的py3虚拟环境中时，同样使用<code>source acitvate py3</code>先激活虚拟环境，然后使用<code>conda install xx</code>安装包，xx代表包名。
+我个人一般会安装这些包：
+<code>conda install numpy scipy matplotlib scikit-learn scikit-image pillow spyder jupyter notebook</code></p>
 <h2 id="更新记录">更新记录</h2>
-<p>2017/3/15 更新标题，修改代码兼容TensorFlow1.0版本...</p>
+<p>2017/3/15 TensorFlow早已经被上传至pypi了，因此删掉大量篇幅...</p>
 ]]></content>
       <categories>
         <category>Deep Learning</category>
       </categories>
       <tags>
         <tag>TensorFlow</tag>
-        <tag>TensorBoard</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>将TensorFlow的网络导出为单个文件</title>
-    <url>/2017/01/export-TensorFlow-network/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>有时候，我们需要将TensorFlow的模型导出为单个文件（同时包含模型架构定义与权重），方便在其他地方使用（如在c++中部署网络）。利用<code>tf.train.write_graph()</code>默认情况下只导出了网络的定义（没有权重），而利用<code>tf.train.Saver().save()</code>导出的文件graph_def与权重是分离的，因此需要采用别的方法。</p>
-<span id="more"></span>
-<p>我们知道，graph_def文件中没有包含网络中的Variable值（通常情况存储了权重），但是却包含了constant值，所以如果我们能把Variable转换为constant，即可达到使用一个文件同时存储网络架构与权重的目标。</p>
-<p>我们可以采用以下方式冻结权重并保存网络：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造网络</span></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"><span class="comment"># 一定要给输出tensor取一个名字！！</span></span><br><span class="line">output = tf.add(a, b, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转换Variable为constant，并将网络写入到文件</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment"># 这里需要填入输出tensor的名字</span></span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<p>当恢复网络时，可以使用如下方式：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
-<p>输出结果为:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 7.],</span><br><span class="line">       [ 8.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
-<p>可以看到之前的权重确实保存了下来!!</p>
-<p>问题来了，我们的网络需要能有一个输入自定义数据的接口啊！不然这玩意有什么用。。别急，当然有办法。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">input_tensor = tf.placeholder(tf.float32, name=<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line">output = tf.add((a+b), input_tensor, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<p>用上述代码重新保存网络至graph.pb，这次我们有了一个输入placeholder，下面来看看怎么恢复网络并输入自定义数据。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:<span class="number">4.</span>&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
-<p>输出结果为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
-<p>可以看到结果没有问题，当然在<code>input_map</code>那里可以替换为新的自定义的placeholder，如下所示：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">new_input = tf.placeholder(tf.float32, shape=())</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:new_input&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output, feed_dict=&#123;new_input:<span class="number">4</span>&#125;))</span><br></pre></td></tr></table></figure>
-<p>看看输出，同样没有问题。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
-<p>另外需要说明的一点是，在利用<code>tf.train.write_graph</code>写网络架构的时候，如果令<code>as_text=True</code>了，则在导入网络的时候，需要做一点小修改。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> google.protobuf <span class="keyword">import</span> text_format</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	<span class="comment"># 不使用&#x27;rb&#x27;模式</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        <span class="comment"># 不使用graph_def.ParseFromString(f.read())</span></span><br><span class="line">        text_format.Merge(f.read(), graph_def)</span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
-<h2 id="参考资料">参考资料</h2>
-<p><a
-href="http://stackoverflow.com/questions/34343259/is-there-an-example-on-how-to-generate-protobuf-files-holding-trained-tensorflow">Is
-there an example on how to generate protobuf files holding trained
-Tensorflow graphs</a></p>
-]]></content>
-      <categories>
-        <category>Deep Learning</category>
-      </categories>
-      <tags>
-        <tag>TensorFlow</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>指针数组与数组指针</title>
-    <url>/2017/03/pointers-to-arrays/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天刚好复习了C++
-Primer中关于数组指针的内容，理清了数组指针的几个问题。</p>
-<span id="more"></span>
-<h2 id="指针数组与数组指针定义">指针数组与数组指针定义</h2>
-<p>先看指针数组与数组指针的定义吧：指针数组，主体是数组，数组内存放的元素是指针；而对于数组指针，核心是指针，指针指向的是一个数组。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 指针数组</span></span><br><span class="line"><span class="type">int</span> *ptrs[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 数组指针，指向的是一个含有10个元素的指针</span></span><br><span class="line"><span class="built_in">int</span> (*parray)[<span class="number">10</span>] = &amp;arr;</span><br></pre></td></tr></table></figure>
-<h2 id="解析数组指针">解析数组指针</h2>
-<p>指针数组其实很好理解，难点在于数组指针容易让人糊涂，先看下面这样一段程序吧。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">2</span>][<span class="number">4</span>] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span> &#125;;</span><br><span class="line">    <span class="built_in">int</span>(*Parray)[<span class="number">2</span>][<span class="number">4</span>] = &amp;arr;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;arr:       &quot;</span> &lt;&lt; arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*arr:      &quot;</span> &lt;&lt; *arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**arr:     &quot;</span> &lt;&lt; **arr &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Parray:    &quot;</span> &lt;&lt; Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*Parray:   &quot;</span> &lt;&lt; *Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**Parray:  &quot;</span> &lt;&lt; **Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;***Parray: &quot;</span> &lt;&lt; ***Parray &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>程序的运行结果如下所示：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">arr:       <span class="number">00</span>9CFDE8</span><br><span class="line">*arr:      <span class="number">00</span>9CFDE8</span><br><span class="line">**arr:     <span class="number">1</span></span><br><span class="line">Parray:    <span class="number">00</span>9CFDE8</span><br><span class="line">*Parray:   <span class="number">00</span>9CFDE8</span><br><span class="line">**Parray:  <span class="number">00</span>9CFDE8</span><br><span class="line">***Parray: <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>很多人看到这可能直接就迷糊了，这些东西到底都是指向的啥？</p>
-<p>要理解这里的各种指针的区别，首先需要理解指针指向的<strong>基本元素</strong>是什么，即*p指向什么，*(p+1)又指向什么，理解了这一点，就能比较容易理解上面的各种指针的含义。</p>
-<p>对于数组而言，数组名代表的是指向数组内<strong>基本元素</strong>的地址，这里的<strong>基本元素</strong>指什么呢？对于一元数组(<code>int a[3]=&#123;1, 2, 3&#125;</code>)而言，基本元素代表数组内的每一个数字，即*a代表1，*(a+1)代表2。而对于二元数组<code>int arr[2][4] = &#123; 1,2,3,4,5,6,7,8 &#125;;</code>，这里的<strong>基本元素</strong>就是二元数组的<strong>一行</strong>，我们可以这样理解，这个数组相当于有2个位置（<strong>把最靠近数组名的数字看做数组的基本元素的数量</strong>），然后每个位置存放了一个容量为4的数组。因此*arr指向的是数组的第一个基本元素（即第一行），*(arr+1)指向数组的第二个基本元素（即第二行）。</p>
-<p>理解上面这一段话之后，我们就能理解上述程序中的<code>arr</code>、<code>*arr</code>和<code>**arr</code>各自代表什么了。arr代表二元数组的第一个基本元素（即第一行）的地址，*arr对第一行的地址解引用了，相当于指向了这第一行的第一个元素的地址。注意这里的<strong>区别</strong>，arr+1是会使地址往后挪一行所占用的字节，而(*arr)+1是只会往后挪一个数字所占用的字节，因为*arr指向了第一行的第一个元素，自然**arr就输出了该元素的值1。</p>
-<p>我们再来看<code>Parray</code>，因为我们把(*Parray)用括号括起来了，因此Parray首先是一个指针，然后看它后面[2][4]，说明他是一个指向大小为[2][4]的数组的指针。所以Parray代表这个<strong>数组整体</strong>的首地址，即Parray指向这个数组，Parray+1指向这个数组整体的尾元素的下一个地址。随后层层解引用，*Parray代表数组的第一行的首地址，*Parray代表数组的第一行的第一个元素的地址，***Parray代表数组的第一个元素的数值。</p>
-<p>再来看看刚才那一段代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; Parray + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; *Parray + <span class="number">2</span>  &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; **Parray + <span class="number">8</span> &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br></pre></td></tr></table></figure>
-<p>可以看到输出是一致的，因为Parray指向整个数组，因此+1会往后挪整个数组所代表的字节数；而对于*Parray，由于Parray指向的是一行，因此需要+2，对于**Parray同理。</p>
-<h2 id="总结">总结</h2>
-<p>在理解数组指针的时候，很多人看见那几个*号直接就晕了，虽然它们指向的元素的首地址是相同的，但是它们+1之后所指向的位置就完全不同了，因此理解这里的<strong>关键</strong>在于理解它们+1之后都指向了什么位置。</p>
-]]></content>
-      <categories>
-        <category>c++</category>
-      </categories>
-      <tags>
-        <tag>指针</tag>
-        <tag>数组</tag>
-        <tag>c++</tag>
+        <tag>Anaconda</tag>
       </tags>
   </entry>
   <entry>
@@ -388,61 +314,6 @@ r45918</li>
       <tags>
         <tag>OpenWrt</tag>
         <tag>IPv6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>联想Y1S LAN口改WAN口</title>
-    <url>/2017/04/Y1s-lan-wan/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>为什么会有把LAN口改WAN口的想法呢？因为联想Y1S的WAN口是<strong>百兆</strong>的，但是却有两个<strong>千兆LAN</strong>口。。如果不把一个千兆LAN口改为WAN口，对外访问的最快速度也就百兆了，这在有IPv6的学校内是一个巨大的浪费。。</p>
-<span id="more"></span>
-<p>今天刚好升级了最新的PandoraBox，固件名为<code>PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin</code>(<a
-href="http://www.pandorabox.com.cn/pandorabox-16-10-stable/targets/ralink/mt7620/PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin">下载链接</a>)，发现VLAN划分的界面变得比以前清晰多了，如下图所示：</p>
-<figure>
-<img src="/images/Y1s-lan-wan/pic1.png" alt="原始配置" />
-<figcaption aria-hidden="true">原始配置</figcaption>
-</figure>
-<p>这下LAN1-LAN4和WAN口与路由器实际端口是对应的了，路由器的LAN1和LAN2是千兆的，因此在这里我把LAN1改为WAN口，而原来的WAN口改为LAN口，只需点几下鼠标即可：</p>
-<figure>
-<img src="/images/Y1s-lan-wan/pic2.png" alt="修改后配置" />
-<figcaption aria-hidden="true">修改后配置</figcaption>
-</figure>
-<p>试一下可以正常联网，大功告成！</p>
-<p><strong>注意</strong></p>
-<p>一定要把第一行设为WAN口，第二行设为LAN口，否则要去接口那里更改LAN和WAN对应的VLAN
-ID。</p>
-<p>另外，我发现luci界面这里的VLAN ID跟配置文件的VLAN
-ID号是不对应的。。luci界面里的VLAN ID 1在配置文件中实际是VLAN ID
-2，这里一定需要注意。</p>
-<p><code>/etc/config/network</code>配置文件中的端口编号与实际端口的对应关系如下</p>
-<table>
-<thead>
-<tr>
-<th>端口编号</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>4</th>
-<th>5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>对应端口</td>
-<td>WAN</td>
-<td>LAN4</td>
-<td>LAN3</td>
-<td>LAN2</td>
-<td>LAN1</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-      <categories>
-        <category>路由器</category>
-      </categories>
-      <tags>
-        <tag>LAN</tag>
-        <tag>WAN</tag>
       </tags>
   </entry>
   <entry>
@@ -650,6 +521,61 @@ style="display: inline-block; vertical-align: top; margin-left: 10px;">https://t
       </tags>
   </entry>
   <entry>
+    <title>联想Y1S LAN口改WAN口</title>
+    <url>/2017/04/Y1s-lan-wan/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>为什么会有把LAN口改WAN口的想法呢？因为联想Y1S的WAN口是<strong>百兆</strong>的，但是却有两个<strong>千兆LAN</strong>口。。如果不把一个千兆LAN口改为WAN口，对外访问的最快速度也就百兆了，这在有IPv6的学校内是一个巨大的浪费。。</p>
+<span id="more"></span>
+<p>今天刚好升级了最新的PandoraBox，固件名为<code>PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin</code>(<a
+href="http://www.pandorabox.com.cn/pandorabox-16-10-stable/targets/ralink/mt7620/PandoraBox-ralink-mt7620-newifi-y1s-2017-01-03-git-6c24a7a-squashfs-sysupgrade.bin">下载链接</a>)，发现VLAN划分的界面变得比以前清晰多了，如下图所示：</p>
+<figure>
+<img src="/images/Y1s-lan-wan/pic1.png" alt="原始配置" />
+<figcaption aria-hidden="true">原始配置</figcaption>
+</figure>
+<p>这下LAN1-LAN4和WAN口与路由器实际端口是对应的了，路由器的LAN1和LAN2是千兆的，因此在这里我把LAN1改为WAN口，而原来的WAN口改为LAN口，只需点几下鼠标即可：</p>
+<figure>
+<img src="/images/Y1s-lan-wan/pic2.png" alt="修改后配置" />
+<figcaption aria-hidden="true">修改后配置</figcaption>
+</figure>
+<p>试一下可以正常联网，大功告成！</p>
+<p><strong>注意</strong></p>
+<p>一定要把第一行设为WAN口，第二行设为LAN口，否则要去接口那里更改LAN和WAN对应的VLAN
+ID。</p>
+<p>另外，我发现luci界面这里的VLAN ID跟配置文件的VLAN
+ID号是不对应的。。luci界面里的VLAN ID 1在配置文件中实际是VLAN ID
+2，这里一定需要注意。</p>
+<p><code>/etc/config/network</code>配置文件中的端口编号与实际端口的对应关系如下</p>
+<table>
+<thead>
+<tr>
+<th>端口编号</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对应端口</td>
+<td>WAN</td>
+<td>LAN4</td>
+<td>LAN3</td>
+<td>LAN2</td>
+<td>LAN1</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>路由器</category>
+      </categories>
+      <tags>
+        <tag>LAN</tag>
+        <tag>WAN</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hadoop伪分布式配置过程</title>
     <url>/2017/05/config-hadoop-pseudo-distributed/</url>
     <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>由于后续暑期实习的需要，开始学习起了hadoop~首先当然是需要安装一个hadoop的环境了，这里记录一下今天的安装过程，发现其实还是挺简单的(当然配置完全分布式可能比较麻烦。。。)。</p>
@@ -692,131 +618,39 @@ href="http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.
       </tags>
   </entry>
   <entry>
-    <title>Docker+Nginx+SSL部署Hexo博客到自有VPS</title>
-    <url>/2018/03/use-docker-deploy-hexo/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>买了3年腾讯云，已经把博客迁移过来了。先占个坑，后续再写。</p>
-]]></content>
-      <tags>
-        <tag>Docker</tag>
-        <tag>Nginx</tag>
-        <tag>SSL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>利用CDN加速Github Pages访问</title>
-    <url>/2019/09/use-cdn-to-speed-up-github-pages/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>毕业以后，一直没有更新博客。工作这一年多来，愈发觉得应该记录下工作中的思考和感悟，趁昨日假期，折腾了一整天，重新配置了博客，并加入了CDN优化，现在这访问速度，自己都忍不住想多刷新几次。</p>
+    <title>指针数组与数组指针</title>
+    <url>/2017/03/pointers-to-arrays/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天刚好复习了C++
+Primer中关于数组指针的内容，理清了数组指针的几个问题。</p>
 <span id="more"></span>
-<h2 id="前言">前言</h2>
-<p>最最开始我是把Hexo博客双线架设在Github Pages和Coding
-Pages上，然后在Dnspod上配置国外CNAME到Github
-Pages上，国内则CNAME至Coding Pages。那时Coding
-Pages的访问速度确实也挺好，只是后来Coding
-Pages引入了跳转广告，之后我就撤掉了在它上面的部署。
-随后腾讯云推出了折扣的云主机服务，我就买了三年的服务，在云主机上部署了git及nginx。虽然这台云主机的带宽只有1Mbps，但是对于我这小站来说，完全够用了，访问速度也是十分的优秀，后来我还在腾讯云上申请了SSL证书并配置了https服务。
-在今年之前的某个时候，我想更新一下博客，但由于毕业的时候我丢掉了之前的ssh秘钥（这也是我中间一直没有更新博客的原因之一。。。），随后在腾讯云上添加新秘钥时又出错，机器连接不上，后来只好重置了腾讯云的主机，然后重新部署了Github
-Pages（不要问我为什么不重新部署在腾讯云上，因为心累），记得那时Github
-Pages还不支持自定义域名开始https，因此网站也堕落回了没有锁的状态。
-直到昨天，我决定重新开始维护博客。</p>
-<h2 id="更新hexo及next主题">更新Hexo及Next主题</h2>
-<p>首先是更新<a href="https://github.com/hexojs/hexo">Hexo</a>和<a
-href="https://github.com/theme-next/hexo-theme-next">Next</a>主题到最新版（目前分别对应3.9.0和7.4.0）。但是更新之后，我发现首页和正文的字体相比以前变得异常的大，随后通过更改next目录下的<code>_config.yml</code>中的<code>font</code>配置解决，设置此处的size为0.9（非直接设置字体大小，像是设置显示的放大倍数，根据注释猜测基数是16）。
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Lato</span></span><br><span class="line">    <span class="attr">size:</span> <span class="number">0.9</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="开启https">开启Https</h2>
-<p>开启https这一步就很简单了，目前Github已经支持自定义域名强制开启https，在repo的setting下找到<code>Enforce HTTPS</code>并打上勾即可。
-在我第一次开启的时候，发现应该打勾的地方是灰色状态无法勾选，后来搜索之后，发现先删掉<code>Custom domain</code>内的域名，保存一下随后重填即可勾选上。此时已经可以通过带https的域名访问博客了。</p>
-<p><img src="/images/use-cdn-to-speed-up-github-pages/github.png" /></p>
-<h2 id="使用cdn加速js及css文件的访问">使用CDN加速js及CSS文件的访问</h2>
-<p>Next主题引用了大量的js及CSS文件，我们可以配置国内的CDN来加速这些文件的访问，我主要使用的是<a
-href="https://www.bootcdn.cn/">BootCDN</a>提供的服务。在Next配置文件中找到<code>vendors</code>设置，将CDN的链接配置进去即可。如下图所示：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># jquery: //cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js</span></span><br><span class="line"><span class="comment"># fancybox: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js</span></span><br><span class="line"><span class="comment"># fancybox_css: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css</span></span><br><span class="line">jquery: //cdn.bootcss.com/jquery/3.4.1/jquery.min.js</span><br><span class="line">fancybox: //cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js</span><br><span class="line">fancybox_css: //cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css</span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong>：如果注释中写的链接指定了版本，则在<a
-href="https://www.bootcdn.cn/">BootCDN</a>中也最好使用对应版本的镜像链接，否则网页显示可能出错。</p>
-<h2 id="配置cdn服务进行全站加速">配置CDN服务进行全站加速</h2>
-<p>此时网站的访问速度有一些提升了，但还不太理想，毕竟每次都需要请求Github远在国外的服务器。由于之前我的网站已经进行过备案，因此可以使用国内的CDN服务（国内的CDN服务基本都要求网站需要进行过备案，没有备案的同学可以尝试使用Cloudflare等提供的CDN）。大体搜索了一下，腾讯云和又拍云有提供免费的支持https的CDN（当然各有限制）。
-### 配置腾讯云
-出于对腾讯云大品牌的信任，我自然先选择了腾讯云（然后后来发现这是一个错误。。。）。
-配置腾讯云的CDN本身很简单，进入<a
-href="https://console.cloud.tencent.com/cdn/access">域名管理</a>处，添加域名，进行一些基本配置即可，下面记录一下一些关键的配置。
-源站信息填写<a
-href="https://help.github.com/en/articles/troubleshooting-custom-domains#https-errors">Github提供的IP地址</a>即可：
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">185.199.108.153</span><br><span class="line">185.199.109.153</span><br><span class="line">185.199.110.153</span><br><span class="line">185.199.111.153</span><br></pre></td></tr></table></figure>
-回源配置填写网站绑定的域名(对我而言是<code>tang.su</code>)。
-在<strong>高级配置</strong>中找到<strong>HTTPS</strong>配置，打开强制跳转HTTPS，设置301跳转。
-<img src="/images/use-cdn-to-speed-up-github-pages/tencent_cdn.png" />
-随后点击右侧的<code>前往配置</code>，并<code>编辑证书</code>，回源方式选择<strong>协议跟随</strong>（因为在Github里我们已经打开了强制https，如果使用http协议回源会失败）。
-<strong>HTTP2.0配置</strong>和<strong>SEO优化配置</strong>下的开关也都可以打开。</p>
-<p>配置了这些之后，我们能拿到腾讯云提供的CNAME地址，去Dnspod上绑定一下即可。
-我设置的是国外地址CNAME至Github，国内CNAME至腾讯云提供的CDN地址。
-见证奇迹的时刻到了，强刷网页，咦？好像并没有怎么变快？再刷，好像又变快了，到底怎么回事？点开<code>开发者工具</code>，发现第一次强刷网页时网站载入很慢，header内的信息显示的<code>Hit From Upstream</code>，即没有命中缓存。但此时再重刷会发现能命中缓存，然后速度也快了很多。但是没有命中缓存的时候，网站的访问速度还不如我直接访问Github！当然，不如直接访问Github
-Pages是正常的，毕竟多了一道中转，需要腾讯云从源服务器去拿数据，但是这个访问速度慢的有点太夸张。在我昨晚几个小时的测试中，未命中缓存时经常需要十多秒才能打开博客内的某个网页。我开始一直怀疑是我腾讯云内的设置有问题，于是翻来覆去的检查试验，最后也没发现什么问题，只好承认就是这个速度了。</p>
-<h3 id="配置又拍云">配置又拍云</h3>
-<p>配置好腾讯云CDN之后的速度实在难以令我满意，后来抱着尝试的心态又去注册了又拍云。配置<a
-href="https://console.upyun.com/services/cdn/">又拍云CDN</a>的方式没有什么不同，创建服务，<strong>源站设置</strong>和<strong>回源
-Host</strong>与之前设置保持一致，同时配置好HTTPS证书，并强制HTTPS访问。
-<img src="/images/use-cdn-to-speed-up-github-pages/upyun_cdn.png" />
-需要说明的是，又拍云也提供了免费的HTTPS证书申请服务，但是我半夜申请了之后，发现需要人工审核，我又急着使用，于是把之前腾讯云的证书下载了下来，并导入了又拍云。
-<strong>导入方法</strong>：
-在腾讯云下载证书解压之后，Nginx目录下会分别有一个<code>.key</code>和<code>.crt</code>结尾的文件。用文本编辑器打开这两个文件，将<code>.crt</code>内的内容<strong>全部</strong>复制至<strong>pem
-证书</strong>内，将<code>.key</code>的<strong>全部</strong>内容复制至<strong>私钥</strong>内导入即可。
-全部配置好之后，同样可以拿到又拍云提供的CNAME地址，将Dnspod内的解析更改至又拍云的地址即可。</p>
-<h2 id="见证奇迹">见证奇迹</h2>
-<p>这个时候我又尝试访问了一下，发现速度比以前快很多，而且在博客内的各个页面跳转及强刷的速度都很快。我没太从又拍云返回的header信息中看出是否命中CDN缓存，但是目前看，无论有没有命中缓存，速度都比之前使用腾讯云CDN时快很多，强制刷新首页也能在两三秒内加载出内容，总之我自己十分满意。</p>
-<h2 id="后记">后记</h2>
-<p>直到现在（这句话好像显得已经过去了很久，然而并没有），我也没弄明白使用腾讯云的时候加速效果为什么那么不明显，但是总之，目前使用又拍云做CDN的效果令我满意，然后也加入了<a
-href="https://www.upyun.com/league">又拍云联盟计划</a>，我当然不会告诉你其实就是在页面底部挂个又拍云的logo就可以了。。。等审核通过之后，以后每个月会有15G的CDN流量，当然是远远超过我实际所需了。</p>
-]]></content>
-      <tags>
-        <tag>CDN</tag>
-        <tag>图床</tag>
-        <tag>https</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>升级Hexo到5.0</title>
-    <url>/2020/09/upgrade-hexo-to-5-0/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
-theme升级到了8.0正式版。刚升级完成时，突然发现next
-theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
-5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
-<span id="more"></span>
-<h2 id="问题">问题</h2>
-<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
-theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
-<h2 id="排查过程">排查过程</h2>
-<ol type="1">
-<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
-8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
-<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
-<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
-<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
-<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
-github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
-<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
-</ol>
-<h2 id="新问题">新问题</h2>
-<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
-<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
-<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
-<p>随后文章的永久链接就会自动变为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
-<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
-<p>问题找到了！即hexo
-5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
-<h2 id="解决">解决</h2>
-<p>也不知道哪里来的灵感，我突然想着将post
-front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
-<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
-<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
+<h2 id="指针数组与数组指针定义">指针数组与数组指针定义</h2>
+<p>先看指针数组与数组指针的定义吧：指针数组，主体是数组，数组内存放的元素是指针；而对于数组指针，核心是指针，指针指向的是一个数组。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 指针数组</span></span><br><span class="line"><span class="type">int</span> *ptrs[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 数组指针，指向的是一个含有10个元素的指针</span></span><br><span class="line"><span class="built_in">int</span> (*parray)[<span class="number">10</span>] = &amp;arr;</span><br></pre></td></tr></table></figure>
+<h2 id="解析数组指针">解析数组指针</h2>
+<p>指针数组其实很好理解，难点在于数组指针容易让人糊涂，先看下面这样一段程序吧。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">2</span>][<span class="number">4</span>] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span> &#125;;</span><br><span class="line">    <span class="built_in">int</span>(*Parray)[<span class="number">2</span>][<span class="number">4</span>] = &amp;arr;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;arr:       &quot;</span> &lt;&lt; arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*arr:      &quot;</span> &lt;&lt; *arr &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**arr:     &quot;</span> &lt;&lt; **arr &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Parray:    &quot;</span> &lt;&lt; Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*Parray:   &quot;</span> &lt;&lt; *Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;**Parray:  &quot;</span> &lt;&lt; **Parray &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;***Parray: &quot;</span> &lt;&lt; ***Parray &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序的运行结果如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">arr:       <span class="number">00</span>9CFDE8</span><br><span class="line">*arr:      <span class="number">00</span>9CFDE8</span><br><span class="line">**arr:     <span class="number">1</span></span><br><span class="line">Parray:    <span class="number">00</span>9CFDE8</span><br><span class="line">*Parray:   <span class="number">00</span>9CFDE8</span><br><span class="line">**Parray:  <span class="number">00</span>9CFDE8</span><br><span class="line">***Parray: <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>很多人看到这可能直接就迷糊了，这些东西到底都是指向的啥？</p>
+<p>要理解这里的各种指针的区别，首先需要理解指针指向的<strong>基本元素</strong>是什么，即*p指向什么，*(p+1)又指向什么，理解了这一点，就能比较容易理解上面的各种指针的含义。</p>
+<p>对于数组而言，数组名代表的是指向数组内<strong>基本元素</strong>的地址，这里的<strong>基本元素</strong>指什么呢？对于一元数组(<code>int a[3]=&#123;1, 2, 3&#125;</code>)而言，基本元素代表数组内的每一个数字，即*a代表1，*(a+1)代表2。而对于二元数组<code>int arr[2][4] = &#123; 1,2,3,4,5,6,7,8 &#125;;</code>，这里的<strong>基本元素</strong>就是二元数组的<strong>一行</strong>，我们可以这样理解，这个数组相当于有2个位置（<strong>把最靠近数组名的数字看做数组的基本元素的数量</strong>），然后每个位置存放了一个容量为4的数组。因此*arr指向的是数组的第一个基本元素（即第一行），*(arr+1)指向数组的第二个基本元素（即第二行）。</p>
+<p>理解上面这一段话之后，我们就能理解上述程序中的<code>arr</code>、<code>*arr</code>和<code>**arr</code>各自代表什么了。arr代表二元数组的第一个基本元素（即第一行）的地址，*arr对第一行的地址解引用了，相当于指向了这第一行的第一个元素的地址。注意这里的<strong>区别</strong>，arr+1是会使地址往后挪一行所占用的字节，而(*arr)+1是只会往后挪一个数字所占用的字节，因为*arr指向了第一行的第一个元素，自然**arr就输出了该元素的值1。</p>
+<p>我们再来看<code>Parray</code>，因为我们把(*Parray)用括号括起来了，因此Parray首先是一个指针，然后看它后面[2][4]，说明他是一个指向大小为[2][4]的数组的指针。所以Parray代表这个<strong>数组整体</strong>的首地址，即Parray指向这个数组，Parray+1指向这个数组整体的尾元素的下一个地址。随后层层解引用，*Parray代表数组的第一行的首地址，*Parray代表数组的第一行的第一个元素的地址，***Parray代表数组的第一个元素的数值。</p>
+<p>再来看看刚才那一段代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; Parray + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; *Parray + <span class="number">2</span>  &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; **Parray + <span class="number">8</span> &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br><span class="line">007EFCF8</span><br></pre></td></tr></table></figure>
+<p>可以看到输出是一致的，因为Parray指向整个数组，因此+1会往后挪整个数组所代表的字节数；而对于*Parray，由于Parray指向的是一行，因此需要+2，对于**Parray同理。</p>
+<h2 id="总结">总结</h2>
+<p>在理解数组指针的时候，很多人看见那几个*号直接就晕了，虽然它们指向的元素的首地址是相同的，但是它们+1之后所指向的位置就完全不同了，因此理解这里的<strong>关键</strong>在于理解它们+1之后都指向了什么位置。</p>
 ]]></content>
       <categories>
-        <category>WEB</category>
+        <category>c++</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
+        <tag>指针</tag>
+        <tag>数组</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -931,6 +765,172 @@ href="https://github.com/InternLM/InternLM-XComposer/blob/main/projects/ShareGPT
         <tag>BGE-M3</tag>
         <tag>向量检索</tag>
         <tag>RAG</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>升级Hexo到5.0</title>
+    <url>/2020/09/upgrade-hexo-to-5-0/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>今天升级了hexo到5.0，同时也把next
+theme升级到了8.0正式版。刚升级完成时，突然发现next
+theme提供的文章访问次数功能不正常了，仔细琢磨了一通，发现是hexo
+5.0处理permanlink的方式发生了改变，所以简单记录一下，或许也能够帮到其他人。</p>
+<span id="more"></span>
+<h2 id="问题">问题</h2>
+<p>刚升级完hexo和next版本之后，我在本地使用<code>hexo s</code>命令预览，突然发现看不到文章的访问次数了，我之前关闭了next
+theme配置里leancloud的security功能，理论上在本地应该也是能看到文章的访问次数的，所以就很奇怪，拿升级之前的版本在本地预览，确实也是正常的。</p>
+<h2 id="排查过程">排查过程</h2>
+<ol type="1">
+<li>首先重新初始化了纯净的hexo版本，从git clone了正式的next
+8.0，然后比对着新旧配置文件，将旧版配置迁移了过来，随后将之前post拷贝到新文件夹，问题依旧。</li>
+<li>正处于百思不得其解之时，我无意点了一下自己的post链接，竟然发现没有打开链接，而是调用起了浏览器的下载功能。</li>
+<li>这下更懵圈了，我以为是next正式版主题的问题，但随后回退next到8.0的几个rc版，问题依旧。</li>
+<li>此时我又重新初始化hexo和next，点开hexo初始化后的helloworld文档链接，发现能正常打开，然后复制我自己的post过来，依旧是调用下载功能。</li>
+<li>随后去某个hexo的telegram群搜索了一下<strong>下载</strong>，看到另外一个人也提到了这个问题，后面他自己又说解决了，涉及到permalink，但是没有更具体的介绍了；然后我在hexo
+github的issue里搜到另外一个人提到说hexo给他的post链接后面有的加了<code>/</code>，有的没有加，导致现在出现了问题。</li>
+<li>综合上面两条信息，我直觉判断可能是这个permalink的问题。随后我将我post里front-matter区域的permalink参数去掉，发现的确能正常打开了。紧接着我尝试性的在post中的<code>permalink</code>参数后面加了<code>/</code>，然后发现能正常打开链接了！</li>
+</ol>
+<h2 id="新问题">新问题</h2>
+<p>但此时发现一个更大的问题，就是我post的永久链接与之前对应不上了！我本来将post的永久链接设置成<code>year-month-permalink</code>格式，其中<code>year</code>与<code>month</code>都是文章初次生成的时间，<code>permalink</code>是我在文章front-matter处手动指定的，之前一直都运作得很正常，但现在升级之后我post的链接变成了仅有<code>permalink</code>，而<code>year</code>和<code>month</code>部分都不见了。然后我猜想文章访问次数消失应该也是由链接变更引起的。</p>
+<p>回顾<code>hexo</code>站点配置，之前我是这样配置permalink的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: :year/:month/:title/</span><br></pre></td></tr></table></figure>
+<p>然后我会在每个post的<code>front_matter</code>区域手动指定</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">permalink: xxxx</span><br></pre></td></tr></table></figure>
+<p>随后文章的永久链接就会自动变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/year/month/xxxx/</span><br></pre></td></tr></table></figure>
+<p>但是现在的问题是永久链接丢掉了year和month，即变成了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tang.su/xxxx/</span><br></pre></td></tr></table></figure>
+<p>问题找到了！即hexo
+5.0处理permalink的方式变了！如果在post的front-matter指定了permalink，就会忽略掉站点配置里的permalink参数！</p>
+<h2 id="解决">解决</h2>
+<p>也不知道哪里来的灵感，我突然想着将post
+front-matter处的<code>permalink</code>改成了<code>mylink</code>，然后将站点配置<code>_config.yml</code>里的<code>permalink</code>配置改为了<code>permalink: :year/:month/:mylink/</code>，再尝试一下，发现一切都正常了！</p>
+<p>所以最后的解决方案变为，将post里<code>front-matter</code>中所有的<code>permalink</code>关键字改为<code>mylink</code>（其实改为任何你想要的名字都行），然后这里不用加<code>/</code>，然后将站点配置里的<code>permalink</code>配置改为<code>:year/:month/:mylink/</code>（这里最右边加上<code>/</code>），一切就又都回到了和之前一样完美工作的状态。</p>
+<p>由于post链接恢复了正常，此时我发现文章访问次数的统计也正常了。随后便<code>hexo g -d</code>重新部署，万事大吉~</p>
+]]></content>
+      <categories>
+        <category>WEB</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker+Nginx+SSL部署Hexo博客到自有VPS</title>
+    <url>/2018/03/use-docker-deploy-hexo/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>买了3年腾讯云，已经把博客迁移过来了。先占个坑，后续再写。</p>
+]]></content>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Nginx</tag>
+        <tag>SSL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>利用CDN加速Github Pages访问</title>
+    <url>/2019/09/use-cdn-to-speed-up-github-pages/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>毕业以后，一直没有更新博客。工作这一年多来，愈发觉得应该记录下工作中的思考和感悟，趁昨日假期，折腾了一整天，重新配置了博客，并加入了CDN优化，现在这访问速度，自己都忍不住想多刷新几次。</p>
+<span id="more"></span>
+<h2 id="前言">前言</h2>
+<p>最最开始我是把Hexo博客双线架设在Github Pages和Coding
+Pages上，然后在Dnspod上配置国外CNAME到Github
+Pages上，国内则CNAME至Coding Pages。那时Coding
+Pages的访问速度确实也挺好，只是后来Coding
+Pages引入了跳转广告，之后我就撤掉了在它上面的部署。
+随后腾讯云推出了折扣的云主机服务，我就买了三年的服务，在云主机上部署了git及nginx。虽然这台云主机的带宽只有1Mbps，但是对于我这小站来说，完全够用了，访问速度也是十分的优秀，后来我还在腾讯云上申请了SSL证书并配置了https服务。
+在今年之前的某个时候，我想更新一下博客，但由于毕业的时候我丢掉了之前的ssh秘钥（这也是我中间一直没有更新博客的原因之一。。。），随后在腾讯云上添加新秘钥时又出错，机器连接不上，后来只好重置了腾讯云的主机，然后重新部署了Github
+Pages（不要问我为什么不重新部署在腾讯云上，因为心累），记得那时Github
+Pages还不支持自定义域名开始https，因此网站也堕落回了没有锁的状态。
+直到昨天，我决定重新开始维护博客。</p>
+<h2 id="更新hexo及next主题">更新Hexo及Next主题</h2>
+<p>首先是更新<a href="https://github.com/hexojs/hexo">Hexo</a>和<a
+href="https://github.com/theme-next/hexo-theme-next">Next</a>主题到最新版（目前分别对应3.9.0和7.4.0）。但是更新之后，我发现首页和正文的字体相比以前变得异常的大，随后通过更改next目录下的<code>_config.yml</code>中的<code>font</code>配置解决，设置此处的size为0.9（非直接设置字体大小，像是设置显示的放大倍数，根据注释猜测基数是16）。
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Lato</span></span><br><span class="line">    <span class="attr">size:</span> <span class="number">0.9</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="开启https">开启Https</h2>
+<p>开启https这一步就很简单了，目前Github已经支持自定义域名强制开启https，在repo的setting下找到<code>Enforce HTTPS</code>并打上勾即可。
+在我第一次开启的时候，发现应该打勾的地方是灰色状态无法勾选，后来搜索之后，发现先删掉<code>Custom domain</code>内的域名，保存一下随后重填即可勾选上。此时已经可以通过带https的域名访问博客了。</p>
+<p><img src="/images/use-cdn-to-speed-up-github-pages/github.png" /></p>
+<h2 id="使用cdn加速js及css文件的访问">使用CDN加速js及CSS文件的访问</h2>
+<p>Next主题引用了大量的js及CSS文件，我们可以配置国内的CDN来加速这些文件的访问，我主要使用的是<a
+href="https://www.bootcdn.cn/">BootCDN</a>提供的服务。在Next配置文件中找到<code>vendors</code>设置，将CDN的链接配置进去即可。如下图所示：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># jquery: //cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js</span></span><br><span class="line"><span class="comment"># fancybox: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js</span></span><br><span class="line"><span class="comment"># fancybox_css: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css</span></span><br><span class="line">jquery: //cdn.bootcss.com/jquery/3.4.1/jquery.min.js</span><br><span class="line">fancybox: //cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js</span><br><span class="line">fancybox_css: //cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：如果注释中写的链接指定了版本，则在<a
+href="https://www.bootcdn.cn/">BootCDN</a>中也最好使用对应版本的镜像链接，否则网页显示可能出错。</p>
+<h2 id="配置cdn服务进行全站加速">配置CDN服务进行全站加速</h2>
+<p>此时网站的访问速度有一些提升了，但还不太理想，毕竟每次都需要请求Github远在国外的服务器。由于之前我的网站已经进行过备案，因此可以使用国内的CDN服务（国内的CDN服务基本都要求网站需要进行过备案，没有备案的同学可以尝试使用Cloudflare等提供的CDN）。大体搜索了一下，腾讯云和又拍云有提供免费的支持https的CDN（当然各有限制）。
+### 配置腾讯云
+出于对腾讯云大品牌的信任，我自然先选择了腾讯云（然后后来发现这是一个错误。。。）。
+配置腾讯云的CDN本身很简单，进入<a
+href="https://console.cloud.tencent.com/cdn/access">域名管理</a>处，添加域名，进行一些基本配置即可，下面记录一下一些关键的配置。
+源站信息填写<a
+href="https://help.github.com/en/articles/troubleshooting-custom-domains#https-errors">Github提供的IP地址</a>即可：
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">185.199.108.153</span><br><span class="line">185.199.109.153</span><br><span class="line">185.199.110.153</span><br><span class="line">185.199.111.153</span><br></pre></td></tr></table></figure>
+回源配置填写网站绑定的域名(对我而言是<code>tang.su</code>)。
+在<strong>高级配置</strong>中找到<strong>HTTPS</strong>配置，打开强制跳转HTTPS，设置301跳转。
+<img src="/images/use-cdn-to-speed-up-github-pages/tencent_cdn.png" />
+随后点击右侧的<code>前往配置</code>，并<code>编辑证书</code>，回源方式选择<strong>协议跟随</strong>（因为在Github里我们已经打开了强制https，如果使用http协议回源会失败）。
+<strong>HTTP2.0配置</strong>和<strong>SEO优化配置</strong>下的开关也都可以打开。</p>
+<p>配置了这些之后，我们能拿到腾讯云提供的CNAME地址，去Dnspod上绑定一下即可。
+我设置的是国外地址CNAME至Github，国内CNAME至腾讯云提供的CDN地址。
+见证奇迹的时刻到了，强刷网页，咦？好像并没有怎么变快？再刷，好像又变快了，到底怎么回事？点开<code>开发者工具</code>，发现第一次强刷网页时网站载入很慢，header内的信息显示的<code>Hit From Upstream</code>，即没有命中缓存。但此时再重刷会发现能命中缓存，然后速度也快了很多。但是没有命中缓存的时候，网站的访问速度还不如我直接访问Github！当然，不如直接访问Github
+Pages是正常的，毕竟多了一道中转，需要腾讯云从源服务器去拿数据，但是这个访问速度慢的有点太夸张。在我昨晚几个小时的测试中，未命中缓存时经常需要十多秒才能打开博客内的某个网页。我开始一直怀疑是我腾讯云内的设置有问题，于是翻来覆去的检查试验，最后也没发现什么问题，只好承认就是这个速度了。</p>
+<h3 id="配置又拍云">配置又拍云</h3>
+<p>配置好腾讯云CDN之后的速度实在难以令我满意，后来抱着尝试的心态又去注册了又拍云。配置<a
+href="https://console.upyun.com/services/cdn/">又拍云CDN</a>的方式没有什么不同，创建服务，<strong>源站设置</strong>和<strong>回源
+Host</strong>与之前设置保持一致，同时配置好HTTPS证书，并强制HTTPS访问。
+<img src="/images/use-cdn-to-speed-up-github-pages/upyun_cdn.png" />
+需要说明的是，又拍云也提供了免费的HTTPS证书申请服务，但是我半夜申请了之后，发现需要人工审核，我又急着使用，于是把之前腾讯云的证书下载了下来，并导入了又拍云。
+<strong>导入方法</strong>：
+在腾讯云下载证书解压之后，Nginx目录下会分别有一个<code>.key</code>和<code>.crt</code>结尾的文件。用文本编辑器打开这两个文件，将<code>.crt</code>内的内容<strong>全部</strong>复制至<strong>pem
+证书</strong>内，将<code>.key</code>的<strong>全部</strong>内容复制至<strong>私钥</strong>内导入即可。
+全部配置好之后，同样可以拿到又拍云提供的CNAME地址，将Dnspod内的解析更改至又拍云的地址即可。</p>
+<h2 id="见证奇迹">见证奇迹</h2>
+<p>这个时候我又尝试访问了一下，发现速度比以前快很多，而且在博客内的各个页面跳转及强刷的速度都很快。我没太从又拍云返回的header信息中看出是否命中CDN缓存，但是目前看，无论有没有命中缓存，速度都比之前使用腾讯云CDN时快很多，强制刷新首页也能在两三秒内加载出内容，总之我自己十分满意。</p>
+<h2 id="后记">后记</h2>
+<p>直到现在（这句话好像显得已经过去了很久，然而并没有），我也没弄明白使用腾讯云的时候加速效果为什么那么不明显，但是总之，目前使用又拍云做CDN的效果令我满意，然后也加入了<a
+href="https://www.upyun.com/league">又拍云联盟计划</a>，我当然不会告诉你其实就是在页面底部挂个又拍云的logo就可以了。。。等审核通过之后，以后每个月会有15G的CDN流量，当然是远远超过我实际所需了。</p>
+]]></content>
+      <tags>
+        <tag>CDN</tag>
+        <tag>图床</tag>
+        <tag>https</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>将TensorFlow的网络导出为单个文件</title>
+    <url>/2017/01/export-TensorFlow-network/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>有时候，我们需要将TensorFlow的模型导出为单个文件（同时包含模型架构定义与权重），方便在其他地方使用（如在c++中部署网络）。利用<code>tf.train.write_graph()</code>默认情况下只导出了网络的定义（没有权重），而利用<code>tf.train.Saver().save()</code>导出的文件graph_def与权重是分离的，因此需要采用别的方法。</p>
+<span id="more"></span>
+<p>我们知道，graph_def文件中没有包含网络中的Variable值（通常情况存储了权重），但是却包含了constant值，所以如果我们能把Variable转换为constant，即可达到使用一个文件同时存储网络架构与权重的目标。</p>
+<p>我们可以采用以下方式冻结权重并保存网络：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造网络</span></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"><span class="comment"># 一定要给输出tensor取一个名字！！</span></span><br><span class="line">output = tf.add(a, b, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转换Variable为constant，并将网络写入到文件</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="comment"># 这里需要填入输出tensor的名字</span></span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>当恢复网络时，可以使用如下方式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>输出结果为:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 7.],</span><br><span class="line">       [ 8.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>可以看到之前的权重确实保存了下来!!</p>
+<p>问题来了，我们的网络需要能有一个输入自定义数据的接口啊！不然这玩意有什么用。。别急，当然有办法。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.python.framework.graph_util <span class="keyword">import</span> convert_variables_to_constants</span><br><span class="line"></span><br><span class="line">a = tf.Variable([[<span class="number">3</span>],[<span class="number">4</span>]], dtype=tf.float32, name=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">b = tf.Variable(<span class="number">4</span>, dtype=tf.float32, name=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">input_tensor = tf.placeholder(tf.float32, name=<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line">output = tf.add((a+b), input_tensor, name=<span class="string">&#x27;out&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    graph = convert_variables_to_constants(sess, sess.graph_def, [<span class="string">&quot;out&quot;</span>])</span><br><span class="line">    tf.train.write_graph(graph, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;graph.pb&#x27;</span>, as_text=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>用上述代码重新保存网络至graph.pb，这次我们有了一个输入placeholder，下面来看看怎么恢复网络并输入自定义数据。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:<span class="number">4.</span>&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>可以看到结果没有问题，当然在<code>input_map</code>那里可以替换为新的自定义的placeholder，如下所示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">new_input = tf.placeholder(tf.float32, shape=())</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        graph_def.ParseFromString(f.read()) </span><br><span class="line">        output = tf.import_graph_def(graph_def, input_map=&#123;<span class="string">&#x27;input:0&#x27;</span>:new_input&#125;, return_elements=[<span class="string">&#x27;out:0&#x27;</span>], name=<span class="string">&#x27;a&#x27;</span>) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output, feed_dict=&#123;new_input:<span class="number">4</span>&#125;))</span><br></pre></td></tr></table></figure>
+<p>看看输出，同样没有问题。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[array([[ 11.],</span><br><span class="line">       [ 12.]], dtype=float32)]</span><br></pre></td></tr></table></figure>
+<p>另外需要说明的一点是，在利用<code>tf.train.write_graph</code>写网络架构的时候，如果令<code>as_text=True</code>了，则在导入网络的时候，需要做一点小修改。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> google.protobuf <span class="keyword">import</span> text_format</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">	<span class="comment"># 不使用&#x27;rb&#x27;模式</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./graph.pb&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        graph_def = tf.GraphDef()</span><br><span class="line">        <span class="comment"># 不使用graph_def.ParseFromString(f.read())</span></span><br><span class="line">        text_format.Merge(f.read(), graph_def)</span><br><span class="line">        output = tf.import_graph_def(graph_def, return_elements=[<span class="string">&#x27;out:0&#x27;</span>]) </span><br><span class="line">        <span class="built_in">print</span>(sess.run(output))</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料">参考资料</h2>
+<p><a
+href="http://stackoverflow.com/questions/34343259/is-there-an-example-on-how-to-generate-protobuf-files-holding-trained-tensorflow">Is
+there an example on how to generate protobuf files holding trained
+Tensorflow graphs</a></p>
+]]></content>
+      <categories>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>TensorFlow</tag>
       </tags>
   </entry>
 </search>
